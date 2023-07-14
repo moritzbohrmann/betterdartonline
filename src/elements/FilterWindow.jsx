@@ -15,9 +15,12 @@ function FilterWindow() {
 
    return (
       <UIWindow title="Filter" className="h-60">
-         <div className="m-auto w-80 flex justify-around">
-            <Toggler onChange={(checked) => dispatch({ type: ActionType.APPLY_FILTER, payload: getFilter(checked) })} />
+         <div className="m-auto w-80 flex gap-6">
+            <div className="w-11 h-6  m-auto">
+               <Toggler onChange={(checked) => dispatch({ type: ActionType.APPLY_FILTER, payload: getFilter(checked) })} />
+            </div>
             <InputField
+               className="m-auto"
                placeholder="Filtereingabe"
                id="filterInput"
                onChange={(e) => {
