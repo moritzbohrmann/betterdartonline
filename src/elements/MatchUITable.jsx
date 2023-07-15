@@ -69,24 +69,24 @@ function MatchUITable() {
    });
 
    return (
-      <div className="w-full h-144 md:h-192 flex justify-center overflow-auto">
+      <div className="flex h-144 w-full justify-center overflow-auto md:h-192">
          {showScorePopup && (
-            <div id="pus" className="w-64 md:w-96 h-24 md:h-48 absolute top-1/2 md:top-1/3 rounded-xl flex z-20 bg-white">
-               <h4 className="m-auto text-5xl md:text-8xl font-primary font-black">{lastScore.value}!</h4>
+            <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-64 rounded-xl bg-white md:top-1/3 md:h-48 md:w-96">
+               <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{lastScore.value}!</h4>
             </div>
          )}
-         <table className="w-full text-center border-2 overflow-scroll border-none">
-            <tr className=" w-full h-20 bg-gray-300 text-dark-window text-3xl font-primary sticky top-0 z-10">
-               <th className="w-1/5 h-full bg-slate-200">
-                  <img src={ScoreIcon} className="w-10 h-10 m-auto" />
+         <table className="w-full overflow-scroll border-2 border-none text-center">
+            <tr className=" sticky top-0 z-10 h-20 w-full bg-gray-300 font-primary text-3xl text-dark-window">
+               <th className="h-full w-1/5 bg-slate-200">
+                  <img src={ScoreIcon} className="m-auto h-10 w-10" />
                </th>
-               <th className="w-1/5 h-full bg-slate-300">⬇</th>
-               <th className="w-1/5 h-full bg-slate-200">
-                  <img src={DartIcon} className="w-14 h-14 m-auto" />
+               <th className="h-full w-1/5 bg-slate-300">⬇</th>
+               <th className="h-full w-1/5 bg-slate-200">
+                  <img src={DartIcon} className="m-auto h-14 w-14" />
                </th>
-               <th className="w-1/5 h-full bg-slate-300">⬇</th>
-               <th className="w-1/5 h-full bg-slate-200">
-                  <img src={ScoreIcon} className="w-10 h-10 m-auto" />
+               <th className="h-full w-1/5 bg-slate-300">⬇</th>
+               <th className="h-full w-1/5 bg-slate-200">
+                  <img src={ScoreIcon} className="m-auto h-10 w-10" />
                </th>
             </tr>
             <tr className="h-20 bg-dark-background text-3xl font-bold text-white-default">

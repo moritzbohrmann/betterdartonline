@@ -4,9 +4,9 @@ import UIWindow from "./UIWindow";
 
 function Settings() {
    return (
-      <UIWindow id="settings" title="Einstellungen" className="z-10 m-auto h-96 drop-shadow-xl gap-2">
+      <UIWindow id="settings" title="Einstellungen" className="z-10 m-auto h-96 gap-2 drop-shadow-xl">
          <Setting title="Sprache" className="mt-2">
-            <select className="bg-dark-background py-1 px-2 rounded-md text-sans text-white-default font-semibold outline-none">
+            <select className="text-sans rounded-md bg-dark-background px-2 py-1 font-semibold text-white-default outline-none">
                <option value="DE">Deutsch</option>
                <option value="EN">Englisch</option>
             </select>
@@ -20,8 +20,8 @@ function Settings() {
 
 const Setting = (props) => {
    return (
-      <div {...props} className={`w-11/12 h-10 bg-dark-background rounded-md flex px-8 items-center justify-between ${props.className}`}>
-         <h2 className="text-white-default font-sans font-semibold">{props.title}</h2>
+      <div {...props} className={`flex h-10 w-11/12 items-center justify-between rounded-md bg-dark-background px-8 ${props.className}`}>
+         <h2 className="font-sans font-semibold text-white-default">{props.title}</h2>
          {props.children}
       </div>
    );

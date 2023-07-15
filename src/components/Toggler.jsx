@@ -2,9 +2,9 @@ import React from "react";
 
 function Toggler(props) {
    return (
-      <label className="z-0 relative inline-flex items-center cursor-pointer">
-         <input onChange={(e) => props.onChange(e.target.checked)} type="checkbox" id="filter" value="" className="sr-only peer" />
-         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full dark:bg-red-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-500"></div>
+      <label className="relative z-0 inline-flex cursor-pointer items-center">
+         <input onChange={(e) => props.onChange(e.target.checked)} type="checkbox" id="filter" value="" className="peer sr-only" />
+         <div className="h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:border-gray-600 dark:bg-red-500"></div>
          <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{props.after}</span>
       </label>
    );

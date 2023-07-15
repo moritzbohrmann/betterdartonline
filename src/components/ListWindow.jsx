@@ -31,14 +31,15 @@ const List = (props) => {
          });
    }
 
-   return <ul className="w-11/12 h-3/4 m-auto overflow-auto flex flex-col items-center">{render}</ul>;
+   return <ul className="m-auto flex h-3/4 w-11/12 flex-col items-center overflow-auto">{render}</ul>;
 };
 
 const ListItem = ({ player, onClick }) => {
    return (
       <li
          onClick={() => onClick(player)}
-         className="w-11/12 h-12 mt-4 px-8 bg-dark-background flex items-center justify-between font-primary font-bold text-white-default rounded-md hover:scale-105 hover:cursor-pointer transition-all">
+         className="mt-4 flex h-12 w-11/12 items-center justify-between rounded-md bg-dark-background px-8 font-primary font-bold text-white-default transition-all hover:scale-105 hover:cursor-pointer"
+      >
          <h2>{player.username}</h2>
          <h2>{`${player.scoremode} ${player.gamemode} ${player.legamount}`}</h2>
       </li>

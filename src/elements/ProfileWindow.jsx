@@ -41,29 +41,31 @@ function ProfileWindow() {
                })
             }
          />
-         <ul className="w-10/12 h-9 my-8 flex flex-row justify-around items-center text-white-default text-sm font-sans font-semibold ">
+         <ul className="my-8 flex h-9 w-10/12 flex-row items-center justify-around font-sans text-sm font-semibold text-white-default ">
             <li>
                <select
-                  className="w-20 h-9 text-center bg-dark-title text-white-default outline-none rounded-md"
+                  className="h-9 w-20 rounded-md bg-dark-title text-center text-white-default outline-none"
                   onChange={(e) =>
                      setProfilePreview((profilePreview) => {
                         return { ...profilePreview, scoremode: e.target.value };
                      })
                   }
-                  defaultValue={profile.scoremode}>
+                  defaultValue={profile.scoremode}
+               >
                   <option value={"301"}>301</option>
                   <option value={"501"}>501</option>
                </select>
             </li>
             <li>
                <select
-                  className="w-20 h-9 text-center bg-dark-title text-white-default outline-none rounded-md"
+                  className="h-9 w-20 rounded-md bg-dark-title text-center text-white-default outline-none"
                   onChange={(e) =>
                      setProfilePreview((profilePreview) => {
                         return { ...profilePreview, gamemode: e.target.value };
                      })
                   }
-                  defaultValue={profile.gamemode}>
+                  defaultValue={profile.gamemode}
+               >
                   <option value={"firstto"}>First to</option>
                   <option value={"bestof"}>Best of</option>
                </select>
@@ -74,7 +76,7 @@ function ProfileWindow() {
                   type={"number"}
                   min={1}
                   max={50}
-                  className="w-20 h-9 text-center bg-dark-title outline-none rounded-md"
+                  className="h-9 w-20 rounded-md bg-dark-title text-center outline-none"
                   onChange={(e) =>
                      setProfilePreview((profilePreview) => {
                         return { ...profilePreview, legamount: e.target.value };
@@ -92,7 +94,7 @@ function ProfileWindow() {
                Verlassen!
             </UIButton>
          )}
-         <div className={`mt-5 w-2 h-2 rounded-full ${socket.connected ? "bg-green-600" : "bg-red-600"}`}></div>
+         <div className={`mt-5 h-2 w-2 rounded-full ${socket.connected ? "bg-green-600" : "bg-red-600"}`}></div>
       </UIWindow>
    );
 }

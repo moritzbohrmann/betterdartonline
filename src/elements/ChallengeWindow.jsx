@@ -16,7 +16,7 @@ function ChallengeWindow() {
 
    return (
       <ListWindow title="Herausgefordert" list={requests} onClick={unchallengePlayer}>
-         <div className="w-32 h-10 bg-dark-background bg-opacity-50 rounded-md flex">
+         <div className="flex h-10 w-32 rounded-md bg-dark-background bg-opacity-50">
             <p className="m-auto font-secondary font-bold text-white-default">{requests.length} Spieler</p>
          </div>
       </ListWindow>

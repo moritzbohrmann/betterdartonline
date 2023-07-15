@@ -8,10 +8,10 @@ import React from "react";
 
 function HomeUI() {
    return (
-      <div className="p-0 m-0 flex flex-col items-center">
+      <div className="m-0 flex flex-col items-center p-0">
          <Navigation id="homeui-navigation" />
-         <div className="w-full xl:w-3/4 mt-4 xl:mt-12 pb-10 xl:pb-0 flex flex-wrap justify-center ">
-            <div id="homeui-windows" className="w-full flex flex-wrap justify-center gap-4">
+         <div className="mt-4 flex w-full flex-wrap justify-center pb-10 xl:mt-12 xl:w-3/4 xl:pb-0 ">
+            <div id="homeui-windows" className="flex w-full flex-wrap justify-center gap-4">
                <div className="flex flex-col gap-4">
                   <ProfileWindow />
                   <FilterWindow />

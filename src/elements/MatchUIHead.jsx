@@ -6,10 +6,10 @@ function MatchUIHead() {
    const { match, currentLeg } = useMatch();
 
    return (
-      <div className="w-full flex p-0 sm:p-2 md:p-4 bg-dark-background">
+      <div className="flex w-full bg-dark-background p-0 sm:p-2 md:p-4">
          <PlayerProfileWindow match={match} currentLeg={currentLeg} profile={match.players.host} />
-         <div className="w-2/12 md:w-48 lg:w-64 h-48 bg-blue-secondary mx-auto md:my-auto flex justify-center items-center text-5xl bg-dark-background md:border-x-8 border-dark-background">
-            <h4 className="text-4xl lg:text-6xl text-white-default font-sans font-black flex flex-col md:flex-row items-center gap-4">
+         <div className="bg-blue-secondary mx-auto flex h-48 w-2/12 items-center justify-center border-dark-background bg-dark-background text-5xl md:my-auto md:w-48 md:border-x-8 lg:w-64">
+            <h4 className="flex flex-col items-center gap-4 font-sans text-4xl font-black text-white-default md:flex-row lg:text-6xl">
                {match?.state.host} <span className="text-2xl lg:text-4xl">Legs</span> {match?.state.guest}
             </h4>
          </div>

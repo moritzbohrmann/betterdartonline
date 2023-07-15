@@ -11,7 +11,7 @@ function Navigation(props) {
    };
 
    return (
-      <div {...props} className="w-full h-28 lg:h-28 p-4 lg:px-20 flex flex-col md:flex-row items-center justify-around lg:justify-between">
+      <div {...props} className="flex h-28 w-full flex-col items-center justify-around p-4 md:flex-row lg:h-28 lg:justify-between lg:px-20">
          <img src={logo} className="w-52 xl:w-60" />
          <ul className="flex gap-2 lg:flex-row">
             <UIButton>Start</UIButton>

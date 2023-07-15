@@ -18,8 +18,9 @@ function PlayerlistWindow() {
                dispatch({ type: ActionType.ADD_SENT, payload: player });
                socket.emit("request", player);
             } else toast.error("Fehler: Du bist nicht eingeloggt!");
-         }}>
-         <div className="w-32 h-10 bg-black/20 rounded-md flex">
+         }}
+      >
+         <div className="flex h-10 w-32 rounded-md bg-black/20">
             <p className="m-auto font-secondary font-bold text-white-default">{playerlist.length} Spieler</p>
          </div>
       </ListWindow>

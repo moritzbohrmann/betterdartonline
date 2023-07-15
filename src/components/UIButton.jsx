@@ -4,7 +4,8 @@ function UIButton(props) {
    return (
       <button
          {...props}
-         className={`w-32 h-10 font-sans font-semibold bg-dark-button text-white-default rounded-md hover:bg-[#993bff]/70 transition-all ${props.className}`}>
+         className={`h-10 w-32 rounded-md bg-dark-button font-sans font-semibold text-white-default transition-all hover:bg-[#993bff]/70 ${props.className}`}
+      >
          {props.children}
       </button>
    );
