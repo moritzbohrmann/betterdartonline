@@ -1,7 +1,7 @@
 import $ from "jquery";
-import Challenge from "../components/Challenge";
+import Challenge from "./ChallengePopUp";
 import React from "react";
-import Settings from "../components/Settings";
+import Settings from "./SettingsWindow";
 import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 

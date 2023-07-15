@@ -1,6 +1,6 @@
 import ChallengeWindow from "../elements/ChallengeWindow";
 import FilterWindow from "../elements/FilterWindow";
-import Navigation from "../components/Navigation";
+import Navigation from "../elements/NavigationBar";
 import PlayerlistWindow from "../elements/PlayerlistWindow";
 import PopupWindow from "../elements/PopupWindow";
 import ProfileWindow from "../elements/ProfileWindow";

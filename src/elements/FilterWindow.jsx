@@ -1,7 +1,7 @@
 import $ from "jquery";
 import InputField from "../components/InputField";
 import React from "react";
-import Toggler from "../components/Toggler";
+import Toggler from "../components/UIToggler";
 import UIWindow from "../components/UIWindow";
 import { useDispatch } from "react-redux";
 import { ActionType } from "../state/PlayerlistReducer";

@@ -1,6 +1,6 @@
 import React from "react";
-import Toggler from "./Toggler";
-import UIWindow from "./UIWindow";
+import Toggler from "../components/UIToggler";
+import UIWindow from "../components/UIWindow";
 
 function Settings() {
    return (

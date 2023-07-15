@@ -1,5 +1,5 @@
 import React from "react";
-import UIWindow from "./UIWindow";
+import UIWindow from "../components/UIWindow";
 import { useSelector } from "react-redux";
 
 function ListWindow(props) {

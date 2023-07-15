@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UIButton from "./UIButton";
+import UIButton from "../components/UIButton";
 import logo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
 

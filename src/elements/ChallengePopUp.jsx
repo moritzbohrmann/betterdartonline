@@ -1,6 +1,6 @@
 import React from "react";
-import UIButton from "./UIButton";
-import UIWindow from "./UIWindow";
+import UIButton from "../components/UIButton";
+import UIWindow from "../components/UIWindow";
 import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../context/SocketContext";
 import { ActionType } from "../state/PlayerlistReducer";
