@@ -1,4 +1,4 @@
-import PlayerProfileWindow from "../components/PlayerProfileWindow";
+import PlayerProfileWindow from "../components/MatchUIPlayerWindow";
 import React from "react";
 import { useMatch } from "../state/MatchReducer";
 

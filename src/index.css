@@ -6,6 +6,7 @@
    background: #19191d;
    padding: 0;
    margin: 0;
+   font-family: sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -13,6 +14,8 @@
    background: transparent;
 }
 
-::-webkit-textfield-decoration-container {
-   visibility: hidden;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
 }

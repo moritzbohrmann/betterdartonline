@@ -4,6 +4,7 @@ function InputField(props) {
    return (
       <>
          <input
+            ref={props.innerRef}
             id={props.id}
             type="text"
             placeholder={props.placeholder}

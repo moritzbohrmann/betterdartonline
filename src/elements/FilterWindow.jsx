@@ -1,6 +1,6 @@
 import $ from "jquery";
 import InputField from "../components/InputField";
-import React from "react";
+import React, { useRef } from "react";
 import Toggler from "../components/UIToggler";
 import UIWindow from "../components/UIWindow";
 import { useDispatch } from "react-redux";

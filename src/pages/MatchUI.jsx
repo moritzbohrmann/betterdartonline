@@ -1,4 +1,4 @@
-import MatchUIControl from "../elements/MatchUIControl";
+import MatchUIControl from "../elements/MatchUIControlBar";
 import MatchUIHead from "../elements/MatchUIHead";
 import MatchUITable from "../elements/MatchUITable";
 import React from "react";
