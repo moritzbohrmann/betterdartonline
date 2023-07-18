@@ -3,9 +3,14 @@ import React from "react";
 import { initialsOf, isPlayer, legAverageOf, matchAverageOf } from "../utils/MatchUtils";
 
 const PlayerProfileWindow = ({ match, currentLeg, profile }) => {
-   const left = currentLeg.scores.filter((score) => isPlayer(score.player.id)).at(-1)?.left;
-
+   const left = currentLeg.scores.filter((score) => isPlayer(score.player, profile)).at(-1)?.left;
    const [showStats, setShowStats] = React.useState(false);
+   const filteredAchievements = match.achievements.filter((a) => a.player.id === profile.id);
+   const achievements = {
+      HIGHSCORE: filteredAchievements.filter((a) => a.type === "HIGHSCORE").map((a) => a.value),
+      HIGHFINISH: filteredAchievements.filter((a) => a.type === "HIGHFINISH").map((a) => a.value),
+      SHORTLEG: filteredAchievements.filter((a) => a.type === "SHORTLEG").map((a) => a.value),
+   };
 
    React.useEffect(() => {
       $(`#sw-${profile.id}`).mouseenter(() => {
@@ -26,8 +31,8 @@ const PlayerProfileWindow = ({ match, currentLeg, profile }) => {
          id={`sw-${profile.id}`}
          className={`bg-blue-secondary mx-auto flex h-48 w-5/12 bg-dark-background md:my-auto md:rounded-md ${
             currentLeg.scores.length > 0
-               ? isPlayer(currentLeg.scores.at(-1)?.next.id) && "border-4 border-yellow-400"
-               : isPlayer(currentLeg.throw) && "border-4 border-yellow-400"
+               ? isPlayer(profile, currentLeg.scores.at(-1)?.next) === true && "border-4 border-yellow-400"
+               : isPlayer(profile, { id: currentLeg.throw }) === true && "border-4 border-yellow-400"
          }`}
       >
          {showStats === false ? (
@@ -47,11 +52,20 @@ const PlayerProfileWindow = ({ match, currentLeg, profile }) => {
             </div>
          ) : (
             <div className="flex h-full w-full flex-col items-center justify-center font-primary text-sm text-white-default sm:text-lg">
-               <h2>♛-Leg: 15</h2>
-               <h2>♛-Checkout: 65</h2>
-               <h2>180er: 0</h2>
-               <h2>130+: 2</h2>
-               <h2>90+: 10</h2>
+               <h2>
+                  ♛-Leg:{" "}
+                  <span className="font-bold text-yellow-500">{achievements.SHORTLEG.length > 0 ? Math.min(achievements.SHORTLEG) * 3 : "✖"}</span>
+               </h2>
+               <h2>
+                  ♛-Checkout:{" "}
+                  <span className="font-bold text-yellow-500">{achievements.HIGHFINISH.length > 0 ? Math.max(achievements.HIGHFINISH) : "✖"}</span>
+               </h2>
+               <h2>
+                  180: <span className="font-bold text-yellow-500">{achievements.HIGHSCORE.filter((a) => a === 180).length}</span>
+               </h2>
+               <h2>
+                  162+: <span className="font-bold text-yellow-500">{achievements.HIGHSCORE.filter((a) => a >= 162).length}</span>
+               </h2>
             </div>
          )}
       </div>

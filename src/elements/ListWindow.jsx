@@ -20,6 +20,7 @@ const List = (props) => {
    if (!list) return;
 
    if (filter === "") {
+      render = [];
       list.forEach((element) => {
          render.push(<ListItem onClick={props.onClick} player={element} />);
       });

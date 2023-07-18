@@ -24,10 +24,10 @@ function Challenge() {
 
    return (
       <UIWindow id="settings" title="Herausforderung" className="z-10 h-80 gap-4 drop-shadow-xl lg:w-144">
-         <div className="flex w-11/12 flex-col items-center gap-2 text-center font-primary text-xl">
-            <h2 className="w-96 rounded-md bg-yellow-500 py-1 text-dark-window">{challenger?.username}</h2>
+         <div className="flex w-11/12 flex-col items-center gap-2 text-center text-xl font-bold">
+            <h2 className="w-5/6 rounded-md bg-yellow-500 py-1 text-dark-window">{challenger?.username}</h2>
             <h2 className="m-auto text-white-default">fordert Dich zu einem Duell heraus!</h2>
-            <h2 className="w-96 rounded-md bg-teal-500 py-1 text-dark-background">
+            <h2 className="w-5/6 rounded-md bg-teal-500 py-1 text-dark-background">
                {challenger?.scoremode} {challenger?.gamemode} {challenger?.legamount}
             </h2>
          </div>

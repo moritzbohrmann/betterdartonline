@@ -15,6 +15,7 @@ export const ActionType = {
    SET_THROW: 15,
    LEG_WON: 16,
    SET_LEG: 17,
+   ADD_ACHIEVEMENT: 18,
 };
 
 const matchReducer = (state = initialState, action) => {
@@ -52,6 +53,8 @@ const matchReducer = (state = initialState, action) => {
          return action.payload.id === state.match.players.host.id
             ? { ...state, match: { ...state.match, state: { ...state.match.state, host: state.match.state.host + 1 } } }
             : { ...state, match: { ...state.match, state: { ...state.match.state, guest: state.match.state.guest + 1 } } };
+      case ActionType.ADD_ACHIEVEMENT:
+         return { ...state, match: { ...state.match, achievements: [...state.match.achievements, action.payload] } };
       default:
          return state;
    }

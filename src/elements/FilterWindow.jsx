@@ -9,15 +9,11 @@ import { ActionType } from "../state/PlayerlistReducer";
 function FilterWindow() {
    const dispatch = useDispatch();
 
-   const getFilter = (checked) => {
-      return `${checked ? $("#filterInput").val : ""}`;
-   };
-
    return (
       <UIWindow title="Filter" className="h-60">
          <div className="m-auto flex w-80 gap-6">
             <div className="m-auto h-6 w-11">
-               <Toggler onChange={(checked) => dispatch({ type: ActionType.APPLY_FILTER, payload: getFilter(checked) })} />
+               <Toggler onChange={(checked) => dispatch({ type: ActionType.APPLY_FILTER, payload: checked ? $("#filterInput").val : "" })} />
             </div>
             <InputField
                className="m-auto"

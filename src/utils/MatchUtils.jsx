@@ -22,7 +22,7 @@ export const toggleInputAvailability = (round) => {
       : $(`#hi${round}`).removeClass("bg-yellow-500").attr("readOnly", true);
 };
 export const matchAverageOf = (match, currentLeg, player) => {
-   const currentFilteredScores = currentLeg.scores.filter((s) => s.player.id === player.id);
+   const currentFilteredScores = currentLeg.scores.filter((s) => isPlayer(s.player, player));
 
    let rounds = currentFilteredScores.length > 0 ? currentFilteredScores.at(-1).round + 1 : 0;
    let allScores = rounds > 0 ? parseFloat(currentFilteredScores.at(-1).avg) * rounds : 0;
@@ -38,12 +38,12 @@ export const matchAverageOf = (match, currentLeg, player) => {
       }
    });
 
-   return (allScores / rounds).toFixed(1).toString().replace(".", ",");
+   return parseFloat(allScores / rounds).toFixed(1);
 };
 export const legAverageOf = (currentLeg, player) => {
-   const filteredList = currentLeg.scores.filter((s) => s.player.id === player.id);
+   const filteredList = currentLeg.scores.filter((s) => isPlayer(s.player, player));
 
-   if (filteredList.length > 0) return filteredList.at(-1).avg;
+   if (filteredList.length > 0) return parseFloat(filteredList.at(-1).avg).toFixed(1);
    else return 0;
 };
 export const initialsOf = (playername) => {
@@ -53,4 +53,5 @@ export const initialsOf = (playername) => {
 
    return initials;
 };
-export const isPlayer = (id) => id === JSON.parse(localStorage.getItem("profile")).id;
+
+export const isPlayer = (player, playerToCheck) => player.id === playerToCheck.id;

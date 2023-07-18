@@ -77,6 +77,9 @@ const initSocket = (socket) => {
             dispatch({ type: MatchType.SET_MATCH, payload: match });
          }
       });
+      socket.on("achievement", (achievement) => {
+         dispatch({ type: MatchType.ADD_ACHIEVEMENT, payload: achievement });
+      });
 
       return () => {
          socket.off("join");

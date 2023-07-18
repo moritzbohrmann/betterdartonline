@@ -7,8 +7,7 @@ import { useBeforeUnload } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 import { useProfile } from "../hooks/useProfile";
 import { ActionType, useMatch } from "../state/MatchReducer";
-import { fillTable, resetTable, toggleInputAvailability } from "../utils/MatchUtils";
-import { isPlayer } from "../utils/MatchUtils";
+import { fillTable, resetTable, toggleInputAvailability, isPlayer } from "../utils/MatchUtils";
 
 function MatchUITable() {
    const { match, currentLeg } = useMatch();
@@ -19,7 +18,7 @@ function MatchUITable() {
    const lastScore = currentLeg.scores.at(-1);
 
    React.useEffect(() => {
-      if (currentLeg.scores.length === 0 && isPlayer(currentLeg.throw)) {
+      if (currentLeg.scores.length === 0 && isPlayer(profile, { id: currentLeg.throw })) {
          toggleInputAvailability(0);
          return;
       }
@@ -28,9 +27,10 @@ function MatchUITable() {
          fillTable(score, profile);
       });
 
-      if (!isPlayer(lastScore?.next.id)) return;
+      if (!lastScore) return;
 
-      isPlayer(currentLeg.throw) ? toggleInputAvailability(lastScore.round + 1) : toggleInputAvailability(lastScore.round);
+      if (!isPlayer(profile, lastScore.next)) return;
+      isPlayer(profile, { id: currentLeg.throw }) ? toggleInputAvailability(lastScore.round + 1) : toggleInputAvailability(lastScore.round);
    }, []);
 
    React.useEffect(() => {
@@ -38,12 +38,12 @@ function MatchUITable() {
          if (match.state.host + match.state.guest === 0) return;
 
          resetTable();
-         isPlayer(currentLeg.throw) && toggleInputAvailability(0);
+         isPlayer(profile, { id: currentLeg.throw }) && toggleInputAvailability(0);
          return;
       }
 
       if (lastScore.left === 0) {
-         isPlayer(lastScore.player.id) && toggleInputAvailability(lastScore.round);
+         isPlayer(profile, lastScore.player) && toggleInputAvailability(lastScore.round);
 
          dispatch({ type: ActionType.SET_LEG, payload: { index: match.legs.length - 1, leg: currentLeg } });
          return;
@@ -56,14 +56,13 @@ function MatchUITable() {
          setTimeout(() => setShowScorePopup(false), 2000);
       }
 
-      if (isPlayer(lastScore.player.id)) toggleInputAvailability(lastScore.round);
-      else isPlayer(match.legs.at(-1).throw) ? toggleInputAvailability(lastScore.round + 1) : toggleInputAvailability(lastScore.round);
+      if (isPlayer(profile, lastScore.player)) toggleInputAvailability(lastScore.round);
+      else
+         isPlayer(profile, { id: match.legs.at(-1).throw }) ? toggleInputAvailability(lastScore.round + 1) : toggleInputAvailability(lastScore.round);
    }, [currentLeg]);
 
    useBeforeUnload(() => {
       dispatch({ type: ActionType.SET_LEG, payload: { index: match.legs.length - 1, leg: currentLeg } });
-
-      console.log("HI");
 
       localStorage.setItem("match", JSON.stringify(match));
    });
