@@ -2,7 +2,7 @@ import ListWindow from "./ListWindow";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../context/SocketContext";
-import { ActionType } from "../state/PlayerlistReducer";
+import { addRequestSent } from "../state/PlayerlistReducer";
 
 function PlayerlistWindow() {
    const playerlist = useSelector((state) => state.list.ready);
@@ -15,7 +15,7 @@ function PlayerlistWindow() {
          list={playerlist}
          onClick={(player) => {
             if (socket.connected) {
-               dispatch({ type: ActionType.ADD_SENT, payload: player });
+               dispatch(addRequestSent(player));
                socket.emit("request", player);
             } else toast.error("Fehler: Du bist nicht eingeloggt!");
          }}

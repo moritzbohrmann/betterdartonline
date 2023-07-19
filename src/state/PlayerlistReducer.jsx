@@ -8,7 +8,7 @@ const initialState = {
    },
 };
 
-export const ActionType = {
+const ActionType = {
    ADD_READY: 0,
    REMOVE_READY: 1,
    ADD_RECEIVED: 2,
@@ -50,6 +50,34 @@ const playerlistReducer = (state = initialState, action) => {
       default:
          return state;
    }
+};
+
+export const addPlayerReady = (player) => {
+   return { type: ActionType.ADD_READY, payload: player };
+};
+export const removePlayerReady = (player) => {
+   return { type: ActionType.REMOVE_READY, payload: player };
+};
+export const addRequestSent = (player) => {
+   return { type: ActionType.ADD_SENT, payload: player };
+};
+export const removeRequestSent = (player) => {
+   return { type: ActionType.REMOVE_SENT, payload: player };
+};
+export const addRequestReceived = (player) => {
+   return { type: ActionType.ADD_RECEIVED, payload: player };
+};
+export const removeRequestReceived = (player) => {
+   return { type: ActionType.REMOVE_RECEIVED, payload: player };
+};
+export const setCurrentRequest = (player) => {
+   return { type: ActionType.SET_CURRENT, payload: player };
+};
+export const removeCurrentRequest = () => {
+   return { type: ActionType.REMOVE_CURRENT };
+};
+export const applyFilter = (filter) => {
+   return { type: ActionType.APPLY_FILTER, payload: filter };
 };
 
 export default playerlistReducer;

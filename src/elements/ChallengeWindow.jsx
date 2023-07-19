@@ -2,7 +2,7 @@ import ListWindow from "./ListWindow";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../context/SocketContext";
-import { ActionType } from "../state/PlayerlistReducer";
+import * as List from "../state/PlayerlistReducer";
 
 function ChallengeWindow() {
    const requests = useSelector((state) => state.list.requests.sent);
@@ -10,7 +10,7 @@ function ChallengeWindow() {
    const socket = useSocket();
 
    const unchallengePlayer = (player) => {
-      dispatch({ type: ActionType.REMOVE_SENT, payload: player });
+      dispatch(List.removeRequestSent(player));
       socket.emit("request-revoke", player);
    };
 

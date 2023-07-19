@@ -4,24 +4,26 @@ import React, { useRef } from "react";
 import Toggler from "../components/UIToggler";
 import UIWindow from "../components/UIWindow";
 import { useDispatch } from "react-redux";
-import { ActionType } from "../state/PlayerlistReducer";
+import { applyFilter } from "../state/PlayerlistReducer";
 
 function FilterWindow() {
    const dispatch = useDispatch();
+   const filterRef = React.useRef(null);
 
    return (
       <UIWindow title="Filter" className="h-60">
          <div className="m-auto flex w-80 gap-6">
             <div className="m-auto h-6 w-11">
-               <Toggler onChange={(checked) => dispatch({ type: ActionType.APPLY_FILTER, payload: checked ? $("#filterInput").val : "" })} />
+               <Toggler onChange={(checked) => dispatch(applyFilter(checked ? $("#filterInput").val : ""))} />
             </div>
             <InputField
+               innerRef={filterRef}
                className="m-auto"
                placeholder="Filtereingabe"
                id="filterInput"
                onChange={(e) => {
                   if ($("#filter")[0].checked === true) {
-                     dispatch({ type: ActionType.APPLY_FILTER, payload: e.target.value });
+                     dispatch(applyFilter(e.target.value));
                   }
                }}
             />

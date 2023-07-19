@@ -3,9 +3,9 @@ import $ from "jquery";
 export const resetTable = () => {
    for (let i = 0; i <= 30; i++) {
       $(`#hi${i}`).val(null);
-      $(`#hl${i}`).text(null).removeClass("bg-green-400");
+      $(`#hl${i}`).text(null).removeClass("bg-green-400 bg-red-400");
       $(`#gi${i}`).val(null);
-      $(`#gl${i}`).text(null).removeClass("bg-green-400");
+      $(`#gl${i}`).text(null).removeClass("bg-green-400 bg-red-400");
    }
 };
 export const fillTable = (score, profile) => {

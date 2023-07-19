@@ -6,11 +6,11 @@ import { useDispatch } from "react-redux";
 import { useBeforeUnload } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 import { useProfile } from "../hooks/useProfile";
-import { ActionType, useMatch } from "../state/MatchReducer";
+import * as Match from "../state/MatchReducer";
 import { fillTable, resetTable, toggleInputAvailability, isPlayer } from "../utils/MatchUtils";
 
 function MatchUITable() {
-   const { match, currentLeg } = useMatch();
+   const { match, currentLeg } = Match.useMatch();
    const [profile] = useProfile();
    const socket = useSocket();
    const dispatch = useDispatch();
@@ -44,8 +44,7 @@ function MatchUITable() {
 
       if (lastScore.left === 0) {
          isPlayer(profile, lastScore.player) && toggleInputAvailability(lastScore.round);
-
-         dispatch({ type: ActionType.SET_LEG, payload: { index: match.legs.length - 1, leg: currentLeg } });
+         dispatch(Match.setLeg(match.legs.length - 1, currentLeg));
          return;
       }
 
@@ -62,18 +61,14 @@ function MatchUITable() {
    }, [currentLeg]);
 
    useBeforeUnload(() => {
-      dispatch({ type: ActionType.SET_LEG, payload: { index: match.legs.length - 1, leg: currentLeg } });
+      dispatch(Match.setLeg(match.legs.length - 1, currentLeg));
 
       localStorage.setItem("match", JSON.stringify(match));
    });
 
    return (
       <div className="flex h-144 w-full justify-center overflow-auto md:h-192">
-         {showScorePopup && (
-            <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-64 rounded-xl bg-white md:top-1/3 md:h-48 md:w-96">
-               <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{lastScore.value}!</h4>
-            </div>
-         )}
+         {showScorePopup && <ScorePopup score={lastScore} />}
          <table className="w-full overflow-scroll border-2 border-none text-center">
             <tr className=" sticky top-0 z-10 h-20 w-full bg-gray-300 font-primary text-3xl text-dark-window">
                <th className="h-full w-1/5 bg-slate-200">
@@ -109,6 +104,13 @@ const TableRowCollector = (props) => {
    }
 
    return render;
+};
+const ScorePopup = (score) => {
+   return (
+      <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-64 rounded-xl bg-white md:top-1/3 md:h-48 md:w-96">
+         <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{score.value}!</h4>
+      </div>
+   );
 };
 
 export default MatchUITable;

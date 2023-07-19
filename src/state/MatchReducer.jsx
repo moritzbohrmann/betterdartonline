@@ -7,7 +7,7 @@ const initialState = {
    currentLeg: match ? match.legs.at(-1) : {},
 };
 
-export const ActionType = {
+const ActionType = {
    ADD_SCORE: 11,
    EDIT_SCORE: 12,
    ADD_LEG: 13,
@@ -58,6 +58,31 @@ const matchReducer = (state = initialState, action) => {
       default:
          return state;
    }
+};
+
+export const addScore = (score) => {
+   return { type: ActionType.ADD_SCORE, payload: score };
+};
+export const editLastScoreOf = (player, correctedScore) => {
+   return { type: ActionType.EDIT_SCORE, correctedScore };
+};
+export const addLeg = (leg) => {
+   return { type: ActionType.ADD_LEG, payload: leg };
+};
+export const setLeg = (index, leg) => {
+   return { type: ActionType.SET_LEG, payload: { index, leg } };
+};
+export const setMatch = (match) => {
+   return { type: ActionType.SET_MATCH, payload: match };
+};
+export const setThrow = (player) => {
+   return { type: ActionType.SET_THROW, payload: player };
+};
+export const incrementState = (player) => {
+   return { type: ActionType.LEG_WON, payload: { id: player.id } };
+};
+export const addAchievement = (achievement) => {
+   return { type: ActionType.ADD_ACHIEVEMENT, payload: achievement };
 };
 
 export const useMatch = () => {

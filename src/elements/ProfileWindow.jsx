@@ -50,7 +50,8 @@ function ProfileWindow() {
                         return { ...profilePreview, scoremode: e.target.value };
                      })
                   }
-                  defaultValue={profile.scoremode}>
+                  defaultValue={profile.scoremode}
+               >
                   <option value={"301"}>301</option>
                   <option value={"501"}>501</option>
                </select>
@@ -63,7 +64,8 @@ function ProfileWindow() {
                         return { ...profilePreview, gamemode: e.target.value };
                      })
                   }
-                  defaultValue={profile.gamemode}>
+                  defaultValue={profile.gamemode}
+               >
                   <option value={"firstto"}>First to</option>
                   <option value={"bestof"}>Best of</option>
                </select>

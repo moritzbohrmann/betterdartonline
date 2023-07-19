@@ -3,7 +3,7 @@ import UIButton from "../components/UIButton";
 import UIWindow from "../components/UIWindow";
 import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../context/SocketContext";
-import { ActionType } from "../state/PlayerlistReducer";
+import { removeRequestReceived, removeCurrentRequest } from "../state/PlayerlistReducer";
 
 function Challenge() {
    const socket = useSocket();
@@ -18,8 +18,8 @@ function Challenge() {
    const decline = () => {
       if (!challenger) return;
       socket.emit("request-decline", challenger);
-      dispatch({ type: ActionType.REMOVE_RECEIVED, payload: challenger });
-      dispatch({ type: ActionType.REMOVE_CURRENT });
+      dispatch(removeRequestReceived(challenger));
+      dispatch(removeCurrentRequest());
    };
 
    return (

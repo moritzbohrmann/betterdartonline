@@ -2,8 +2,8 @@ import React, { createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { useProfile } from "../hooks/useProfile";
-import { ActionType as MatchType } from "../state/MatchReducer";
-import { ActionType } from "../state/PlayerlistReducer";
+import * as Match from "../state/MatchReducer";
+import * as List from "../state/PlayerlistReducer";
 
 const SocketContext = createContext();
 
@@ -29,13 +29,13 @@ const initSocket = (socket) => {
 
    useEffect(() => {
       socket.on("join", (player) => {
-         player.id !== profile.id && dispatch({ type: ActionType.ADD_READY, payload: player });
+         player.id !== profile.id && dispatch(addPlayerReady(player));
       });
       socket.on("quit", (player) => {
          if (player.id === profile.id) return;
-         dispatch({ type: ActionType.REMOVE_READY, payload: player });
-         dispatch({ type: ActionType.REMOVE_SENT, payload: player });
-         dispatch({ type: ActionType.REMOVE_RECEIVED, payload: player });
+         dispatch(List.removePlayerReady(player));
+         dispatch(List.removeRequestSent(player));
+         dispatch(List.removeRequestReceived(player));
       });
       socket.on("match-continue", (match) => {
          localStorage.setItem("match", JSON.stringify(match));
@@ -43,15 +43,15 @@ const initSocket = (socket) => {
          window.location.href = "/match";
       });
       socket.on("request", (player) => {
-         dispatch({ type: ActionType.ADD_RECEIVED, payload: player });
-         dispatch({ type: ActionType.SET_CURRENT, payload: player });
+         dispatch(List.addRequestReceived(player));
+         dispatch(List.setCurrentRequest(player));
       });
       socket.on("request-decline", (player) => {
          dispatch({ type: ActionType.REMOVE_SENT, payload: player });
       });
       socket.on("request-revoke", (player) => {
-         dispatch({ type: ActionType.REMOVE_RECEIVED, payload: player });
-         dispatch({ type: ActionType.REMOVE_CURRENT });
+         dispatch(List.removeRequestReceived(player));
+         dispatch(List.removeCurrentRequest(player));
       });
       socket.on("match-start", (match) => {
          dispatch({ type: MatchType.SET_MATCH, payload: match });
@@ -59,11 +59,11 @@ const initSocket = (socket) => {
          setTimeout(() => (window.location.href = "/match"), 2000);
       });
       socket.on("score", (score) => {
-         dispatch({ type: MatchType.ADD_SCORE, payload: score });
+         dispatch(Match.addScore(score));
       });
       socket.on("legshot", ({ player, legPreview }) => {
-         dispatch({ type: MatchType.LEG_WON, payload: player });
-         dispatch({ type: MatchType.ADD_LEG, payload: legPreview });
+         dispatch(Match.incrementState(player));
+         dispatch(Match.addLeg(legPreview));
       });
       socket.on("error", (error) => {
          switch (error.type) {
@@ -74,11 +74,11 @@ const initSocket = (socket) => {
       socket.on("passed", (match) => {
          if (match) {
             localStorage.setItem("match", JSON.stringify(match));
-            dispatch({ type: MatchType.SET_MATCH, payload: match });
+            dispatch(Match.setMatch(match));
          }
       });
       socket.on("achievement", (achievement) => {
-         dispatch({ type: MatchType.ADD_ACHIEVEMENT, payload: achievement });
+         dispatch(Match.addAchievement(achievement));
       });
 
       return () => {
