@@ -11,6 +11,9 @@ function InputField(props) {
             defaultValue={props.defaultValue}
             className={`h-10 w-11/12 rounded-md bg-dark-input px-4 font-secondary font-semibold text-white-default outline-none ${props.className}`}
             onChange={(e) => props.onChange(e)}
+            onKeyUp={(e) => {
+               if (e.key === "Enter") props.onSubmit(e.target.value);
+            }}
          />
       </>
    );

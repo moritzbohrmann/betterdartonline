@@ -7,7 +7,7 @@ function Navigation(props) {
    const [settingsVisible, setSettingsVisible] = useState(false);
 
    const toggleSettingsVisibility = () => {
-      return setSettingsVisible(settingsVisible === true ? false : true);
+      return setSettingsVisible((settingsVisible) => (settingsVisible === true ? false : true));
    };
 
    return (
