@@ -1,5 +1,4 @@
 import ChallengeWindow from "../elements/ChallengeWindow";
-import CorrectionPopup from "../elements/CorrectionPopup";
 import FilterWindow from "../elements/FilterWindow";
 import Navigation from "../elements/NavigationBar";
 import PlayerlistWindow from "../elements/PlayerlistWindow";
@@ -21,7 +20,6 @@ function HomeUI() {
                <ChallengeWindow />
             </div>
             <PopupWindow />
-            <CorrectionPopup />
          </div>
       </div>
    );

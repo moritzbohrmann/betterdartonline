@@ -1,6 +1,16 @@
 import React from "react";
+import { useMatch } from "../state/MatchReducer";
+import { useProfile } from "../hooks/useProfile";
 
-function MatchUITableRow({ index, profile, socket }) {
+function MatchUITableRow({ socket, index }) {
+   const { currentLeg } = useMatch();
+   const [profile] = useProfile();
+   const throwFirst = currentLeg.throw === profile.id;
+   const lastScore = currentLeg.scores.at(-1);
+   const nextToThrow = lastScore?.next.id === profile.id;
+   const equalRound = index === (throwFirst ? lastScore?.round + 1 : lastScore?.round);
+   const inputAvailable = currentLeg.scores.length === 0 ? throwFirst && index === 0 : nextToThrow && equalRound;
+
    const emitScore = (score) => {
       socket.emit("score", score);
    };
@@ -12,18 +22,26 @@ function MatchUITableRow({ index, profile, socket }) {
       >
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
             <input
-               id={`hi${index}`}
-               className="h-full w-full bg-transparent text-center outline-none"
+               className={`h-full w-full ${inputAvailable ? "bg-yellow-400" : "bg-transparent"} text-center outline-none`}
                type="number"
-               readOnly
-               onKeyUp={(e) => e.target.readOnly === false && e.key === "Enter" && emitScore({ player: profile, value: Number(e.target.value) })}
+               value={currentLeg.scores.filter((score) => score.player.id === profile.id)[index]?.value}
+               readOnly={!inputAvailable}
+               onKeyUp={(e) => !e.target.readOnly && e.key === "Enter" && emitScore({ player: profile, value: Number(e.target.value) })}
             />
          </td>
-         <td className="w-1/5 transition-opacity hover:opacity-80" id={`hl${index}`}></td>
+         <td className="w-1/5 transition-opacity hover:opacity-80">
+            {currentLeg.scores.filter((score) => score.player.id === profile.id)[index]?.left}
+         </td>
          <td className="w-1/5">{(index + 1) * 3}</td>
-         <td className="w-1/5 transition-opacity hover:opacity-80" id={`gl${index}`}></td>
+         <td className="w-1/5 transition-opacity hover:opacity-80">
+            {currentLeg.scores.filter((score) => score.player.id !== profile.id)[index]?.left}
+         </td>
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
-            <input id={`gi${index}`} className="h-full w-full bg-transparent text-center outline-none" readOnly />
+            <input
+               defaultValue={currentLeg.scores.filter((score) => score.player.id !== profile.id)[index]?.value}
+               readOnly
+               className="h-full w-full bg-transparent text-center outline-none"
+            />
          </td>
       </tr>
    );

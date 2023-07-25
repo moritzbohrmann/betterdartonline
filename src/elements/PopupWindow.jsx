@@ -4,6 +4,7 @@ import React from "react";
 import Settings from "./SettingsWindow";
 import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { addBlur, removeBlur } from "../utils/StyleUtils";
 
 function PopupWindow() {
    const current = useSelector((state) => state.list.requests.current);
@@ -17,13 +18,6 @@ function PopupWindow() {
             <Challenge />
          </dialog>
       );
-   };
-
-   const addBlur = () => {
-      $("#homeui-navigation, #homeui-windows").addClass("blur-lg transition-all");
-   };
-   const removeBlur = () => {
-      $("#homeui-navigation, #homeui-windows").removeClass("blur-lg");
    };
 
    React.useEffect(() => {

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSocket } from "../context/SocketContext";
 import { useProfile } from "../hooks/useProfile";
 import { ActionType } from "../state/SocketReducer";
+import CorrectionPopup from "../elements/CorrectionPopup";
 
 function MatchUI() {
    initConnection();
@@ -15,6 +16,7 @@ function MatchUI() {
          <MatchUIHead />
          <MatchUITable />
          <MatchUIControl />
+         <CorrectionPopup />
       </div>
    );
 }

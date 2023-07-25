@@ -2,8 +2,8 @@ import React, { createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { useProfile } from "../hooks/useProfile";
-import * as Match from "../state/MatchReducer";
-import * as List from "../state/PlayerlistReducer";
+import * as match from "../state/MatchReducer";
+import * as playerlist from "../state/PlayerlistReducer";
 
 const SocketContext = createContext();
 
@@ -29,13 +29,13 @@ const initSocket = (socket) => {
 
    useEffect(() => {
       socket.on("join", (player) => {
-         player.id !== profile.id && dispatch(addPlayerReady(player));
+         player.id !== profile.id && dispatch(playerlist.addPlayerReady(player));
       });
       socket.on("quit", (player) => {
          if (player.id === profile.id) return;
-         dispatch(List.removePlayerReady(player));
-         dispatch(List.removeRequestSent(player));
-         dispatch(List.removeRequestReceived(player));
+         dispatch(playerlist.removePlayerReady(player));
+         dispatch(playerlist.removeRequestSent(player));
+         dispatch(playerlist.removeRequestReceived(player));
       });
       socket.on("match-continue", (match) => {
          localStorage.setItem("match", JSON.stringify(match));
@@ -43,27 +43,33 @@ const initSocket = (socket) => {
          window.location.href = "/match";
       });
       socket.on("request", (player) => {
-         dispatch(List.addRequestReceived(player));
-         dispatch(List.setCurrentRequest(player));
+         dispatch(playerlist.addRequestReceived(player));
+         dispatch(playerlist.setCurrentRequest(player));
       });
       socket.on("request-decline", (player) => {
-         dispatch({ type: ActionType.REMOVE_SENT, payload: player });
+         dispatch(playerlist.removeRequestSent(player));
       });
       socket.on("request-revoke", (player) => {
-         dispatch(List.removeRequestReceived(player));
-         dispatch(List.removeCurrentRequest(player));
+         dispatch(playerlist.removeRequestReceived(player));
+         dispatch(playerlist.removeCurrentRequest(player));
       });
-      socket.on("match-start", (match) => {
-         dispatch({ type: MatchType.SET_MATCH, payload: match });
+      socket.on("match-start", (_match) => {
+         dispatch(match.setMatch(_match));
 
          setTimeout(() => (window.location.href = "/match"), 2000);
       });
       socket.on("score", (score) => {
-         dispatch(Match.addScore(score));
+         dispatch(match.addScore(score));
+      });
+      socket.on("score-edit", (score) => {
+         dispatch(match.editLastScoreOf(score.player, score));
+      });
+      socket.on("achievement-edit", (achievement) => {
+         dispatch(match.editLastAchievement(achievement));
       });
       socket.on("legshot", ({ player, legPreview }) => {
-         dispatch(Match.incrementState(player));
-         dispatch(Match.addLeg(legPreview));
+         dispatch(match.incrementState(player));
+         dispatch(match.addLeg(legPreview));
       });
       socket.on("error", (error) => {
          switch (error.type) {
@@ -71,14 +77,17 @@ const initSocket = (socket) => {
                return (window.location.href = "/home");
          }
       });
-      socket.on("passed", (match) => {
-         if (match) {
-            localStorage.setItem("match", JSON.stringify(match));
-            dispatch(Match.setMatch(match));
+      socket.on("passed", (_match) => {
+         if (_match) {
+            localStorage.setItem("match", JSON.stringify(_match));
+            dispatch(match.setMatch(_match));
          }
       });
       socket.on("achievement", (achievement) => {
-         dispatch(Match.addAchievement(achievement));
+         dispatch(match.addAchievement(achievement));
+      });
+      socket.on("achievement-remove", (achievement) => {
+         dispatch(match.removeAchievement(achievement));
       });
 
       return () => {
@@ -91,6 +100,10 @@ const initSocket = (socket) => {
          socket.off("score");
          socket.off("error");
          socket.off("passed");
+         socket.off("achievement");
+         socket.off("score-edit");
+         socket.off("achievement-edit");
+         socket.off("achievement-remove");
       };
    }, []);
 };

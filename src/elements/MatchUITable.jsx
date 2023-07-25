@@ -67,7 +67,7 @@ function MatchUITable() {
    });
 
    return (
-      <div className="flex h-144 w-full justify-center overflow-auto md:h-192">
+      <div id="matchuihead" className="flex h-144 w-full justify-center overflow-auto md:h-192">
          {showScorePopup && <ScorePopup score={lastScore} />}
          <table className="w-full overflow-scroll border-2 border-none text-center">
             <tr className=" sticky top-0 z-10 h-20 w-full bg-gray-300 font-primary text-3xl text-dark-window">
@@ -90,7 +90,7 @@ function MatchUITable() {
                <td className="w-1/5">{match.settings.scoremode}</td>
                <td className="w-1/5">/</td>
             </tr>
-            <TableRowCollector profile={profile} socket={socket} />
+            <TableRowCollector socket={socket} />
          </table>
       </div>
    );
@@ -100,7 +100,7 @@ const TableRowCollector = (props) => {
    let render = [];
 
    for (let i = 0; i <= 30; i++) {
-      render.push(<MatchUITableRow {...props} index={i} id={i} />);
+      render.push(<MatchUITableRow {...props} index={i} />);
    }
 
    return render;

@@ -16,6 +16,8 @@ const ActionType = {
    LEG_WON: 16,
    SET_LEG: 17,
    ADD_ACHIEVEMENT: 18,
+   EDIT_LAST_ACHIEVEMENT: 19,
+   REMOVE_ACHIEVEMENT: 20,
 };
 
 const matchReducer = (state = initialState, action) => {
@@ -25,17 +27,13 @@ const matchReducer = (state = initialState, action) => {
       case ActionType.EDIT_SCORE:
          const { player, score } = action.payload;
 
-         var currentLeg = state.currentLeg;
-         var scores = currentLeg.scores;
-         var scoreToEdit = scores.filter((s) => s.player === player.id).at(-1);
-         var index = scores.indexOf(scoreToEdit);
+         const currentLeg = state.currentLeg;
+         const lastScore = currentLeg.scores.filter((s) => s.player.id === player.id).at(-1);
+         const indexOfLastScore = currentLeg.scores.indexOf(lastScore);
 
-         scores.splice(index, 1, score);
+         currentLeg.scores.splice(indexOfLastScore, 1, score);
 
-         currentLeg.scores = scores;
-         legs.splice(legs.length - 1, 1, currentLeg);
-
-         return { ...state, currentLeg: leg };
+         return { ...state, currentLeg: currentLeg };
       case ActionType.ADD_LEG:
          return { ...state, match: { ...state.match, legs: [...state.match.legs, action.payload] }, currentLeg: action.payload };
       case ActionType.SET_LEG:
@@ -55,6 +53,19 @@ const matchReducer = (state = initialState, action) => {
             : { ...state, match: { ...state.match, state: { ...state.match.state, guest: state.match.state.guest + 1 } } };
       case ActionType.ADD_ACHIEVEMENT:
          return { ...state, match: { ...state.match, achievements: [...state.match.achievements, action.payload] } };
+      case ActionType.EDIT_LAST_ACHIEVEMENT:
+         var achievement = action.payload;
+         var achievements = state.match.achievements;
+         const lastAchievement = achievements.filter((a) => a.player.id === achievement.player.id && a.type === achievement.type).at(-1);
+
+         achievements.splice(achievements.indexOf(lastAchievement), 1, achievement);
+
+         return { ...state, achievements: achievements };
+      case ActionType.REMOVE_ACHIEVEMENT:
+         achievements = state.match.achievements;
+         achievements.splice(achievements.indexOf(action.payload), 1);
+
+         return { ...state, achievements };
       default:
          return state;
    }
@@ -64,7 +75,7 @@ export const addScore = (score) => {
    return { type: ActionType.ADD_SCORE, payload: score };
 };
 export const editLastScoreOf = (player, correctedScore) => {
-   return { type: ActionType.EDIT_SCORE, correctedScore };
+   return { type: ActionType.EDIT_SCORE, payload: { player, score: correctedScore } };
 };
 export const addLeg = (leg) => {
    return { type: ActionType.ADD_LEG, payload: leg };
@@ -83,6 +94,12 @@ export const incrementState = (player) => {
 };
 export const addAchievement = (achievement) => {
    return { type: ActionType.ADD_ACHIEVEMENT, payload: achievement };
+};
+export const editLastAchievement = (achievement) => {
+   return { type: ActionType.EDIT_LAST_ACHIEVEMENT, payload: achievement };
+};
+export const removeAchievement = (achievement) => {
+   return { type: ActionType.REMOVE_ACHIEVEMENT, payload: achievement };
 };
 
 export const useMatch = () => {

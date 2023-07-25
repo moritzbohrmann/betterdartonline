@@ -1,25 +1,25 @@
 import React from "react";
 import UIButton from "../components/UIButton";
 import $ from "jquery";
+import { useMatch } from "../state/MatchReducer";
+import { useProfile } from "../hooks/useProfile";
+import { addBlur, removeBlur } from "../utils/StyleUtils";
 
 function MatchUIControl() {
-   const [correctionWindowVisibility, setCorrectionWindowVisibility] = React.useState(false);
+   const { currentLeg } = useMatch();
+   const [profile] = useProfile();
 
    const toggleCorrectionWindowVisibility = () => {
-      switch (correctionWindowVisibility) {
-         case false:
-            $("#corwin").removeClass("hidden");
-            setCorrectionWindowVisibility(true);
-            break;
-         case true:
-            $("#corwin").addClass("hidden");
-            setCorrectionWindowVisibility(false);
-            break;
-      }
+      if (currentLeg.scores.filter((score) => score.player.id === profile.id).length === 0) return;
+
+      if (currentLeg.scores.at(-1)?.player.id === profile.id) return;
+
+      $("#corwin").removeClass("hidden");
+      addBlur("#matchuicontrolbar, #matchuihead, #matchuitable");
    };
 
    return (
-      <div className="fixed bottom-0 flex h-20 w-full flex-wrap items-center justify-center gap-8 bg-dark-background">
+      <div id="matchuicontrolbar" className="fixed bottom-0 flex h-20 w-full flex-wrap items-center justify-center gap-8 bg-dark-background">
          <UIButton className="bg-orange-500" onClick={toggleCorrectionWindowVisibility}>
             Korrektur
          </UIButton>
