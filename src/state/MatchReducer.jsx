@@ -38,7 +38,7 @@ const matchReducer = (state = initialState, action) => {
          return { ...state, match: { ...state.match, legs: [...state.match.legs, action.payload] }, currentLeg: action.payload };
       case ActionType.SET_LEG:
          const legs = state.match.legs;
-         legs.splice(action.payload.index, 1, action.payload.leg);
+         legs.splice(legs.length + action.payload.index, 1, action.payload.leg);
 
          return { ...state, match: { ...state.match, legs: legs } };
       case ActionType.SET_MATCH:

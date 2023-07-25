@@ -1,9 +1,9 @@
+import $ from "jquery";
 import React from "react";
 import UIButton from "../components/UIButton";
-import $ from "jquery";
-import { useMatch } from "../state/MatchReducer";
 import { useProfile } from "../hooks/useProfile";
-import { addBlur, removeBlur } from "../utils/StyleUtils";
+import { useMatch } from "../state/MatchReducer";
+import { addBlur } from "../utils/StyleUtils";
 
 function MatchUIControl() {
    const { currentLeg } = useMatch();

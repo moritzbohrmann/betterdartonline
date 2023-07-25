@@ -1,26 +1,3 @@
-import $ from "jquery";
-
-export const resetTable = () => {
-   for (let i = 0; i <= 30; i++) {
-      $(`#hi${i}`).val(null);
-      $(`#hl${i}`).text(null).removeClass("bg-green-400 bg-red-400");
-      $(`#gi${i}`).val(null);
-      $(`#gl${i}`).text(null).removeClass("bg-green-400 bg-red-400");
-   }
-};
-export const fillTable = (score, profile) => {
-   const prefix = score.player.id === profile.id ? "h" : "g";
-
-   $(`#${prefix}i${score.round}`).val(score.value);
-   $(`#${prefix}l${score.round}`)
-      .text(score.left)
-      .addClass(`${score.left <= 170 && ([159, 162, 163, 165, 166, 168, 169].includes(score.left) ? "bg-red-400" : "bg-green-400")}`);
-};
-export const toggleInputAvailability = (round) => {
-   $(`#hi${round}`).prop("readOnly")
-      ? $(`#hi${round}`).addClass("bg-yellow-500").attr("readOnly", false).focus()
-      : $(`#hi${round}`).removeClass("bg-yellow-500").attr("readOnly", true);
-};
 export const matchAverageOf = (match, currentLeg, player) => {
    const currentFilteredScores = currentLeg.scores.filter((s) => isPlayer(s.player, player));
 

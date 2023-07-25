@@ -39,10 +39,9 @@ const ListItem = ({ player, onClick }) => {
    return (
       <li
          onClick={() => onClick(player)}
-         className="mt-4 flex h-12 w-11/12 items-center justify-between rounded-md bg-dark-background px-8 font-primary font-bold text-white-default transition-all hover:scale-105 hover:cursor-pointer"
-      >
+         className="text-md mt-4 flex h-12 w-11/12 items-center justify-between rounded-md bg-dark-background px-4 font-primary font-bold text-white-default transition-all hover:scale-105 hover:cursor-pointer">
          <h2>{player.username}</h2>
-         <h2>{`${player.scoremode} ${player.gamemode} ${player.legamount}`}</h2>
+         <h2 className="rounded-md bg-yellow-500 px-2 py-0.5 text-dark-background">{`${player.scoremode} ${player.gamemode} ${player.legamount}`}</h2>
       </li>
    );
 };

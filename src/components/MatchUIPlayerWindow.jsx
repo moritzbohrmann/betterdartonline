@@ -29,12 +29,11 @@ const PlayerProfileWindow = ({ match, currentLeg, profile }) => {
    return (
       <div
          id={`sw-${profile.id}`}
-         className={`bg-blue-secondary mx-auto flex h-48 w-5/12 bg-dark-background md:my-auto md:rounded-md ${
+         className={`mx-auto flex h-48 w-5/12 bg-dark-background brightness-110 md:my-auto md:rounded-md ${
             currentLeg.scores.length > 0
                ? isPlayer(profile, currentLeg.scores.at(-1)?.next) === true && "border-4 border-yellow-400"
                : isPlayer(profile, { id: currentLeg.throw }) === true && "border-4 border-yellow-400"
-         }`}
-      >
+         }`}>
          {showStats === false ? (
             <div className="m-auto flex flex-col items-center justify-center xl:flex-row xl:gap-8 2xl:gap-16">
                <div className="flex h-16 w-20 rounded-md bg-gray-300 font-sans text-4xl font-bold text-gray-500 md:w-48 lg:text-6xl xl:h-36 xl:w-36">

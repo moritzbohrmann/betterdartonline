@@ -3,7 +3,7 @@ import UIButton from "../components/UIButton";
 import UIWindow from "../components/UIWindow";
 import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../context/SocketContext";
-import { removeRequestReceived, removeCurrentRequest } from "../state/PlayerlistReducer";
+import { removeCurrentRequest, removeRequestReceived } from "../state/PlayerlistReducer";
 
 function Challenge() {
    const socket = useSocket();
@@ -23,7 +23,7 @@ function Challenge() {
    };
 
    return (
-      <UIWindow id="settings" title="Herausforderung" className="z-10 h-80 gap-4 drop-shadow-xl lg:w-144">
+      <UIWindow id="settings" title="Herausforderung" className="top-80z-10 fixed h-80 gap-4 drop-shadow-xl lg:w-144">
          <div className="flex w-11/12 flex-col items-center gap-2 text-center text-xl font-bold">
             <h2 className="w-5/6 rounded-md bg-yellow-500 py-1 text-dark-window">{challenger?.username}</h2>
             <h2 className="m-auto text-white-default">fordert Dich zu einem Duell heraus!</h2>

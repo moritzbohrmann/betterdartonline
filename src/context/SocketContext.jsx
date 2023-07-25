@@ -1,9 +1,9 @@
+import * as match from "../state/MatchReducer";
+import * as playerlist from "../state/PlayerlistReducer";
 import React, { createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { useProfile } from "../hooks/useProfile";
-import * as match from "../state/MatchReducer";
-import * as playerlist from "../state/PlayerlistReducer";
 
 const SocketContext = createContext();
 
@@ -67,9 +67,10 @@ const initSocket = (socket) => {
       socket.on("achievement-edit", (achievement) => {
          dispatch(match.editLastAchievement(achievement));
       });
-      socket.on("legshot", ({ player, legPreview }) => {
+      socket.on("legshot", ({ currentLeg, player, legPreview }) => {
          dispatch(match.incrementState(player));
          dispatch(match.addLeg(legPreview));
+         dispatch(match.setLeg(-1, currentLeg));
       });
       socket.on("error", (error) => {
          switch (error.type) {

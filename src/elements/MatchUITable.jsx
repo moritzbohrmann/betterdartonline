@@ -1,3 +1,4 @@
+import * as Match from "../state/MatchReducer";
 import DartIcon from "../assets/dart.png";
 import MatchUITableRow from "../components/MatchUITableRow";
 import React from "react";
@@ -5,59 +6,21 @@ import ScoreIcon from "../assets/score.png";
 import { useDispatch } from "react-redux";
 import { useBeforeUnload } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
-import { useProfile } from "../hooks/useProfile";
-import * as Match from "../state/MatchReducer";
-import { fillTable, resetTable, toggleInputAvailability, isPlayer } from "../utils/MatchUtils";
 
 function MatchUITable() {
    const { match, currentLeg } = Match.useMatch();
-   const [profile] = useProfile();
    const socket = useSocket();
    const dispatch = useDispatch();
    const [showScorePopup, setShowScorePopup] = React.useState(false);
    const lastScore = currentLeg.scores.at(-1);
 
    React.useEffect(() => {
-      if (currentLeg.scores.length === 0 && isPlayer(profile, { id: currentLeg.throw })) {
-         toggleInputAvailability(0);
-         return;
-      }
-
-      currentLeg.scores.forEach((score) => {
-         fillTable(score, profile);
-      });
-
       if (!lastScore) return;
-
-      if (!isPlayer(profile, lastScore.next)) return;
-      isPlayer(profile, { id: currentLeg.throw }) ? toggleInputAvailability(lastScore.round + 1) : toggleInputAvailability(lastScore.round);
-   }, []);
-
-   React.useEffect(() => {
-      if (currentLeg.scores.length === 0) {
-         if (match.state.host + match.state.guest === 0) return;
-
-         resetTable();
-         isPlayer(profile, { id: currentLeg.throw }) && toggleInputAvailability(0);
-         return;
-      }
-
-      if (lastScore.left === 0) {
-         isPlayer(profile, lastScore.player) && toggleInputAvailability(lastScore.round);
-         dispatch(Match.setLeg(match.legs.length - 1, currentLeg));
-         return;
-      }
-
-      fillTable(lastScore, profile);
 
       if (lastScore.value >= 91) {
          setShowScorePopup(true);
          setTimeout(() => setShowScorePopup(false), 2000);
       }
-
-      if (isPlayer(profile, lastScore.player)) toggleInputAvailability(lastScore.round);
-      else
-         isPlayer(profile, { id: match.legs.at(-1).throw }) ? toggleInputAvailability(lastScore.round + 1) : toggleInputAvailability(lastScore.round);
    }, [currentLeg]);
 
    useBeforeUnload(() => {
@@ -105,10 +68,10 @@ const TableRowCollector = (props) => {
 
    return render;
 };
-const ScorePopup = (score) => {
+const ScorePopup = ({ score }) => {
    return (
-      <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-64 rounded-xl bg-white md:top-1/3 md:h-48 md:w-96">
-         <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{score.value}!</h4>
+      <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-min rounded-xl bg-white px-20 md:top-1/3 md:h-48">
+         <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{score ? score.value : `Checkout`}!</h4>
       </div>
    );
 };

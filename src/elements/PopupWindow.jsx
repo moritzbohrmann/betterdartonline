@@ -13,11 +13,7 @@ function PopupWindow() {
    const openChallenge = () => {
       addBlur();
 
-      return (
-         <dialog open className="bg-transparent">
-            <Challenge />
-         </dialog>
-      );
+      return <Challenge />;
    };
 
    React.useEffect(() => {
@@ -32,14 +28,7 @@ function PopupWindow() {
    return (
       <>
          <Routes>
-            <Route
-               path="/settings"
-               element={
-                  <dialog open className="bg-transparent transition-all">
-                     <Settings />
-                  </dialog>
-               }
-            />
+            <Route path="/settings" element={<Settings />} />
          </Routes>
          {current ? openChallenge() : removeBlur()}
       </>
