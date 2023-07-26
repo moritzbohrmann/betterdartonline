@@ -6,6 +6,8 @@ import collectedReducers from "./state/ReducerCollection";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const store = createStore(collectedReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -13,6 +15,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
    <BrowserRouter>
       <Provider store={store}>
          <App />
+         <ToastContainer
+            position="bottom-right"
+            autoClose={1500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            pauseOnFocusLoss={false}
+            rtl={false}
+            theme="colored"
+         />
       </Provider>
    </BrowserRouter>
 );

@@ -1,4 +1,3 @@
-import $ from "jquery";
 import Challenge from "./ChallengePopUp";
 import React from "react";
 import Settings from "./SettingsWindow";

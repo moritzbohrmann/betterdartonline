@@ -4,6 +4,7 @@ import UIButton from "../components/UIButton";
 import UIWindow from "../components/UIWindow";
 import { useSocket } from "../context/SocketContext";
 import { useProfile } from "../hooks/useProfile";
+import { toast } from "react-toastify";
 
 function ProfileWindow() {
    const [profile, setProfile] = useProfile();
@@ -15,11 +16,16 @@ function ProfileWindow() {
    const handleJoin = () => {
       setProfile(profilePreview);
 
-      if (!socket.connected) return;
+      if (!socket.connected) {
+         toast.error("Keine Verbindung zum Server!");
+         return;
+      }
 
       socket.emit("join", profilePreview);
 
       setJoined(true);
+
+      toast.success("Erfolgreich mit Server verbunden!");
    };
 
    const handleQuit = () => {
@@ -27,6 +33,8 @@ function ProfileWindow() {
       socket.emit("quit", profilePreview);
 
       setJoined(false);
+
+      toast.info("Verbindung zum Server getrennt!");
    };
 
    return (
@@ -51,7 +59,8 @@ function ProfileWindow() {
                         return { ...profilePreview, scoremode: e.target.value };
                      })
                   }
-                  defaultValue={profile.scoremode}>
+                  defaultValue={profile.scoremode}
+               >
                   <option value={"301"}>301</option>
                   <option value={"501"}>501</option>
                </select>
@@ -64,7 +73,8 @@ function ProfileWindow() {
                         return { ...profilePreview, gamemode: e.target.value };
                      })
                   }
-                  defaultValue={profile.gamemode}>
+                  defaultValue={profile.gamemode}
+               >
                   <option value={"firstto"}>First to</option>
                   <option value={"bestof"}>Best of</option>
                </select>

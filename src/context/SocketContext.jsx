@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { useProfile } from "../hooks/useProfile";
+import { toast } from "react-toastify";
 
 const SocketContext = createContext();
 
@@ -52,9 +53,13 @@ const initSocket = (socket) => {
       socket.on("request-revoke", (player) => {
          dispatch(playerlist.removeRequestReceived(player));
          dispatch(playerlist.removeCurrentRequest(player));
+
+         toast.info(`Anfrage zurückgezogen von ${player.username}!`);
       });
       socket.on("match-start", (_match) => {
          dispatch(match.setMatch(_match));
+
+         toast.info(`Matchdaten werden geladen...`);
 
          setTimeout(() => (window.location.href = "/match"), 2000);
       });
