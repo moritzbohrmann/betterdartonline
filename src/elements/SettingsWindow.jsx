@@ -1,6 +1,7 @@
 import React from "react";
 import Toggler from "../components/UIToggler";
 import UIWindow from "../components/UIWindow";
+import { useProfile } from "../state/ProfileReducer";
 
 function Settings() {
    return (

@@ -14,10 +14,13 @@ function PlayerlistWindow() {
          title="Spielerliste"
          list={playerlist}
          onClick={(player) => {
-            if (socket.connected) {
-               dispatch(addRequestSent(player));
-               socket.emit("request", player);
-            } else toast.error("Fehler: Du bist nicht eingeloggt!");
+            if (!socket.connected) {
+               toast.error("Fehler: Du bist nicht eingeloggt!");
+               return;
+            }
+
+            dispatch(addRequestSent(player));
+            socket.emit("request", player);
          }}>
          <div className="flex h-10 w-32 rounded-md bg-black/20">
             <p className="m-auto font-secondary font-bold text-white-default">{playerlist.length} Spieler</p>

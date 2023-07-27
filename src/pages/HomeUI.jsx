@@ -1,5 +1,6 @@
 import ChallengeWindow from "../elements/ChallengeWindow";
 import FilterWindow from "../elements/FilterWindow";
+import MatchOverviewWindow from "../elements/MatchOverviewWindow";
 import Navigation from "../elements/NavigationBar";
 import PlayerlistWindow from "../elements/PlayerlistWindow";
 import PopupWindow from "../elements/PopupWindow";
@@ -18,6 +19,7 @@ function HomeUI() {
                </div>
                <PlayerlistWindow />
                <ChallengeWindow />
+               <MatchOverviewWindow />
             </div>
             <PopupWindow />
          </div>

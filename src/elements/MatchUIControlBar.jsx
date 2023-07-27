@@ -1,13 +1,13 @@
 import $ from "jquery";
 import React from "react";
 import UIButton from "../components/UIButton";
-import { useProfile } from "../hooks/useProfile";
 import { useMatch } from "../state/MatchReducer";
+import { useProfile } from "../state/ProfileReducer";
 import { addBlur } from "../utils/StyleUtils";
 
 function MatchUIControl() {
    const { currentLeg } = useMatch();
-   const [profile] = useProfile();
+   const profile = useProfile();
 
    const toggleCorrectionWindowVisibility = () => {
       if (currentLeg.scores.filter((score) => score.player.id === profile.id).length === 0) return;

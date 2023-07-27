@@ -1,10 +1,10 @@
 import React from "react";
-import { useProfile } from "../hooks/useProfile";
 import { useMatch } from "../state/MatchReducer";
+import { useProfile } from "../state/ProfileReducer";
 
 function MatchUITableRow({ socket, index }) {
    const { currentLeg } = useMatch();
-   const [profile] = useProfile();
+   const profile = useProfile();
    const throwFirst = currentLeg.throw === profile.id;
    const lastScore = currentLeg.scores.at(-1);
    const nextToThrow = lastScore?.next.id === profile.id;
@@ -22,8 +22,7 @@ function MatchUITableRow({ socket, index }) {
    return (
       <tr
          key={`${profile.id} ${index}`}
-         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}
-      >
+         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}>
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
             <input
                className={`h-full w-full ${

@@ -3,8 +3,8 @@ import * as playerlist from "../state/PlayerlistReducer";
 import React, { createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { useDispatch } from "react-redux";
-import { useProfile } from "../hooks/useProfile";
 import { toast } from "react-toastify";
+import { useProfile } from "../state/ProfileReducer";
 
 const SocketContext = createContext();
 
@@ -26,7 +26,7 @@ const SocketProvider = ({ address, children }) => {
 
 const initSocket = (socket) => {
    const dispatch = useDispatch();
-   const [profile] = useProfile();
+   const profile = useProfile();
 
    useEffect(() => {
       socket.on("join", (player) => {
