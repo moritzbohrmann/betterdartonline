@@ -1,6 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { initialsOf, isPlayer, legAverageOf, matchAverageOf } from "../utils/MatchUtils";
+import { useNextPlayer } from "../state/MatchReducer";
 
 const PlayerProfileWindow = ({ match, currentLeg, profile }) => {
    const left = currentLeg.scores.filter((score) => isPlayer(score.player, profile)).at(-1)?.left;
@@ -11,6 +12,8 @@ const PlayerProfileWindow = ({ match, currentLeg, profile }) => {
       HIGHFINISH: filteredAchievements.filter((a) => a.type === "HIGHFINISH").map((a) => a.value),
       SHORTLEG: filteredAchievements.filter((a) => a.type === "SHORTLEG").map((a) => a.value),
    };
+
+   const [nextPlayer] = useNextPlayer();
 
    React.useEffect(() => {
       $(`#sw-${profile.id}`).mouseenter(() => {
@@ -26,14 +29,21 @@ const PlayerProfileWindow = ({ match, currentLeg, profile }) => {
       };
    }, []);
 
+   /**
+    ${
+            currentLeg.scores.length > 0
+               ? isPlayer(profile, currentLeg.scores.at(-1)?.next) === true && "border-4 border-yellow-400"
+               : isPlayer(profile, { id: currentLeg.throw }) === true && "border-4 border-yellow-400"
+         }
+    */
+
    return (
       <div
          id={`sw-${profile.id}`}
          className={`mx-auto flex h-48 w-5/12 bg-dark-background brightness-110 md:my-auto md:rounded-md ${
-            currentLeg.scores.length > 0
-               ? isPlayer(profile, currentLeg.scores.at(-1)?.next) === true && "border-4 border-yellow-400"
-               : isPlayer(profile, { id: currentLeg.throw }) === true && "border-4 border-yellow-400"
-         }`}>
+            nextPlayer === profile && "border-4 border-yellow-400"
+         }`}
+      >
          {showStats === false ? (
             <div className="m-auto flex flex-col items-center justify-center xl:flex-row xl:gap-8 2xl:gap-16">
                <div className="flex h-16 w-20 rounded-md bg-gray-300 font-sans text-4xl font-bold text-gray-500 md:w-48 lg:text-6xl xl:h-36 xl:w-36">

@@ -48,7 +48,8 @@ function ProfileWindow() {
                <select
                   className="h-9 w-20 rounded-md bg-dark-title text-center text-white-default outline-none"
                   onChange={(e) => dispatch(setScoremode(e.target.value))}
-                  defaultValue={profile.scoremode}>
+                  defaultValue={profile.scoremode}
+               >
                   <option value={301}>301</option>
                   <option value={501}>501</option>
                </select>
@@ -57,7 +58,8 @@ function ProfileWindow() {
                <select
                   className="h-9 w-20 rounded-md bg-dark-title text-center text-white-default outline-none"
                   onChange={(e) => dispatch(setGamemode(e.target.value))}
-                  value={profile.gamemode}>
+                  value={profile.gamemode}
+               >
                   <option value={"firstto"}>First to</option>
                   <option value={"bestof"}>Best of</option>
                </select>

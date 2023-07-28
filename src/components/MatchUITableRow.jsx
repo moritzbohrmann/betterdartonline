@@ -1,15 +1,19 @@
 import React from "react";
-import { useMatch } from "../state/MatchReducer";
+import { useMatch, useNextPlayer } from "../state/MatchReducer";
 import { useProfile } from "../state/ProfileReducer";
 
 function MatchUITableRow({ socket, index }) {
-   const { currentLeg } = useMatch();
+   /*const { currentLeg } = useMatch();
    const profile = useProfile();
    const throwFirst = currentLeg.throw === profile.id;
    const lastScore = currentLeg.scores.at(-1);
    const nextToThrow = lastScore?.next.id === profile.id;
    const equalRound = index === (throwFirst ? lastScore?.round + 1 : lastScore?.round);
-   const inputAvailable = currentLeg.scores.length === 0 ? throwFirst && index === 0 : nextToThrow && equalRound;
+   const inputAvailable = currentLeg.scores.length === 0 ? throwFirst && index === 0 : nextToThrow && equalRound;*/
+
+   const [nextPlayer, round] = useNextPlayer();
+   const inputAvailable = nextPlayer && round === index;
+
    const score = {
       host: currentLeg.scores.filter((score) => score.player.id === profile.id)[index],
       guest: currentLeg.scores.filter((score) => score.player.id !== profile.id)[index],
@@ -22,7 +26,8 @@ function MatchUITableRow({ socket, index }) {
    return (
       <tr
          key={`${profile.id} ${index}`}
-         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}>
+         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}
+      >
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
             <input
                className={`h-full w-full ${

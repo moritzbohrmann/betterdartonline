@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const match = JSON.parse(localStorage.getItem("match"));
@@ -104,6 +105,26 @@ export const removeAchievement = (achievement) => {
 
 export const useMatch = () => {
    return useSelector((state) => state.match);
+};
+
+export const useNextPlayer = () => {
+   const { match, currentLeg } = useMatch();
+
+   const [nextPlayer, setNextPlayer] = useState(null);
+   const [round, setRound] = useState(0);
+
+   useEffect(() => {
+      if (currentLeg.scores.length === 0) {
+         setNextPlayer(currentLeg.throw === match.players.host ? match.players.host : match.players.guest);
+         setRound(0);
+         return;
+      }
+
+      setRound(currentLeg.scores.at(-1).round);
+      setPlayer(currentLeg.scores.at(-1).next);
+   }, [currentLeg]);
+
+   return [nextPlayer, round];
 };
 
 export default matchReducer;
