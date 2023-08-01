@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 const initialState = {
    socket: null,
    connected: false,
@@ -17,6 +19,10 @@ const socketReducer = (state = initialState, action) => {
       default:
          return state;
    }
+};
+
+export const useSocket = () => {
+   return useSelector((state) => state.socket);
 };
 
 export default socketReducer;

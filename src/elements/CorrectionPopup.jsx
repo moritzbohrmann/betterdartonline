@@ -1,9 +1,9 @@
-import React from "react";
-import UIWindow from "../components/UIWindow";
-import InputField from "../components/InputField";
-import { useSocket } from "../context/SocketContext";
 import $ from "jquery";
+import InputField from "../components/InputField";
+import React from "react";
 import UIButton from "../components/UIButton";
+import UIWindow from "../components/UIWindow";
+import { useSocket } from "../context/SocketContext";
 import { removeBlur } from "../utils/StyleUtils";
 
 function CorrectionPopup() {
@@ -16,15 +16,9 @@ function CorrectionPopup() {
       handleAbort();
    };
    const handleAbort = () => {
-      correctionRef.current.value = "";
-
       $("#corwin").addClass("hidden");
       removeBlur("#matchuicontrolbar, #matchuihead, #matchuitable");
    };
-
-   React.useEffect(() => {
-      correctionRef.current.focus();
-   });
 
    return (
       <UIWindow id="corwin" title="Korrektur" className="fixed top-80 hidden h-64 bg-dark-background">

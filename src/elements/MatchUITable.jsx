@@ -24,7 +24,7 @@ function MatchUITable() {
    }, [currentLeg]);
 
    useBeforeUnload(() => {
-      dispatch(Match.setLeg(match.legs.length - 1, currentLeg));
+      dispatch(Match.setLeg(-1, currentLeg));
 
       localStorage.setItem("match", JSON.stringify(match));
    });
@@ -71,7 +71,7 @@ const TableRowCollector = (props) => {
 const ScorePopup = ({ score }) => {
    return (
       <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-min rounded-xl bg-white px-20 md:top-1/3 md:h-48">
-         <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{score ? score.value : `Checkout`}!</h4>
+         <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{score ? score.value : "Checkout"}!</h4>
       </div>
    );
 };

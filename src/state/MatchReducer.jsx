@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { isPlayer, legAverageOf, matchAverageOf } from "../utils/MatchUtils";
+import { useProfile } from "./ProfileReducer";
 
 const match = JSON.parse(localStorage.getItem("match"));
 
@@ -107,24 +109,71 @@ export const useMatch = () => {
    return useSelector((state) => state.match);
 };
 
-export const useNextPlayer = () => {
+export const useLegAverage = (player) => {
+   const { currentLeg } = useMatch();
+
+   return legAverageOf(currentLeg, player);
+};
+
+export const useMatchAverage = (player) => {
    const { match, currentLeg } = useMatch();
 
-   const [nextPlayer, setNextPlayer] = useState(null);
-   const [round, setRound] = useState(0);
+   return matchAverageOf(match, currentLeg, player);
+};
+
+export const useLastScore = (player) => {
+   const { currentLeg } = useMatch();
+
+   return currentLeg.scores.filter((score) => isPlayer(score.player, player)).at(-1);
+};
+
+export const useAchievements = (player) => {
+   const { match } = useMatch();
+
+   return match.achievements.filter((achievement) => isPlayer(achievement.player, player));
+};
+
+export const useScores = (index) => {
+   const { currentLeg } = useMatch();
+   const profile = useProfile();
+   const [hostScore, setHostScore] = useState(0);
+   const [guestScore, setGuestScore] = useState(0);
 
    useEffect(() => {
       if (currentLeg.scores.length === 0) {
-         setNextPlayer(currentLeg.throw === match.players.host ? match.players.host : match.players.guest);
-         setRound(0);
+         setHostScore(null);
+         setGuestScore(null);
          return;
       }
 
-      setRound(currentLeg.scores.at(-1).round);
-      setPlayer(currentLeg.scores.at(-1).next);
+      const lastScore = currentLeg.scores.at(-1);
+
+      if (lastScore.round === index) {
+         if (isPlayer(lastScore.player, profile)) setHostScore(lastScore);
+         else setGuestScore(lastScore);
+      }
    }, [currentLeg]);
 
-   return [nextPlayer, round];
+   return { host: hostScore, guest: guestScore };
+};
+
+export const useNextPlayer = () => {
+   const { match, currentLeg } = useMatch();
+   const lastScore = currentLeg.scores.at(-1);
+   const throwFirst = currentLeg.throw === match.players.host.id ? match.players.host : match.players.guest;
+
+   const checkPlayer = lastScore ? lastScore.next : throwFirst;
+   const checkRound = currentLeg.scores.filter((score) => isPlayer(score.player, checkPlayer)).length;
+
+   const [nextPlayer, setNextPlayer] = useState(checkPlayer);
+   const [nextRound, setNextRound] = useState(checkRound);
+
+   useEffect(() => {
+      setNextRound(checkRound);
+      setNextPlayer(checkPlayer);
+   }, [currentLeg]);
+
+   return [nextPlayer, nextRound];
 };
 
 export default matchReducer;

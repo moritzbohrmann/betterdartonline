@@ -1,42 +1,30 @@
 import React from "react";
-import { useMatch, useNextPlayer } from "../state/MatchReducer";
+import { useSocket } from "../context/SocketContext";
+import { useNextPlayer, useScores } from "../state/MatchReducer";
 import { useProfile } from "../state/ProfileReducer";
+import { isPlayer } from "../utils/MatchUtils";
 
-function MatchUITableRow({ socket, index }) {
-   /*const { currentLeg } = useMatch();
+function MatchUITableRow({ index }) {
+   const socket = useSocket();
    const profile = useProfile();
-   const throwFirst = currentLeg.throw === profile.id;
-   const lastScore = currentLeg.scores.at(-1);
-   const nextToThrow = lastScore?.next.id === profile.id;
-   const equalRound = index === (throwFirst ? lastScore?.round + 1 : lastScore?.round);
-   const inputAvailable = currentLeg.scores.length === 0 ? throwFirst && index === 0 : nextToThrow && equalRound;*/
-
-   const [nextPlayer, round] = useNextPlayer();
-   const inputAvailable = nextPlayer && round === index;
-
-   const score = {
-      host: currentLeg.scores.filter((score) => score.player.id === profile.id)[index],
-      guest: currentLeg.scores.filter((score) => score.player.id !== profile.id)[index],
-   };
-
-   const emitScore = (score) => {
-      socket.emit("score", score);
-   };
+   const [nextPlayer, nextRound] = useNextPlayer();
+   const inputAvailable = React.useMemo(() => isPlayer(nextPlayer, profile) && nextRound === index, [nextPlayer]);
+   const score = useScores(index);
 
    return (
       <tr
          key={`${profile.id} ${index}`}
-         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}
-      >
+         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}>
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
             <input
                className={`h-full w-full ${
                   inputAvailable ? "bg-yellow-400 text-dark-background" : "bg-transparent text-white-default"
                } text-center outline-none`}
                type="number"
-               value={currentLeg.scores.length > 0 ? score.host?.value : null}
+               defaultValue={score.host?.value}
+               autoFocus={inputAvailable}
                readOnly={!inputAvailable}
-               onKeyUp={(e) => !e.target.readOnly && e.key === "Enter" && emitScore({ player: profile, value: Number(e.target.value) })}
+               onKeyUp={(e) => !e.target.readOnly && e.key === "Enter" && socket.emit("score", { player: profile, value: Number(e.target.value) })}
             />
          </td>
          <td className="w-1/5 transition-opacity hover:opacity-80">{score.host?.left}</td>
