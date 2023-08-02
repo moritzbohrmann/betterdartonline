@@ -40,13 +40,13 @@ const PlayerStatsWindow = ({ player }) => {
                <h2>
                   ♛-Leg:{" "}
                   <span className="font-bold text-yellow-500">
-                     {sortedAchievements.SHORTLEG.length > 0 ? Math.min(sortedAchievements.SHORTLEG) * 3 : "✖"}
+                     {sortedAchievements.SHORTLEG.length > 0 ? `${Math.min.apply(Math, sortedAchievements.SHORTLEG)}. Runde` : "✖"}
                   </span>
                </h2>
                <h2>
                   ♛-Checkout:{" "}
                   <span className="font-bold text-yellow-500">
-                     {sortedAchievements.HIGHFINISH.length > 0 ? Math.max(sortedAchievements.HIGHFINISH) : "✖"}
+                     {sortedAchievements.HIGHFINISH.length > 0 ? Math.max.apply(Math, sortedAchievements.HIGHFINISH) : "✖"}
                   </span>
                </h2>
                <h2>
@@ -58,7 +58,7 @@ const PlayerStatsWindow = ({ player }) => {
             </div>
          ) : (
             <div className="m-auto flex flex-col items-center justify-center xl:flex-row xl:gap-8 2xl:gap-16">
-               <div className="flex h-16 w-20 rounded-md bg-gray-300 font-sans text-4xl font-bold text-gray-500 md:w-48 lg:text-6xl xl:h-36 xl:w-36">
+               <div className="flex h-16 w-20 rounded-md bg-gray-300 font-sans text-4xl font-bold text-gray-500 md:w-48 lg:text-5xl xl:h-36 xl:w-36">
                   <h3 className="m-auto">{initialsOf(player.username)}</h3>
                </div>
                <div className="flex flex-col md:flex-row">

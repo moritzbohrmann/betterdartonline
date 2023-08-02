@@ -40,7 +40,7 @@ function MatchUITableRow({ index }) {
          <td ref={(element) => (scoreRef.current[1] = element)} className="w-1/5 transition-opacity hover:opacity-80">
             {score.host?.left}
          </td>
-         <td className={`order-slate-200 w-1/5 ${score.host?.value >= 91 && "border-l-4"} ${score.guest?.value >= 91 && "border-r-4"}`}>
+         <td className={`w-1/5 border-slate-200 ${score.host?.value >= 91 && "border-l-4"} ${score.guest?.value >= 91 && "border-r-4"}`}>
             {(index + 1) * 3}
          </td>
          <td ref={(element) => (scoreRef.current[2] = element)} className="w-1/5 transition-opacity hover:opacity-80">
