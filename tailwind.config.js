@@ -5,7 +5,8 @@ export default {
       extend: {
          fontFamily: {
             primary: ["Satoshi", "sans-serif"],
-            secondary: "sans-serif",
+            secondary: ["DM Sans", "sans-serif"],
+            sans: ["DM Sans", "sans-serif"],
          },
          textColor: {
             white: {
@@ -23,6 +24,12 @@ export default {
                button: "#993bff",
                input: "#17161d",
                title: "#1e1d26",
+            },
+         },
+         ringColor: {
+            dark: {
+               background: "#19191d",
+               window: "#21202a",
             },
          },
          borderColor: {
