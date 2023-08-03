@@ -5,7 +5,7 @@ export default {
       extend: {
          fontFamily: {
             primary: ["Satoshi", "sans-serif"],
-            secondary: ["proxima nova", "sans-serif"],
+            secondary: "sans-serif",
          },
          textColor: {
             white: {

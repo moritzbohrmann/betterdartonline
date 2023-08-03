@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UIButton from "../components/UIButton";
 import logo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 
 function Navigation(props) {
    const [settingsVisible, setSettingsVisible] = useState(false);
@@ -11,22 +12,14 @@ function Navigation(props) {
    };
 
    return (
-      <div {...props} className="flex h-28 w-full flex-col items-center justify-around p-4 md:flex-row lg:h-28 lg:justify-between lg:px-20">
-         <img src={logo} className="w-52 xl:w-60" />
-         <div className="hidden w-96 items-center justify-center gap-2 rounded-md bg-yellow-500 py-1 xl:visible xl:flex">
-            <button className="w-8 rounded-md bg-yellow-600 py-0.5 font-bold text-dark-background">{"<"}</button>
-            <h1 className="text-md font-secondary text-dark-background">
-               Moritz Bohrmann <span className="font-bold">4 : 1</span> Michael Mietasch
-            </h1>
-            <button className="w-8 rounded-md bg-yellow-600 py-0.5 font-bold text-dark-background">{">"}</button>
-         </div>
-         <ul className="flex gap-2 lg:flex-row">
-            <UIButton>Start</UIButton>
-            <UIButton onClick={toggleSettingsVisibility}>
-               <Link to={settingsVisible ? "/home/settings" : "/home"}>Einstellungen</Link>
-            </UIButton>
-         </ul>
-      </div>
+      <NavigationMenu.Root className="relative flex w-screen justify-center bg-blue-500">
+         <NavigationMenu.List className="my-2 rounded-lg bg-red-200 p-1">
+            <NavigationMenu.Item>
+               <NavigationMenu.Trigger className="rounded-lg bg-blue-300 px-6 py-2">Start</NavigationMenu.Trigger>
+               <NavigationMenu.Content className="absolute">Hi</NavigationMenu.Content>
+            </NavigationMenu.Item>
+         </NavigationMenu.List>
+      </NavigationMenu.Root>
    );
 }
 
