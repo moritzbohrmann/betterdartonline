@@ -1,13 +1,13 @@
 import * as Match from "../state/MatchReducer";
 import DartIcon from "../assets/dart.png";
-import MatchUITableRow from "../components/MatchUITableRow";
 import React from "react";
 import ScoreIcon from "../assets/score.png";
+import ScoreTableRow from "../components/ScoreTableRow";
 import { useDispatch } from "react-redux";
 import { useBeforeUnload } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 
-function MatchUITable() {
+function ScoreTable() {
    const { match, currentLeg } = Match.useMatch();
    const socket = useSocket();
    const dispatch = useDispatch();
@@ -63,11 +63,12 @@ const TableRowCollector = (props) => {
    let render = [];
 
    for (let i = 0; i <= 30; i++) {
-      render.push(<MatchUITableRow {...props} index={i} />);
+      render.push(<ScoreTableRow {...props} index={i} />);
    }
 
    return render;
 };
+
 const ScorePopup = ({ score }) => {
    return (
       <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-min rounded-xl bg-white px-20 md:top-1/3 md:h-48">
@@ -76,4 +77,4 @@ const ScorePopup = ({ score }) => {
    );
 };
 
-export default MatchUITable;
+export default ScoreTable;

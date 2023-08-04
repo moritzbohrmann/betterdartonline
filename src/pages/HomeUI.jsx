@@ -1,28 +1,28 @@
-import ChallengeWindow from "../elements/ChallengeWindow";
-import FilterWindow from "../elements/FilterWindow";
-import MatchOverviewWindow from "../elements/MatchOverviewWindow";
+import ChallengeDialog from "../elements/ChallengeDialog";
+import FilterCard from "../elements/FilterCard";
+import MatchlistCard from "../elements/MatchlistCard";
 import Navigation from "../elements/NavigationBar";
-import PlayerlistWindow from "../elements/PlayerlistWindow";
-import PopupWindow from "../elements/PopupWindow";
-import ProfileWindow from "../elements/ProfileWindow";
+import NewsletterCard from "../elements/NewsletterCard";
+import PlayerlistCard from "../elements/PlayerlistCard";
+import ProfileCard from "../elements/ProfileCard";
 import React from "react";
 
 function HomeUI() {
    return (
       <div className="m-0 flex flex-col items-center p-0">
          <Navigation id="homeui-navigation" />
-         <div className="mt-4 flex w-full flex-wrap justify-center pb-10 xl:mt-12 xl:w-3/4 xl:pb-0 ">
-            <div id="homeui-windows" className="flex w-full flex-wrap justify-center gap-4">
+         <div className="mt-4 flex w-full flex-wrap justify-center pb-10 xl:mt-12 xl:pb-0 ">
+            <div id="homeui-windows" className="mt-0 flex flex-wrap justify-center gap-4">
                <div className="flex flex-col gap-4">
-                  <ProfileWindow />
-                  <FilterWindow />
+                  <ProfileCard />
+                  <FilterCard />
                </div>
-               <PlayerlistWindow />
-               <ChallengeWindow />
-               <MatchOverviewWindow />
+               <PlayerlistCard />
+               <MatchlistCard />
             </div>
-            <PopupWindow />
+            <NewsletterCard />
          </div>
+         <ChallengeDialog />
       </div>
    );
 }

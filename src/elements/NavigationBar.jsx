@@ -1,29 +1,28 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Card, Title } from "../components/@ui/Card";
 
 function Navigation() {
-   const [settingsVisible, setSettingsVisible] = useState(false);
-
-   const toggleSettingsVisibility = () => {
-      return setSettingsVisible((settingsVisible) => (settingsVisible === true ? false : true));
-   };
-
    return (
-      <div className="flex w-screen flex-col items-center justify-between lg:flex-row">
-         <h4 className="ml-12 mt-4 font-sans text-xl font-bold text-white-default">Betterdartonline.</h4>
-         <NavigationMenu.Root className="relative flex">
-            <NavigationMenu.List className="mr-12 mt-4 flex">
+      <div className="sticky top-0 w-screen border-b-[1px] border-zinc-900 py-4 backdrop-blur-lg lg:flex-row">
+         <NavigationMenu.Root>
+            <NavigationMenu.List className="flex justify-center lg:justify-normal">
+               <NavigationMenu.Item>
+                  <h4 className="m-auto px-3 font-sans text-xl font-bold text-white-default lg:ml-80">betterdartonline</h4>
+               </NavigationMenu.Item>
                <NavigationMenu.Item>
                   <Trigger>Start</Trigger>
                </NavigationMenu.Item>
                <NavigationMenu.Item>
-                  <Trigger onClick={toggleSettingsVisibility}>
-                     <Link to={settingsVisible ? "./" : "./settings"}>Einstellungen</Link>
-                  </Trigger>
+                  <Trigger>Settings</Trigger>
+                  <NavigationMenu.Content className="fixed data-[state=open]:animate-contentShow">
+                     <Card className="absolute h-96 -translate-x-[14.5rem] bg-dark-background shadow-xl lg:-translate-x-0">
+                        <Title title="Settings" subTitle="Adjust the program to your preferences." />
+                     </Card>
+                  </NavigationMenu.Content>
                </NavigationMenu.Item>
                <NavigationMenu.Item>
-                  <Trigger>Live</Trigger>
+                  <Trigger>Playing</Trigger>
                </NavigationMenu.Item>
             </NavigationMenu.List>
          </NavigationMenu.Root>
@@ -34,7 +33,7 @@ function Navigation() {
 const Trigger = (props) => (
    <NavigationMenu.Trigger
       {...props}
-      className="rounded-sm px-6 py-1 font-secondary text-sm font-medium text-zinc-400 transition-all hover:text-white-default">
+      className="rounded-sm px-3 py-1 font-sans text-base font-semibold text-zinc-400 transition-all hover:text-white-default">
       {props.children}
    </NavigationMenu.Trigger>
 );

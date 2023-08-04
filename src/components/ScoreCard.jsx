@@ -2,7 +2,7 @@ import * as Match from "../state/MatchReducer";
 import React from "react";
 import { initialsOf, isPlayer } from "../utils/MatchUtils";
 
-const PlayerStatsWindow = ({ player }) => {
+const ScoreCard = ({ player }) => {
    const { match } = Match.useMatch();
    const [nextPlayer] = Match.useNextPlayer();
    const lastScore = Match.useLastScore(player);
@@ -32,7 +32,7 @@ const PlayerStatsWindow = ({ player }) => {
       <div
          onMouseEnter={(e) => handleMouse(e)}
          onMouseLeave={(e) => handleMouse(e)}
-         className={`mx-auto flex h-48 w-5/12 bg-dark-background brightness-110 md:my-auto md:rounded-md ${
+         className={`mx-auto flex h-48 w-5/12 ring-zinc-900 brightness-110 md:my-auto md:rounded-md 2xl:ring-1 ${
             isPlayer(player, nextPlayer) && "border-4 border-yellow-400"
          }`}>
          {showStats ? (
@@ -76,4 +76,4 @@ const PlayerStatsWindow = ({ player }) => {
    );
 };
 
-export default PlayerStatsWindow;
+export default ScoreCard;

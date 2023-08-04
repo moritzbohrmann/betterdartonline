@@ -10,17 +10,17 @@ export default {
          },
          textColor: {
             white: {
-               default: "#E0E0E0",
+               default: "#E3E3E3",
             },
             dark: {
-               background: "#19191d",
+               background: "#0a0a0a",
                window: "#21202a",
             },
          },
          backgroundColor: {
             dark: {
-               background: "#19191d",
-               window: "#21202a",
+               background: "#0a0a0a",
+               window: "#0F0F0F",
                button: "#993bff",
                input: "#17161d",
                title: "#1e1d26",
@@ -28,13 +28,13 @@ export default {
          },
          ringColor: {
             dark: {
-               background: "#19191d",
+               background: "#0a0a0a",
                window: "#21202a",
             },
          },
          borderColor: {
             dark: {
-               background: "#19191d",
+               background: "#0a0a0a",
                window: "#21202a",
             },
          },
@@ -57,6 +57,20 @@ export default {
             192: "64rem",
             208: "72rem",
             224: "80rem",
+         },
+         keyframes: {
+            overlayShow: {
+               from: { opacity: 0 },
+               to: { opacity: 1 },
+            },
+            contentShow: {
+               from: { opacity: 0, transform: "translate(-50%, -48%) scale(0.96)" },
+               to: { opacity: 1, transform: "translate(-50%, -50%) scale(1)" },
+            },
+         },
+         animation: {
+            overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+            contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
          },
       },
    },

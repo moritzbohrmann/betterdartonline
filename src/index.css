@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 :root {
-   background: linear-gradient(135deg, #170f28, #2d0d1c, #001102);
+   background: #0a0a0a;
    padding: 0;
    margin: 0;
    font-family: sans-serif;

@@ -1,8 +1,7 @@
-import CorrectionPopup from "../elements/CorrectionPopup";
-import MatchUIControl from "../elements/MatchUIControlBar";
-import MatchUIHead from "../elements/MatchUIHead";
-import MatchUITable from "../elements/MatchUITable";
+import MatchControlBar from "../elements/MatchControlBar";
 import React from "react";
+import ScoreHeader from "../elements/ScoreHeader";
+import ScoreTable from "../elements/ScoreTable";
 import { useDispatch } from "react-redux";
 import { useSocket } from "../context/SocketContext";
 import { useProfile } from "../state/ProfileReducer";
@@ -13,10 +12,9 @@ function MatchUI() {
 
    return (
       <div className="flex w-full flex-col items-center">
-         <MatchUIHead />
-         <MatchUITable />
-         <MatchUIControl />
-         <CorrectionPopup />
+         <ScoreHeader />
+         <ScoreTable />
+         <MatchControlBar />
       </div>
    );
 }

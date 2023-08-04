@@ -4,7 +4,7 @@ import { useMatch, useNextPlayer, useScores } from "../state/MatchReducer";
 import { useProfile } from "../state/ProfileReducer";
 import { isPlayer } from "../utils/MatchUtils";
 
-function MatchUITableRow({ index }) {
+function ScoreTableRow({ index }) {
    const { currentLeg } = useMatch();
    const socket = useSocket();
    const profile = useProfile();
@@ -18,6 +18,8 @@ function MatchUITableRow({ index }) {
 
    React.useEffect(() => {
       currentLeg.scores.length === 0 && scoreRef.current.forEach((ref) => (ref.value = ""));
+
+      if (index <= 8) console.log(score);
    }, [currentLeg]);
 
    return (
@@ -58,4 +60,4 @@ function MatchUITableRow({ index }) {
    );
 }
 
-export default MatchUITableRow;
+export default ScoreTableRow;
