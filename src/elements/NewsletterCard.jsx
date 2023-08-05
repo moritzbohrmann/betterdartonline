@@ -21,7 +21,7 @@ function NewsletterCard() {
    };
 
    return (
-      <Card className="mt-4  xl:w-[74rem]">
+      <Card className="xl:w-[74rem]">
          <Title title="Newsletter" subTitle="Subscribe to our newsletter so you don't miss an update!" />
          <div className="grid">
             <div className="m-auto flex flex-col items-center justify-between gap-4 xl:flex-row xl:gap-8">

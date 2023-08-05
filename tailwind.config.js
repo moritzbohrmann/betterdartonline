@@ -10,7 +10,7 @@ export default {
          },
          textColor: {
             white: {
-               default: "#E3E3E3",
+               default: "#d1d1d1",
             },
             black: {
                default: "#1c1c1c",

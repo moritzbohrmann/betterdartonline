@@ -9,17 +9,15 @@ import React from "react";
 
 function HomeUI() {
    return (
-      <div className="m-0 flex flex-col items-center p-0">
+      <div className="m-0 flex flex-col items-center pb-8">
          <Navigation id="homeui-navigation" />
-         <div className="mt-4 flex w-full flex-wrap justify-center pb-10 xl:mt-12 xl:pb-0 ">
-            <div id="homeui-windows" className="mt-0 flex flex-wrap justify-center gap-4">
-               <div className="flex flex-col gap-4">
-                  <ProfileCard />
-                  <FilterCard />
-               </div>
-               <PlayerlistCard />
-               <MatchlistCard />
+         <div className="mt-4 flex w-5/6 flex-wrap justify-center gap-4 pb-10 xl:mt-12 xl:pb-0">
+            <div className="flex flex-col gap-4">
+               <ProfileCard />
+               <FilterCard />
             </div>
+            <PlayerlistCard />
+            <MatchlistCard />
             <NewsletterCard />
          </div>
          <ChallengeDialog />

@@ -5,7 +5,9 @@ export const Card = (props) => {
    const [theme] = useTheme();
 
    return (
-      <div className={`flex w-[24rem] flex-col rounded-lg border-[1px] border-zinc-900 px-10 py-8 font-sans ${theme.textColor} ${props.className}`}>
+      <div
+         className={`flex w-[24rem] flex-col rounded-lg border-[1px] ${theme.backgroundColor} border-zinc-900 px-10 py-8 font-sans ${theme.textColor} ${props.className}`}
+      >
          {props.children}
       </div>
    );

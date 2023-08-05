@@ -1,11 +1,9 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import * as Switch from "@radix-ui/react-switch";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { MaskOffIcon, MaskOnIcon } from "@radix-ui/react-icons";
-import { Card, Title } from "../components/@ui/Card";
-import { ThemeStyle, ThemeType, useTheme } from "../context/ThemeContext";
+import { Card } from "../components/@ui/Card";
+import { useTheme } from "../context/ThemeContext";
 
 function Navigation() {
    const [theme] = useTheme();
@@ -57,7 +55,8 @@ const Trigger = (props) => {
    return (
       <NavigationMenu.Trigger
          {...props}
-         className={`rounded-sm px-3 py-1 font-sans text-base font-semibold text-zinc-400 transition-all hover:${theme.textColor}`}>
+         className={`rounded-sm px-3 py-1 font-sans text-base font-semibold text-zinc-400 transition-all hover:${theme.textColor}`}
+      >
          {props.children}
       </NavigationMenu.Trigger>
    );
