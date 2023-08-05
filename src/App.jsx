@@ -3,10 +3,13 @@ import HomeUI from "./pages/HomeUI";
 import MatchUI from "./pages/MatchUI";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { SocketProvider } from "./context/SocketContext";
+import { useTheme } from "./context/ThemeContext";
 
 function App() {
+   const [theme] = useTheme();
+
    return (
-      <>
+      <div className={`h-screen w-screen ${theme.backgroundColor}`}>
          <Routes>
             <Route path="*" element={<Navigate to={"/home"} />} />
             <Route
@@ -27,7 +30,7 @@ function App() {
                }
             />
          </Routes>
-      </>
+      </div>
    );
 }
 

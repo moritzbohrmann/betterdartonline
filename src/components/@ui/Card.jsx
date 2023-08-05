@@ -1,20 +1,22 @@
-import * as RadixForm from "@radix-ui/react-form";
 import React from "react";
+import { useTheme } from "../../context/ThemeContext";
 
 export const Card = (props) => {
+   const [theme] = useTheme();
+
    return (
-      <RadixForm.Root
-         onSubmit={(e) => e.preventDefault()}
-         className={`flex w-[24rem] flex-col rounded-lg border-[1px] border-zinc-900 px-10 py-8 font-sans ${props.className}`}>
+      <div className={`flex w-[24rem] flex-col rounded-lg border-[1px] border-zinc-900 px-10 py-8 font-sans ${theme.textColor} ${props.className}`}>
          {props.children}
-      </RadixForm.Root>
+      </div>
    );
 };
 
 export const Title = ({ title, subTitle }) => {
+   const [theme] = useTheme();
+
    return (
       <div className="pb-8">
-         <h4 className="text-3xl font-bold text-white-default">{title}</h4>
+         <h4 className={`text-3xl font-bold ${theme.textColor}`}>{title}</h4>
          <p className="text-lg text-zinc-500">{subTitle}</p>
       </div>
    );

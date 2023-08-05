@@ -12,18 +12,26 @@ export default {
             white: {
                default: "#E3E3E3",
             },
+            black: {
+               default: "#1c1c1c",
+            },
             dark: {
                background: "#0a0a0a",
                window: "#21202a",
+            },
+            light: {
+               background: "#f5f5f5",
+               window: "#dedfd5",
             },
          },
          backgroundColor: {
             dark: {
                background: "#0a0a0a",
                window: "#0F0F0F",
-               button: "#993bff",
-               input: "#17161d",
-               title: "#1e1d26",
+            },
+            light: {
+               background: "#f5f5f5",
+               window: "#0F0F0F",
             },
          },
          ringColor: {
@@ -31,11 +39,23 @@ export default {
                background: "#0a0a0a",
                window: "#21202a",
             },
+            light: {
+               background: "#f5f5f5",
+               window: "#0F0F0F",
+            },
          },
          borderColor: {
             dark: {
                background: "#0a0a0a",
                window: "#21202a",
+               500: "#71717a",
+               900: "#18181b",
+            },
+            light: {
+               background: "#f5f5f5",
+               window: "#0F0F0F",
+               500: "#8e8e85",
+               900: "#e7e7e4",
             },
          },
 

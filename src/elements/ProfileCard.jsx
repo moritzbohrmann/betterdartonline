@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Card, Title } from "../components/@ui/Card";
 import { useSocket } from "../context/SocketContext";
+import { useTheme } from "../context/ThemeContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { setGamemode, setLegamount, setScoremode, setUsername, useProfile } from "../state/ProfileReducer";
 
@@ -14,6 +15,7 @@ function ProfileCard() {
    const dispatch = useDispatch();
    const [joined, setJoined] = React.useState(false);
    const socket = useSocket();
+   const [theme] = useTheme();
 
    const handleJoin = () => {
       setStorageProfile(profile);
@@ -42,9 +44,9 @@ function ProfileCard() {
          <div className="flex flex-col gap-2">
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md text-white-default">Username</h2>
+                  <h2 className="text-md ">Username</h2>
                   <input
-                     className="h-8 w-48 rounded-md border-[1px] border-zinc-900 bg-dark-background px-4 text-white-default outline-none"
+                     className={`h-8 w-48 rounded-md border-[1px] border-zinc-900 ${theme.backgroundColor} px-4 outline-none`}
                      type="text"
                      placeholder="your username"
                      defaultValue={profile.username}
@@ -55,7 +57,7 @@ function ProfileCard() {
             </div>
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md text-white-default">Points</h2>
+                  <h2 className="text-md">Points</h2>
                   <Select onChange={(e) => dispatch(setScoremode(e.target.value))} defaultValue={profile.scoremode}>
                      {[301, 501, 701, 1001, 2001, 3001].map((score) => {
                         return <option value={score}>{score}</option>;
@@ -65,7 +67,7 @@ function ProfileCard() {
             </div>
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md text-white-default">Mode</h2>
+                  <h2 className="text-md">Mode</h2>
                   <Select onChange={(e) => dispatch(setGamemode(e.target.value))} value={profile.gamemode}>
                      {["firstto", "bestof"].map((mode) => {
                         return <option value={mode}>{mode}</option>;
@@ -75,9 +77,9 @@ function ProfileCard() {
             </div>
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md text-white-default">Legs</h2>
+                  <h2 className="text-md">Legs</h2>
                   <input
-                     className="h-8 w-48 rounded-md border-[1px] border-zinc-900 bg-dark-background px-4 text-white-default outline-none"
+                     className={`h-8 w-48 rounded-md border-[1px] border-zinc-900 ${theme.backgroundColor} px-4 outline-none`}
                      value={profile.legamount}
                      type={"number"}
                      min={1}
