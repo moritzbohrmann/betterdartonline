@@ -18,7 +18,9 @@ function HomeUI() {
             </div>
             <PlayerlistCard />
             <MatchlistCard />
-            <NewsletterCard />
+            <div className="w-96 2xl:w-[74rem]">
+               <NewsletterCard />
+            </div>
          </div>
          <ChallengeDialog />
       </div>

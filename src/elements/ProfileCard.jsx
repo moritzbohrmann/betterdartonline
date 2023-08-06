@@ -1,9 +1,11 @@
-import Button from "../components/@ui/Button";
 import React from "react";
-import Select from "../components/@ui/Select";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { Button } from "../components/@ui/Button";
 import { Card, Title } from "../components/@ui/Card";
+import { Input } from "../components/@ui/Input";
+import { Select } from "../components/@ui/Select";
+import { Text } from "../components/@ui/Text";
 import { useSocket } from "../context/SocketContext";
 import { useTheme } from "../context/ThemeContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -26,7 +28,7 @@ function ProfileCard() {
 
       setJoined(true);
 
-      toast.success("Verbindung zum Server aufgebaut!");
+      toast.success("You joined the server!");
    };
 
    const handleQuit = () => {
@@ -35,7 +37,7 @@ function ProfileCard() {
 
       setJoined(false);
 
-      toast.info("Verbindung zum Server getrennt!");
+      toast.info("You left the server!");
    };
 
    return (
@@ -44,20 +46,18 @@ function ProfileCard() {
          <div className="flex flex-col gap-2">
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md ">Username</h2>
-                  <input
-                     className={`h-8 w-48 rounded-md border-[1px] border-zinc-900 ${theme.backgroundColor} px-4 outline-none`}
-                     type="text"
-                     placeholder="your username"
+                  <Text>Username</Text>
+                  <Input
                      defaultValue={profile.username}
-                     maxLength={16}
+                     placeholder="your username"
+                     maxLength="16"
                      onChange={(e) => dispatch(setUsername(e.target.value))}
                   />
                </div>
             </div>
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md">Points</h2>
+                  <Text>Points</Text>
                   <Select onChange={(e) => dispatch(setScoremode(e.target.value))} defaultValue={profile.scoremode}>
                      {[301, 501, 701, 1001, 2001, 3001].map((score) => {
                         return <option value={score}>{score}</option>;
@@ -67,7 +67,7 @@ function ProfileCard() {
             </div>
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md">Mode</h2>
+                  <Text>Mode</Text>
                   <Select onChange={(e) => dispatch(setGamemode(e.target.value))} value={profile.gamemode}>
                      {["firstto", "bestof"].map((mode) => {
                         return <option value={mode}>{mode}</option>;
@@ -77,27 +77,20 @@ function ProfileCard() {
             </div>
             <div className="grid">
                <div className="flex w-full justify-between">
-                  <h2 className="text-md">Legs</h2>
-                  <input
-                     className={`h-8 w-48 rounded-md border-[1px] border-zinc-900 ${theme.backgroundColor} px-4 outline-none`}
-                     value={profile.legamount}
-                     type={"number"}
-                     min={1}
-                     max={50}
-                     onChange={(e) => dispatch(setLegamount(e.target.value))}
-                  />
+                  <Text>Legs</Text>
+                  <Input defaultValue={profile.legamount} type={"number"} min={1} max={50} onChange={(e) => dispatch(setLegamount(e.target.value))} />
                </div>
             </div>
          </div>
-         {joined ? (
-            <Button className="mx-auto mt-7 bg-red-500 text-dark-background" onClick={handleQuit}>
-               Quit
-            </Button>
-         ) : (
-            <Button className="mx-auto mt-7" onClick={handleJoin}>
-               Join
-            </Button>
-         )}
+         <div className="mt-8 flex">
+            {joined ? (
+               <Button variant="negative" onClick={handleQuit}>
+                  Quit
+               </Button>
+            ) : (
+               <Button onClick={handleJoin}>Join</Button>
+            )}
+         </div>
       </Card>
    );
 }

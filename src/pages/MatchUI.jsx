@@ -5,7 +5,6 @@ import ScoreTable from "../elements/ScoreTable";
 import { useDispatch } from "react-redux";
 import { useSocket } from "../context/SocketContext";
 import { useProfile } from "../state/ProfileReducer";
-import { ActionType } from "../state/SocketReducer";
 
 function MatchUI() {
    initConnection();
@@ -23,8 +22,6 @@ const initConnection = () => {
    const dispatch = useDispatch();
    const profile = useProfile();
    const socket = useSocket();
-
-   dispatch({ type: ActionType.APPLY_SOCKET, payload: socket });
 
    socket.emit("join", profile);
 };

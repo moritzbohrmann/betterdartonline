@@ -1,42 +1,39 @@
-import Button from "../components/@ui/Button";
 import React from "react";
 import { toast } from "react-toastify";
+import { Button } from "../components/@ui/Button";
 import { Card, Title } from "../components/@ui/Card";
+import { Input } from "../components/@ui/Input";
+import { Text } from "../components/@ui/Text";
 import { useTheme } from "../context/ThemeContext";
 
 function NewsletterCard() {
    const mailRef = React.useRef(null);
    const [theme] = useTheme();
 
-   const handleSubscribtion = (mail) => {
-      if (!mail) return;
+   const handleSubscribtion = () => {
+      if (!mailRef.current) return;
 
       toast.success("Successfully subscribed to our newsletter.");
    };
 
-   const handleUnsubscribtion = (mail) => {
-      if (!mail) return;
+   const handleUnsubscribtion = () => {
+      if (!mailRef.current) return;
 
       toast.success("Successfully unsubscribed from our newsletter.");
    };
 
    return (
-      <Card className="xl:w-[74rem]">
+      <Card size="fill">
          <Title title="Newsletter" subTitle="Subscribe to our newsletter so you don't miss an update!" />
-         <div className="grid">
-            <div className="m-auto flex flex-col items-center justify-between gap-4 xl:flex-row xl:gap-8">
-               <div className="text-md">E-Mail</div>
-               <input
-                  ref={mailRef}
-                  className={`h-8 w-48 flex-grow rounded-md border-[1px] border-zinc-900 ${theme.backgroundColor} px-4 outline-none`}
-                  type="text"
-                  placeholder="your e-mail address"
-               />
+         <div>
+            <div className="m-auto flex flex-wrap items-center justify-center gap-4 xl:gap-8">
+               <Text>E-Mail</Text>
+               <Input ref={mailRef} size="xl" placeholder="your e-mail address" />
                <div className="flex gap-4">
-                  <Button className="bg-green-500" onClick={() => handleSubscribtion(mailRef.current?.value)}>
+                  <Button variant="positive" onClick={handleSubscribtion}>
                      Subscribe
                   </Button>
-                  <Button className="bg-red-500" onClick={() => handleUnsubscribtion(mailRef.current?.value)}>
+                  <Button variant="negative" onClick={handleUnsubscribtion}>
                      Unsubscribe
                   </Button>
                </div>

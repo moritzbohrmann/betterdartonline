@@ -1,6 +1,6 @@
 import * as Match from "../state/MatchReducer";
 import React from "react";
-import { initialsOf, isPlayer } from "../utils/MatchUtils";
+import { initialsOf, isPlayer } from "../utils/match";
 
 const ScoreCard = ({ player }) => {
    const { match } = Match.useMatch();

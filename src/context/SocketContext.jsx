@@ -59,7 +59,7 @@ const initSocket = (socket) => {
       socket.on("match-start", (_match) => {
          dispatch(match.setMatch(_match));
 
-         toast.info(`Matchdaten werden geladen...`);
+         toast.info(`Loading matchdata...`);
 
          setTimeout(() => (window.location.href = "/match"), 2000);
       });

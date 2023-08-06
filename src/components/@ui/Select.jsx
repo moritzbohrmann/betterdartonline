@@ -1,14 +1,11 @@
 import React from "react";
-import { useTheme } from "../../context/ThemeContext";
+import { cn } from "../../utils/style";
+import { inputVariants } from "./Input";
 
-function Select(props) {
-   const [theme] = useTheme();
+const Select = React.forwardRef(({ variant, size, className, ...props }, ref) => {
+   const variants = inputVariants();
 
-   return (
-      <select {...props} className={`h-8 w-48 rounded-md border-[1px] border-zinc-900 px-4 outline-none ${theme.backgroundColor} ${props.className}`}>
-         {props.children}
-      </select>
-   );
-}
+   return <select ref={ref} className={cn(variants({ variant, size, className }))} {...props} />;
+});
 
-export default Select;
+export { Select };

@@ -2,6 +2,7 @@ import * as Switch from "@radix-ui/react-switch";
 import React from "react";
 import { Card, Title } from "../components/@ui/Card";
 import { ThemeStyle, ThemeType, useTheme } from "../context/ThemeContext";
+import { cn } from "../utils/style";
 
 function SettingsMenu() {
    const [theme, setTheme] = useTheme();
@@ -13,9 +14,9 @@ function SettingsMenu() {
    };
 
    return (
-      <Card className={`absolute shadow-xl ${theme.backgroundColor}`}>
+      <Card className="absolute">
          <Title title="Settings" subTitle="Customize the app according to your preferences." />
-         <div className="flex w-full items-center justify-between border-b-[1px] border-zinc-900 px-8 pb-4">
+         <div className={cn("flex w-full items-center justify-between border-b-[1px] px-8 pb-4", theme.borderColor.light)}>
             <h2>Lightmode</h2>
             <Switch.Root
                onCheckedChange={toggleTheme}
@@ -30,7 +31,7 @@ function SettingsMenu() {
                />
             </Switch.Root>
          </div>
-         <div className="flex w-full items-center justify-between border-b-[1px] border-zinc-900 px-8 py-4">
+         <div className={cn("flex w-full items-center justify-between border-b-[1px] border-zinc-900 px-8 py-4", theme.borderColor.light)}>
             <h2>Caller</h2>
             <Switch.Root
                className={`relative h-[25px] w-[42px] rounded-full border-[1px]  ${
