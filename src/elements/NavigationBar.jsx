@@ -1,6 +1,7 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
+import ToolTip from "../components/@ui/ToolTip";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Card } from "../components/@ui/Card";
 import { Text } from "../components/@ui/Text";
@@ -11,16 +12,21 @@ function Navigation() {
    const [theme] = useTheme();
 
    return (
-      <NavigationMenu.Root className={cn("sticky top-0 border-b-[1px] backdrop-blur-lg", theme.borderColor.light)}>
+      <NavigationMenu.Root
+         className={cn("sticky top-0 border-b-[1px] bg-opacity-50 backdrop-blur-lg", theme.backgroundColor, theme.borderColor.light)}>
          <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-8 md:justify-normal md:px-0">
             <NavigationMenu.Item>
-               <Text size="xl" weight="b" className="md:ml-16 lg:ml-32 xl:ml-48">
-                  betterdartonline
-               </Text>
+               <div className="rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700 px-2 md:ml-16 lg:ml-32 xl:ml-48">
+                  <Text size="xl" weight="b" className="text-white-default">
+                     betterdartonline
+                  </Text>
+               </div>
             </NavigationMenu.Item>
             <div className="mt-1 hidden gap-4 md:visible md:flex">
                <NavigationMenu.Item>
-                  <NavigationTrigger>Start</NavigationTrigger>
+                  <ToolTip text="Available soon...">
+                     <NavigationTrigger>Start</NavigationTrigger>
+                  </ToolTip>
                </NavigationMenu.Item>
                <NavigationMenu.Item>
                   <NavigationTrigger>Settings</NavigationTrigger>
@@ -29,7 +35,9 @@ function Navigation() {
                   </NavigationMenu.Content>
                </NavigationMenu.Item>
                <NavigationMenu.Item>
-                  <NavigationTrigger>Playing</NavigationTrigger>
+                  <ToolTip text="Available soon...">
+                     <NavigationTrigger>Rules</NavigationTrigger>
+                  </ToolTip>
                </NavigationMenu.Item>
             </div>
             <NavigationMenu.Item className="md:hidden">

@@ -29,7 +29,7 @@ function PlayerlistCard() {
          <div className="mx-auto flex w-11/12 justify-around">
             <Text>Name</Text>
             <Text className="w-1/3 border-x-[1px]">Setting</Text>
-            <Text toolTip="The state shows you, whether the player is requested by you.">State</Text>
+            <Text toolTip="The state shows you, whether you have requested the player.">State</Text>
          </div>
          <div className="h-full overflow-auto">
             <ul className="mt-8 flex w-full flex-grow flex-col items-center gap-2 overflow-auto">

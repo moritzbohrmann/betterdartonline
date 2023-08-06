@@ -4,12 +4,13 @@ import MatchUI from "./pages/MatchUI";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { SocketProvider } from "./context/SocketContext";
 import { useTheme } from "./context/ThemeContext";
+import { cn } from "./utils/style";
 
 function App() {
    const [theme] = useTheme();
 
    return (
-      <div className={`h-screen w-screen ${theme.backgroundColor}`}>
+      <div className={cn("h-screen w-screen", theme.background)}>
          <Routes>
             <Route path="*" element={<Navigate to={"/home"} />} />
             <Route

@@ -1,5 +1,5 @@
-import * as ToolTip from "@radix-ui/react-tooltip";
 import React from "react";
+import ToolTip from "./ToolTip";
 import { cva } from "class-variance-authority";
 import { useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/style";
@@ -48,21 +48,9 @@ const Text = React.forwardRef(({ variant, weight, size, align, className, toolTi
 
    if (toolTip) {
       return (
-         <ToolTip.Provider>
-            <ToolTip.Root>
-               <ToolTip.Trigger>
-                  <p ref={ref} className={cn(variants({ variant, weight, size, align, className }))} {...props} />
-               </ToolTip.Trigger>
-               <ToolTip.Portal>
-                  <ToolTip.Content>
-                     <div className="w-48 rounded-md bg-zinc-200 p-2">
-                        <p className="font-sans text-sm text-black-default">{toolTip}</p>
-                     </div>
-                     <ToolTip.Arrow className="fill-zinc-200" />
-                  </ToolTip.Content>
-               </ToolTip.Portal>
-            </ToolTip.Root>
-         </ToolTip.Provider>
+         <ToolTip text={toolTip}>
+            <p ref={ref} className={cn(variants({ variant, weight, size, align, className }))} {...props} />
+         </ToolTip>
       );
    }
 

@@ -10,6 +10,7 @@ export const ThemeType = {
 
 const darkTheme = {
    type: "dark",
+   background: "bg-dark-background",
    backgroundColor: "bg-dark-background",
    textColor: {
       default: "text-white-default",
@@ -26,11 +27,12 @@ const darkTheme = {
 
 const lightTheme = {
    type: "light",
+   background: "bg-zinc-200",
    backgroundColor: "bg-light-background",
    textColor: {
       default: "text-black-default",
       descent: "text-zinc-300",
-      button: "text-white-default",
+      button: "text-white",
    },
    color: "text-black-default",
    windowColor: "bg-light-window",
