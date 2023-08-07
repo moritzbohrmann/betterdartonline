@@ -9,7 +9,7 @@ const cardVariants = () => {
    return cva("flex flex-col rounded-lg font-sans border-[1px]", {
       variants: {
          variant: {
-            default: cn(theme.borderColor.light, theme.textColor.default, theme.backgroundColor),
+            default: cn("min-w-[24rem]", theme.borderColor.light, theme.textColor.default, theme.backgroundColor),
          },
          size: {
             default: "w-112 py-8 px-10",
