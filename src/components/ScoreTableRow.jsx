@@ -18,14 +18,13 @@ function ScoreTableRow({ index }) {
 
    React.useEffect(() => {
       currentLeg.scores.length === 0 && scoreRef.current.forEach((ref) => (ref.value = ""));
-
-      if (index <= 8) console.log(score);
    }, [currentLeg]);
 
    return (
       <tr
          key={`${profile.id} ${index}`}
-         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}>
+         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}
+      >
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
             <input
                ref={(element) => (scoreRef.current[0] = element)}
@@ -33,8 +32,8 @@ function ScoreTableRow({ index }) {
                   inputAvailable ? "bg-yellow-400 text-dark-background" : "bg-transparent text-white-default"
                } text-center outline-none`}
                type="number"
-               defaultValue={score.host?.value}
-               autoFocus={inputAvailable}
+               value={score.host?.value}
+               autoFocus
                readOnly={!inputAvailable}
                onKeyUp={(e) => !e.target.readOnly && e.key === "Enter" && socket.emit("score", { player: profile, value: Number(e.target.value) })}
             />
@@ -51,7 +50,7 @@ function ScoreTableRow({ index }) {
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
             <input
                ref={(element) => (scoreRef.current[3] = element)}
-               defaultValue={score.guest?.value}
+               value={score.guest?.value}
                readOnly
                className="h-full w-full bg-transparent text-center outline-none"
             />

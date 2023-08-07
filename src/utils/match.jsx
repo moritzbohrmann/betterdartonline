@@ -21,7 +21,8 @@ export const legAverageOf = (currentLeg, player) => {
    const filteredList = currentLeg.scores.filter((s) => isPlayer(s.player, player));
 
    if (filteredList.length > 0) return parseFloat(filteredList.at(-1).avg).toFixed(1);
-   else return 0;
+
+   return 0;
 };
 export const initialsOf = (playername) => {
    let initials = "";
