@@ -12,6 +12,7 @@ const textVariants = () => {
          variant: {
             heavy: theme.textColor.default,
             light: theme.textColor.descent,
+            button: theme.textColor.button,
          },
          weight: {
             l: "font-light",
@@ -48,7 +49,7 @@ const Text = React.forwardRef(({ variant, weight, size, align, className, toolTi
 
    if (toolTip) {
       return (
-         <ToolTip text={toolTip}>
+         <ToolTip content={toolTip}>
             <p ref={ref} className={cn(variants({ variant, weight, size, align, className }))} {...props} />
          </ToolTip>
       );

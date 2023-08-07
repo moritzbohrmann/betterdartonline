@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { createContext } from "react";
+import theme from "../themes.json";
 
 const ThemeContext = createContext();
 
@@ -8,46 +9,12 @@ export const ThemeType = {
    DARK: "dark",
 };
 
-const darkTheme = {
-   type: "dark",
-   background: "bg-dark-background",
-   backgroundColor: "bg-dark-background",
-   textColor: {
-      default: "text-white-default",
-      descent: "text-zinc-500",
-      button: "text-black-default",
-   },
-   color: "text-white-default",
-   windowColor: "bg-dark-window",
-   borderColor: {
-      light: "border-zinc-900",
-      heavy: "border-zinc-500",
-   },
-};
-
-const lightTheme = {
-   type: "light",
-   background: "bg-zinc-200",
-   backgroundColor: "bg-light-background",
-   textColor: {
-      default: "text-black-default",
-      descent: "text-zinc-300",
-      button: "text-white",
-   },
-   color: "text-black-default",
-   windowColor: "bg-light-window",
-   borderColor: {
-      light: "border-zinc-300",
-      heavy: "border-zinc-700",
-   },
-};
-
 export const ThemeStyle = (themeType) => {
    switch (themeType) {
       case ThemeType.LIGHT:
-         return lightTheme;
+         return theme.light;
       case ThemeType.DARK:
-         return darkTheme;
+         return theme.dark;
    }
 };
 

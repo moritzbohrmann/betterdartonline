@@ -6,11 +6,14 @@ import { Text } from "../components/@ui/Text";
 import { useSocket } from "../context/SocketContext";
 import { addRequestSent, removeRequestSent } from "../state/PlayerlistReducer";
 import { isPlayer } from "../utils/match";
+import { useTheme } from "../context/ThemeContext";
+import { cn } from "../utils/style";
 
 function PlayerlistCard() {
    const list = useSelector((state) => state.list);
    const socket = useSocket();
    const dispatch = useDispatch();
+   const [theme] = useTheme();
 
    const handleRevoke = (player) => {
       dispatch(removeRequestSent(player));
@@ -31,7 +34,7 @@ function PlayerlistCard() {
             <Text className="w-1/3 border-x-[1px]">Setting</Text>
             <Text toolTip="The state shows you, whether you have requested the player.">State</Text>
          </div>
-         <div className="h-full overflow-auto">
+         <div className="h-full overflow-auto pb-8">
             <ul className="mt-8 flex w-full flex-grow flex-col items-center gap-2 overflow-auto">
                {list.ready
                   .sort((player) => list.requests.sent.find((sent) => isPlayer(sent, player)))
@@ -39,8 +42,9 @@ function PlayerlistCard() {
                   .map((player) => {
                      return (
                         <li
-                           className="flex h-10 w-full cursor-pointer items-center justify-between rounded-md border-[1px] border-zinc-900 text-center text-sm transition-all hover:border-zinc-500"
-                           onClick={() => toggleRequest(player)}>
+                           className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-md border-[1px] ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
+                           onClick={() => toggleRequest(player)}
+                        >
                            <Text weight="sb" className="w-1/3">
                               {player.username.substring(0, 10)}
                            </Text>
@@ -63,7 +67,7 @@ function PlayerlistCard() {
                   })}
             </ul>
          </div>
-         <div className="flex w-full border-t-[1px] border-zinc-900 pt-8">
+         <div className={cn("flex w-full border-t-[1px] pt-8", theme.borderColor.light)}>
             <h2 className="m-auto text-zinc-500">{list.ready.length} Spieler</h2>
          </div>
       </Card>

@@ -11,13 +11,13 @@ function NewsletterCard() {
    const [theme] = useTheme();
 
    const handleSubscribtion = () => {
-      if (!mailRef.current) return;
+      if (mailRef.current.value.length === 0) return;
 
       toast.success("Successfully subscribed to our newsletter.");
    };
 
    const handleUnsubscribtion = () => {
-      if (!mailRef.current) return;
+      if (mailRef.current.value.length === 0) return;
 
       toast.success("Successfully unsubscribed from our newsletter.");
    };

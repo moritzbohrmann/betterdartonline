@@ -25,15 +25,17 @@ function ChallengeDialog() {
    };
 
    return (
-      <Dialog.Root open={challenger !== null}>
+      <Dialog.Root open={challenger != null}>
          <Dialog.Overlay className="fixed inset-0 z-10 backdrop-blur-xl data-[state=open]:animate-overlayShow" />
          <Dialog.Content className="fixed left-[50%] top-[50%] z-20 translate-x-[-50%] translate-y-[-50%] data-[state=open]:animate-contentShow">
             <Card>
                <Title title="Request" subTitle={`${challenger?.username} wants to play a match against you!`} />
                <Text
+                  variant="button"
                   weight="b"
                   text="c"
-                  className="rounded-md bg-amber-500 py-1">{`${challenger?.scoremode} ${challenger?.gamemode} ${challenger?.legamount}`}</Text>
+                  className="rounded-md bg-amber-500 py-1"
+               >{`${challenger?.scoremode} ${challenger?.gamemode} ${challenger?.legamount}`}</Text>
                <div className="mt-4 flex items-center justify-around">
                   <Button className="bg-green-500" onClick={() => handleAccept()}>
                      Accept

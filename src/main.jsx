@@ -15,19 +15,17 @@ const store = createStore(collectedReducers, window.__REDUX_DEVTOOLS_EXTENSION__
 ReactDOM.createRoot(document.getElementById("root")).render(
    <BrowserRouter>
       <Provider store={store}>
-         <ThemeProvider>
-            <App />
-            <ToastContainer
-               position="bottom-right"
-               autoClose={1500}
-               hideProgressBar={false}
-               newestOnTop={false}
-               closeOnClick
-               pauseOnFocusLoss={false}
-               rtl={false}
-               theme="colored"
-            />
-         </ThemeProvider>
+         <App />
+         <ToastContainer
+            position="bottom-right"
+            autoClose={1500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            pauseOnFocusLoss={false}
+            rtl={false}
+            theme="colored"
+         />
       </Provider>
    </BrowserRouter>
 );

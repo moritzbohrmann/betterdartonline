@@ -5,19 +5,20 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { SocketProvider } from "./context/SocketContext";
 import { useTheme } from "./context/ThemeContext";
 import { cn } from "./utils/style";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
-   const [theme] = useTheme();
-
    return (
-      <div className={cn("h-screen w-screen", theme.background)}>
+      <div>
          <Routes>
             <Route path="*" element={<Navigate to={"/home"} />} />
             <Route
                path="/home/*"
                element={
                   <SocketProvider address="127.0.0.1:3001">
-                     <HomeUI />
+                     <ThemeProvider>
+                        <HomeUI />
+                     </ThemeProvider>
                   </SocketProvider>
                }
             />
@@ -26,7 +27,9 @@ function App() {
                path="/match/*"
                element={
                   <SocketProvider address="127.0.0.1:8457">
-                     <MatchUI />
+                     <ThemeProvider>
+                        <MatchUI />
+                     </ThemeProvider>
                   </SocketProvider>
                }
             />
