@@ -15,7 +15,9 @@ const store = createStore(collectedReducers, window.__REDUX_DEVTOOLS_EXTENSION__
 ReactDOM.createRoot(document.getElementById("root")).render(
    <BrowserRouter>
       <Provider store={store}>
-         <App />
+         <ThemeProvider>
+            <App />
+         </ThemeProvider>
          <ToastContainer
             position="bottom-right"
             autoClose={1500}

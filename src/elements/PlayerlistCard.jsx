@@ -29,9 +29,9 @@ function PlayerlistCard() {
    return (
       <Card>
          <Title title="Playerlist" subTitle="Challenge a player of your choice." />
-         <div className="mx-auto flex w-11/12 justify-around">
+         <div className="mx-auto flex w-11/12 justify-around py-2">
             <Text>Name</Text>
-            <Text className="w-1/3 border-x-[1px]">Setting</Text>
+            <Text className="w-1/3 border-x-[1px] border-dark-500">Setting</Text>
             <Text toolTip="The state shows you, whether you have requested the player.">State</Text>
          </div>
          <div className="h-full overflow-auto pb-8">
@@ -68,7 +68,7 @@ function PlayerlistCard() {
             </ul>
          </div>
          <div className={cn("flex w-full border-t-[1px] pt-8", theme.borderColor.light)}>
-            <h2 className="m-auto text-zinc-500">{list.ready.length} Spieler</h2>
+            <h2 className="m-auto text-zinc-500">{list.ready.length} Players</h2>
          </div>
       </Card>
    );

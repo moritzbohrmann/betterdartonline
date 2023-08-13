@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { createContext } from "react";
-import theme from "../themes.json";
+import themesConfig from "../../themes.config";
 
 const ThemeContext = createContext();
 
@@ -9,19 +9,21 @@ export const ThemeType = {
    DARK: "dark",
 };
 
-export const ThemeStyle = (themeType) => {
+export const themeStyle = (themeType) => {
    switch (themeType) {
       case ThemeType.LIGHT:
-         return theme.light;
+         return themesConfig.theme.light;
       case ThemeType.DARK:
-         return theme.dark;
+         return themesConfig.theme.dark;
+      default:
+         return themesConfig.theme.dark;
    }
 };
 
 const ThemeProvider = ({ children }) => {
-   const [theme, setTheme] = React.useState(ThemeStyle(ThemeType.DARK));
+   const [theme, setTheme] = React.useState(themeStyle(ThemeType.DARK));
 
-   return <ThemeContext.Provider value={[theme, setTheme]}>{children}</ThemeContext.Provider>;
+   return <ThemeContext.Provider value={[theme, setTheme]} children={children} />;
 };
 
 export const useTheme = () => {

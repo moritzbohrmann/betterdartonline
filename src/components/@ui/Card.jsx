@@ -27,6 +27,7 @@ const cardVariants = () => {
 
 const Card = React.forwardRef(({ variant, size, className, ...props }, ref) => {
    const variants = cardVariants();
+
    return <div ref={ref} className={cn(variants({ variant, size, className }))} {...props} />;
 });
 

@@ -25,7 +25,7 @@ function Navigation() {
             </NavigationMenu.Item>
             <div className="mt-1 hidden gap-4 md:visible md:flex">
                <NavigationMenu.Item>
-                  <ToolTip content="Available soon...">
+                  <ToolTip content="Coming soon...">
                      <NavigationTrigger>Start</NavigationTrigger>
                   </ToolTip>
                </NavigationMenu.Item>
@@ -36,7 +36,7 @@ function Navigation() {
                   </NavigationMenu.Content>
                </NavigationMenu.Item>
                <NavigationMenu.Item>
-                  <ToolTip content="Available soon...">
+                  <ToolTip content="Coming soon...">
                      <NavigationTrigger>Rules</NavigationTrigger>
                   </ToolTip>
                </NavigationMenu.Item>

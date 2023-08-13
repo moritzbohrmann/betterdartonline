@@ -1,14 +1,14 @@
 import * as Switch from "@radix-ui/react-switch";
 import React from "react";
 import { Card, Title } from "../components/@ui/Card";
-import { ThemeStyle, ThemeType, useTheme } from "../context/ThemeContext";
+import { themeStyle, ThemeType, useTheme } from "../context/ThemeContext";
 import { cn } from "../utils/style";
 
 function SettingsMenu() {
    const [theme, setTheme] = useTheme();
 
    const toggleTheme = () => {
-      const newTheme = theme.type === ThemeType.LIGHT ? ThemeStyle(ThemeType.DARK) : ThemeStyle(ThemeType.LIGHT);
+      const newTheme = theme.type === ThemeType.LIGHT ? themeStyle(ThemeType.DARK) : themeStyle(ThemeType.LIGHT);
 
       setTheme(newTheme);
    };
@@ -23,7 +23,8 @@ function SettingsMenu() {
                checked={theme.type === ThemeType.LIGHT}
                className={`relative h-[25px] w-[42px] rounded-full border-[1px]  ${
                   theme.type === ThemeType.DARK ? "border-white bg-white" : "border-dark-background bg-dark-background"
-               } outline-none`}>
+               } outline-none`}
+            >
                <Switch.Thumb
                   className={`block h-[21px] w-[21px] translate-x-0.5 rounded-full ${
                      theme.type === ThemeType.DARK ? "bg-dark-background" : "bg-white"
@@ -36,7 +37,8 @@ function SettingsMenu() {
             <Switch.Root
                className={`relative h-[25px] w-[42px] rounded-full border-[1px]  ${
                   theme.type === ThemeType.DARK ? "border-white bg-white" : "border-dark-background bg-dark-background"
-               } outline-none`}>
+               } outline-none`}
+            >
                <Switch.Thumb
                   className={`block h-[21px] w-[21px] translate-x-0.5 rounded-full ${
                      theme.type === ThemeType.DARK ? "bg-dark-background" : "bg-white"
