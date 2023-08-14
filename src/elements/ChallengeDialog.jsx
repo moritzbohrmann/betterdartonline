@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../components/@ui/Button";
 import { Card, Title } from "../components/@ui/Card";
+import { Flex } from "../components/@ui/Flex";
 import { Text } from "../components/@ui/Text";
 import { useSocket } from "../context/SocketContext";
 import { removeCurrentRequest, removeRequestReceived } from "../state/PlayerlistReducer";
@@ -34,16 +35,15 @@ function ChallengeDialog() {
                   variant="button"
                   weight="b"
                   text="c"
-                  className="rounded-md bg-amber-500 py-1"
-               >{`${challenger?.scoremode} ${challenger?.gamemode} ${challenger?.legamount}`}</Text>
-               <div className="mt-4 flex items-center justify-around">
+                  className="w-full rounded-md bg-amber-500 py-1">{`${challenger?.scoremode} ${challenger?.gamemode} ${challenger?.legamount}`}</Text>
+               <Flex justify="around" align="center" className="mt-4 w-full">
                   <Button className="bg-green-500" onClick={() => handleAccept()}>
                      Accept
                   </Button>
                   <Button className="bg-red-500" onClick={() => handleDecline()}>
                      Decline
                   </Button>
-               </div>
+               </Flex>
             </Card>
          </Dialog.Content>
       </Dialog.Root>

@@ -5,6 +5,7 @@ import ScoreIcon from "../assets/score.png";
 import ScoreTableRow from "../components/ScoreTableRow";
 import { useDispatch } from "react-redux";
 import { useBeforeUnload } from "react-router-dom";
+import { Flex } from "../components/@ui/Flex";
 import { useSocket } from "../context/SocketContext";
 
 function ScoreTable() {
@@ -30,10 +31,10 @@ function ScoreTable() {
    });
 
    return (
-      <div id="matchuihead" className="flex h-144 w-full justify-center overflow-auto md:h-192">
+      <Flex justify="center" className="h-144 w-full overflow-auto md:h-192">
          {showScorePopup && <ScorePopup score={lastScore} />}
-         <table className="w-full overflow-scroll border-2 border-none text-center">
-            <tr className=" sticky top-0 z-10 h-20 w-full bg-gray-300 font-primary text-3xl text-dark-window">
+         <table className="w-full overflow-scroll border-2 border-none text-center font-sans text-3xl font-bold text-white-default">
+            <tr className="sticky top-0 z-10 h-20 w-full bg-gray-300 text-dark-window">
                <th className="h-full w-1/5 bg-slate-200">
                   <img src={ScoreIcon} className="m-auto h-10 w-10" />
                </th>
@@ -46,7 +47,7 @@ function ScoreTable() {
                   <img src={ScoreIcon} className="m-auto h-10 w-10" />
                </th>
             </tr>
-            <tr className="h-20 bg-dark-background text-3xl font-bold text-white-default">
+            <tr className="h-20 bg-dark-background">
                <td className="w-1/5">/</td>
                <td className="w-1/5">{match.settings.scoremode}</td>
                <td className="w-1/5">0</td>
@@ -55,7 +56,7 @@ function ScoreTable() {
             </tr>
             <TableRowCollector socket={socket} />
          </table>
-      </div>
+      </Flex>
    );
 }
 
@@ -71,9 +72,9 @@ const TableRowCollector = (props) => {
 
 const ScorePopup = ({ score }) => {
    return (
-      <div id="pus" className="absolute top-1/2 z-20 flex h-24 w-min rounded-xl bg-white px-20 md:top-1/3 md:h-48">
+      <Flex id="pus" className="absolute top-1/2 z-20 h-24 w-min rounded-xl bg-white px-20 md:top-1/3 md:h-48">
          <h4 className="m-auto font-primary text-5xl font-black md:text-8xl">{score ? score.value : "Checkout"}!</h4>
-      </div>
+      </Flex>
    );
 };
 

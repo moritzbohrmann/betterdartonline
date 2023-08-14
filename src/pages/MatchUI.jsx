@@ -3,18 +3,22 @@ import React from "react";
 import ScoreHeader from "../elements/ScoreHeader";
 import ScoreTable from "../elements/ScoreTable";
 import { useDispatch } from "react-redux";
+import { Flex } from "../components/@ui/Flex";
 import { useSocket } from "../context/SocketContext";
+import { useTheme } from "../context/ThemeContext";
 import { useProfile } from "../state/ProfileReducer";
 
 function MatchUI() {
+   const [theme] = useTheme();
+
    initConnection();
 
    return (
-      <div className="flex w-full flex-col items-center">
+      <Flex orientation="vertical" align="center" className={`w-full ${theme.background}`}>
          <ScoreHeader />
          <ScoreTable />
          <MatchControlBar />
-      </div>
+      </Flex>
    );
 }
 

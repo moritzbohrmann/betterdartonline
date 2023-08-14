@@ -2,11 +2,12 @@ import React from "react";
 import { cva } from "class-variance-authority";
 import { useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/style";
+import { Flex } from "../@ui/Flex";
 
 const cardVariants = () => {
    const [theme] = useTheme();
 
-   return cva("flex flex-col rounded-lg font-sans border-[1px]", {
+   return cva("rounded-lg font-sans border-[1px]", {
       variants: {
          variant: {
             default: cn("min-w-[24rem]", theme.borderColor.light, theme.textColor.default, theme.backgroundColor),
@@ -28,14 +29,14 @@ const cardVariants = () => {
 const Card = React.forwardRef(({ variant, size, className, ...props }, ref) => {
    const variants = cardVariants();
 
-   return <div ref={ref} className={cn(variants({ variant, size, className }))} {...props} />;
+   return <Flex orientation="vertical" align="center" ref={ref} className={cn(variants({ variant, size, className }))} {...props} />;
 });
 
 const Title = ({ title, subTitle }) => {
    const [theme] = useTheme();
 
    return (
-      <div className="pb-8">
+      <div className="w-full pb-8">
          <h4 className={`text-3xl font-bold ${theme.textColor.default}`}>{title}</h4>
          <p className="text-lg text-zinc-500">{subTitle}</p>
       </div>

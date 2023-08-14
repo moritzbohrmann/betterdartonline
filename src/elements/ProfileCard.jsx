@@ -1,21 +1,29 @@
+import * as Tabs from "../components/@ui/Tabs";
+import Cricket from "../components/profile/Cricket";
 import React from "react";
+import SplitScore from "../components/profile/SplitScore";
+import X01 from "../components/profile/X01";
 import { toast } from "react-toastify";
 import { Button } from "../components/@ui/Button";
 import { Card, Title } from "../components/@ui/Card";
+import { Flex } from "../components/@ui/Flex";
 import { Text } from "../components/@ui/Text";
 import { useSocket } from "../context/SocketContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useProfile } from "../state/ProfileReducer";
-import * as Tabs from "../components/@ui/Tabs";
-import X01 from "../components/profile/X01";
-import SplitScore from "../components/profile/SplitScore";
-import Cricket from "../components/profile/Cricket";
 
 function ProfileCard() {
    const profile = useProfile();
-   const [storageProfile, setStorageProfile] = useLocalStorage("profile");
+   const [, setStorageProfile] = useLocalStorage("profile");
    const [joined, setJoined] = React.useState(false);
    const socket = useSocket();
+   const tabRef = React.useRef([]);
+
+   const GameType = {
+      X01: 0,
+      CRICKET: 1,
+      SPLIT_SCORE: 2,
+   };
 
    const handleJoin = () => {
       setStorageProfile(profile);
@@ -37,29 +45,29 @@ function ProfileCard() {
    };
 
    return (
-      <Card>
+      <Card className="m-auto">
          <Title title="Profile" subTitle="Edit your profile settings." />
-         <Tabs.Root className="h-52">
-            <Tabs.Trigger className="w-1/3 border-r-[1px]" value="tab1">
+         <Tabs.Root className="h-52 w-full">
+            <Tabs.Trigger className="h-10 w-1/3" value="tab1" ref={(el) => (tabRef.current[GameType.X01] = el)}>
                <Text>x01</Text>
             </Tabs.Trigger>
             <Tabs.Result className="mt-4" value="tab1">
                <X01 />
             </Tabs.Result>
-            <Tabs.Trigger className="w-1/3" value="tab2">
+            <Tabs.Trigger className="h-10 w-1/3 border-x-[1px] border-dark-900" value="tab2" ref={(el) => (tabRef.current[GameType.CRICKET] = el)}>
                <Text>Cricket</Text>
             </Tabs.Trigger>
             <Tabs.Result className="mt-4" value="tab2">
                <Cricket />
             </Tabs.Result>
-            <Tabs.Trigger className="w-1/3 border-l-[1px]" value="tab3">
-               <Text>Spl.-Score</Text>
+            <Tabs.Trigger className="h-10 w-1/3" value="tab3" ref={(el) => (tabRef.current[GameType.SPLIT_SCORE] = el)}>
+               <Text>Split</Text>
             </Tabs.Trigger>
             <Tabs.Result className="mt-4" value="tab3">
                <SplitScore />
             </Tabs.Result>
          </Tabs.Root>
-         <div className="mt-8 flex">
+         <Flex align="center" className="mt-8">
             {joined ? (
                <Button variant="negative" onClick={handleQuit}>
                   Quit
@@ -67,7 +75,7 @@ function ProfileCard() {
             ) : (
                <Button onClick={handleJoin}>Join</Button>
             )}
-         </div>
+         </Flex>
       </Card>
    );
 }

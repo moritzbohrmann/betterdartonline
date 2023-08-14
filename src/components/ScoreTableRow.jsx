@@ -21,10 +21,7 @@ function ScoreTableRow({ index }) {
    }, [currentLeg]);
 
    return (
-      <tr
-         key={`${profile.id} ${index}`}
-         className={`bg-dark-background ${index % 2 === 0 && "brightness-110"} text-3xl font-bold text-white-default `}
-      >
+      <tr key={`${profile.id} ${index}`} className={`bg-dark-background ${index % 2 === 0 && "brightness-110"}`}>
          <td className="h-20 w-1/5 transition-opacity hover:opacity-80">
             <input
                ref={(element) => (scoreRef.current[0] = element)}
@@ -33,7 +30,6 @@ function ScoreTableRow({ index }) {
                } text-center outline-none`}
                type="number"
                value={score.host?.value}
-               autoFocus
                readOnly={!inputAvailable}
                onKeyUp={(e) => !e.target.readOnly && e.key === "Enter" && socket.emit("score", { player: profile, value: Number(e.target.value) })}
             />

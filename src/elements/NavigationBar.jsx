@@ -4,6 +4,7 @@ import SettingsMenu from "./SettingsMenu";
 import ToolTip from "../components/@ui/ToolTip";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Card } from "../components/@ui/Card";
+import { Flex } from "../components/@ui/Flex";
 import { Text } from "../components/@ui/Text";
 import { useTheme } from "../context/ThemeContext";
 import { cn } from "../utils/style";
@@ -13,8 +14,7 @@ function Navigation() {
 
    return (
       <NavigationMenu.Root
-         className={cn("sticky top-0 border-b-[1px] bg-opacity-50 backdrop-blur-lg", theme.backgroundColor, theme.borderColor.light)}
-      >
+         className={cn("sticky top-0 border-b-[1px] bg-opacity-50 backdrop-blur-lg", theme.backgroundColor, theme.borderColor.light)}>
          <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-8 md:justify-normal md:px-0">
             <NavigationMenu.Item>
                <div className="rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700 px-2 md:ml-16 lg:ml-32 xl:ml-48">
@@ -43,9 +43,7 @@ function Navigation() {
             </div>
             <NavigationMenu.Item className="md:hidden">
                <NavigationTrigger>
-                  <div>
-                     <HamburgerMenuIcon className="h-8 w-8" />
-                  </div>
+                  <HamburgerMenuIcon className="h-8 w-8" />
                </NavigationTrigger>
                <NavigationMenu.Content className="fixed left-0 mt-3 data-[state=open]:animate-contentShow">
                   <Card className="absolute h-56 w-screen">
@@ -71,7 +69,7 @@ const NavigationTrigger = ({ ...props }) => (
 );
 
 const HamburgerItem = ({ className, ...props }) => (
-   <div className={cn("flex h-1/3 w-full cursor-pointer items-center justify-center hover:brightness-110", className)} {...props} />
+   <Flex align="center" justify="center" className={cn("h-1/3 w-full cursor-pointer hover:brightness-110", className)} {...props} />
 );
 
 export default Navigation;
