@@ -46,7 +46,8 @@ function PlayerlistCard() {
                      return (
                         <li
                            className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-md border-[1px] ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
-                           onClick={() => toggleRequest(player)}>
+                           onClick={() => toggleRequest(player)}
+                        >
                            <Text weight="sb" className="w-1/3">
                               {player.username.substring(0, 10)}
                            </Text>
@@ -69,9 +70,9 @@ function PlayerlistCard() {
                   })}
             </ul>
          </div>
-         <Flex orientation="vertical" className="w-full" gap="8">
+         <Flex orientation="vertical" align="center" className="w-full" gap="8">
             <Separator orientation="horizontal" />
-            <h2 className="text-zinc-500">{list.ready.length} Players</h2>
+            <Text>{list.ready.length} Players</Text>
          </Flex>
       </Card>
    );

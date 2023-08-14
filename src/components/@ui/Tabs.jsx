@@ -8,7 +8,7 @@ const Root = React.forwardRef(({ children, ...props }, ref) => {
    const [theme] = useTheme();
 
    return (
-      <_Tabs.Root ref={ref} defaultValue="tab2" {...props}>
+      <_Tabs.Root ref={ref} defaultValue="tab1" {...props}>
          <_Tabs.List className={cn("flex items-center justify-around rounded-md border-[1px]", theme.borderColor.light)}>
             {Children.map(children, (child, index) => {
                return child.type === Trigger && child;
@@ -23,11 +23,13 @@ const Root = React.forwardRef(({ children, ...props }, ref) => {
 
 const Trigger = React.forwardRef(({ className, ...props }, ref) => {
    const [theme] = useTheme();
+
    return (
       <_Tabs.Trigger
          ref={ref}
          className={cn(
-            "flex items-center justify-center outline-none data-[state=active]:bg-zinc-900",
+            "flex items-center justify-center outline-none",
+            `data-[state=active]:${theme.select}`,
             theme.borderColor.heavy,
             theme.textColor.hover,
             className
