@@ -2,11 +2,12 @@ import React from "react";
 import { cva } from "class-variance-authority";
 import { useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/style";
+import { Hover } from "./Hover";
 
 const buttonVariants = () => {
    const [theme] = useTheme();
 
-   return cva("rounded-md m-auto font-sans font-bold outline-none transition-all hover:bg-opacity-90", {
+   return cva("rounded-md m-auto font-sans font-bold outline-none", {
       variants: {
          variant: {
             default: cn("bg-amber-500", theme.textColor.button),
@@ -40,10 +41,16 @@ const buttonVariants = () => {
    });
 };
 
-const Button = React.forwardRef(({ variant, size, className, alignX, alignY, ...props }, ref) => {
+const Button = React.forwardRef(({ variant, size, className, alignX, alignY, children, ...props }, ref) => {
    const variants = buttonVariants();
 
-   return <button ref={ref} className={cn(variants({ variant, size, alignX, alignY, className }))} {...props} />;
+   return (
+      <Hover variant="default">
+         <button ref={ref} className={cn(variants({ variant, size, alignX, alignY, className }))} {...props}>
+            {children}
+         </button>
+      </Hover>
+   );
 });
 
 export { Button, buttonVariants };

@@ -54,7 +54,7 @@ function ProfileCard() {
             <Tabs.Result className="mt-4" value="tab1">
                <X01 />
             </Tabs.Result>
-            <Tabs.Trigger className="h-10 w-1/3 border-x-[1px] border-dark-900" value="tab2" ref={(el) => (tabRef.current[GameType.CRICKET] = el)}>
+            <Tabs.Trigger className="h-10 w-1/3 border-x-[1px]" value="tab2" ref={(el) => (tabRef.current[GameType.CRICKET] = el)}>
                <Text weight="sb">Cricket</Text>
             </Tabs.Trigger>
             <Tabs.Result className="mt-4" value="tab2">

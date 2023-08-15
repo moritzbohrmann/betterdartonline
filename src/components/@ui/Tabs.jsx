@@ -27,13 +27,7 @@ const Trigger = React.forwardRef(({ className, ...props }, ref) => {
    return (
       <_Tabs.Trigger
          ref={ref}
-         className={cn(
-            "flex items-center justify-center outline-none",
-            `data-[state=active]:${theme.select}`,
-            theme.borderColor.heavy,
-            theme.textColor.hover,
-            className
-         )}
+         className={cn("flex items-center justify-center outline-none", `data-[state=active]:${theme.select}`, theme.borderColor.light, className)}
          {...props}
       />
    );
