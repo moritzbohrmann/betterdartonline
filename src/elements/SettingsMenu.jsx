@@ -17,7 +17,7 @@ function SettingsMenu() {
 
    return (
       <Card className="absolute">
-         <Title title="Settings" subTitle="Customize the app according to your preferences." />
+         <Title subTitle="Customize the app according to your preferences.">Settings</Title>
          <Flex align="center" justify="between" className="w-full px-8 pb-4">
             <h2>Lightmode</h2>
             <Switch.Root

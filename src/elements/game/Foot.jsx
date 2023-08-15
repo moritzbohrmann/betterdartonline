@@ -1,15 +1,15 @@
 import * as Alert from "@radix-ui/react-alert-dialog";
 import React from "react";
-import { Button } from "../components/@ui/Button";
-import { Card, Title } from "../components/@ui/Card";
-import { Flex } from "../components/@ui/Flex";
-import { Input } from "../components/@ui/Input";
-import { useSocket } from "../context/SocketContext";
-import { useLastScore, useMatch } from "../state/MatchReducer";
-import { useProfile } from "../state/ProfileReducer";
-import { isPlayer } from "../utils/match";
+import { Button } from "../../components/@ui/Button";
+import { Card, Title } from "../../components/@ui/Card";
+import { Flex } from "../../components/@ui/Flex";
+import { Input } from "../../components/@ui/Input";
+import { useSocket } from "../../context/SocketContext";
+import { useLastScore, useMatch } from "../../state/MatchReducer";
+import { useProfile } from "../../state/ProfileReducer";
+import { isPlayer } from "../../utils/match";
 
-function MatchControlBar() {
+function Foot() {
    const { currentLeg } = useMatch();
    const profile = useProfile();
    const lastScore = useLastScore(profile);
@@ -34,7 +34,7 @@ function MatchControlBar() {
                <Alert.Overlay className="fixed inset-0 z-10 backdrop-blur-xl data-[state=open]:animate-overlayShow" />
                <Alert.Content className="fixed left-[50%] top-[50%] z-20 translate-x-[-50%] translate-y-[-50%] data-[state=open]:animate-contentShow">
                   <Card className="flex h-72 w-96 flex-col items-center bg-dark-background">
-                     <Title title="Correction" subTitle={`Your last score of ${lastScore?.value} points will be corrected to ${score}.`} />
+                     <Title subTitle={`Your last score of ${lastScore?.value} points will be corrected to ${score}.`}>Correction</Title>
                      <Input size="sm" text="c" type="number" min={0} max={180} autoFocus onChange={(e) => setScore(e.target.value)} />
                      <Flex justify="around" gap="6" className="mt-8">
                         <Alert.Action>
@@ -58,7 +58,7 @@ function MatchControlBar() {
                <Alert.Overlay className="fixed inset-0 z-10 backdrop-blur-xl data-[state=open]:animate-overlayShow" />
                <Alert.Content className="fixed left-[50%] top-[50%] z-20 translate-x-[-50%] translate-y-[-50%] data-[state=open]:animate-contentShow">
                   <Card className="h-56 w-96 bg-dark-background">
-                     <Title title="Resign" subTitle="By resignition, your opponent wins the match receiving all legs left." />
+                     <Title subTitle="By resignition, your opponent wins the match receiving all legs left.">Resignition</Title>
                      <Flex justify="around">
                         <Alert.Action className="outline-none">
                            <Button variant="positive" onClick={() => handleResignition()}>
@@ -77,4 +77,4 @@ function MatchControlBar() {
    );
 }
 
-export default MatchControlBar;
+export default Foot;

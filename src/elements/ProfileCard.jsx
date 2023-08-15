@@ -46,7 +46,7 @@ function ProfileCard() {
 
    return (
       <Card className="m-auto">
-         <Title title="Profile" subTitle="Edit your profile settings." />
+         <Title subTitle="Edit your profile settings.">Profile</Title>
          <Tabs.Root className="h-52 w-full">
             <Tabs.Trigger className="h-10 w-1/3" value="tab1" ref={(el) => (tabRef.current[GameType.X01] = el)}>
                <Text>x01</Text>

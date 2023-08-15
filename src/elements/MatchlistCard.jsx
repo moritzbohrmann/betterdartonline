@@ -4,7 +4,7 @@ import { Card, Title } from "../components/@ui/Card";
 function MatchlistCard() {
    return (
       <Card>
-         <Title title="Matches" subTitle="All matches currently being played." />
+         <Title subTitle="All matches currently being played.">Matches</Title>
       </Card>
    );
 }

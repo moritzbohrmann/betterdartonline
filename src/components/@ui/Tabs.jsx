@@ -8,13 +8,13 @@ const Root = React.forwardRef(({ children, ...props }, ref) => {
    const [theme] = useTheme();
 
    return (
-      <_Tabs.Root ref={ref} defaultValue="tab2" {...props}>
+      <_Tabs.Root ref={ref} defaultValue="tab1" {...props}>
          <_Tabs.List className={cn("flex items-center justify-around rounded-md border-[1px]", theme.borderColor.light)}>
-            {Children.map(children, (child, index) => {
+            {Children.map(children, (child) => {
                return child.type === Trigger && child;
             })}
          </_Tabs.List>
-         {Children.map(children, (child, index) => {
+         {Children.map(children, (child) => {
             return child.type === Result && child;
          })}
       </_Tabs.Root>

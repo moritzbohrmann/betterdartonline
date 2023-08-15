@@ -3,6 +3,7 @@ import { cva } from "class-variance-authority";
 import { useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/style";
 import { Flex } from "../@ui/Flex";
+import { Text } from "./Text";
 
 const cardVariants = () => {
    const [theme] = useTheme();
@@ -32,13 +33,15 @@ const Card = React.forwardRef(({ variant, size, className, ...props }, ref) => {
    return <Flex orientation="vertical" align="center" ref={ref} className={cn(variants({ variant, size, className }))} {...props} />;
 });
 
-const Title = ({ title, subTitle }) => {
-   const [theme] = useTheme();
-
+const Title = ({ subTitle, className, ...props }) => {
    return (
-      <div className="w-full pb-8">
-         <h4 className={`text-3xl font-bold ${theme.textColor.default}`}>{title}</h4>
-         <p className="text-lg text-zinc-500">{subTitle}</p>
+      <div className="w-full pb-4" {...props}>
+         <Text size="3xl" weight="b" align="l">
+            {props.children}
+         </Text>
+         <Text size="lg" align="l" className="text-zinc-500">
+            {subTitle}
+         </Text>
       </div>
    );
 };

@@ -1,14 +1,14 @@
-import * as Match from "../state/MatchReducer";
+import * as Match from "../../../state/MatchReducer";
 import DartIcon from "../assets/dart.png";
 import React from "react";
 import ScoreIcon from "../assets/score.png";
-import ScoreTableRow from "../components/ScoreTableRow";
+import ScoreTableRow from "../../../components/ScoreTableRow";
 import { useDispatch } from "react-redux";
 import { useBeforeUnload } from "react-router-dom";
-import { Flex } from "../components/@ui/Flex";
-import { useSocket } from "../context/SocketContext";
+import { Flex } from "../../../components/@ui/Flex";
+import { useSocket } from "../../../context/SocketContext";
 
-function ScoreTable() {
+function Table() {
    const { match, currentLeg } = Match.useMatch();
    const socket = useSocket();
    const dispatch = useDispatch();
@@ -78,4 +78,4 @@ const ScorePopup = ({ score }) => {
    );
 };
 
-export default ScoreTable;
+export default Table;

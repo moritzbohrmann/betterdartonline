@@ -23,7 +23,7 @@ function NewsletterCard() {
 
    return (
       <Card size="fill">
-         <Title title="Newsletter" subTitle="Subscribe to our newsletter so you don't miss an update!" />
+         <Title subTitle="Subscribe to our newsletter so you don't miss an update!">Newsletter</Title>
          <Flex orientation="wrap" align="center" justify="center" gap="4" className="m-auto xl:gap-8">
             <Text>E-Mail</Text>
             <Input ref={mailRef} size="xl" placeholder="your e-mail address" />

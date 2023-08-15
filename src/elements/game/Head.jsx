@@ -1,9 +1,9 @@
 import React from "react";
-import ScoreCard from "../components/ScoreCard";
-import { Flex } from "../components/@ui/Flex";
-import { useMatch } from "../state/MatchReducer";
+import ScoreCard from "../../components/ScoreCard";
+import { Flex } from "../../components/@ui/Flex";
+import { useMatch } from "../../state/MatchReducer";
 
-function ScoreHeader() {
+function Head() {
    const { match } = useMatch();
 
    return (
@@ -22,4 +22,4 @@ function ScoreHeader() {
    );
 }
 
-export default ScoreHeader;
+export default Head;

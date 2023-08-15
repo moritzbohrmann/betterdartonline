@@ -29,7 +29,7 @@ function PlayerlistCard() {
    const toggleRequest = (player) => (list.requests.sent.find((sent) => isPlayer(sent, player)) ? handleRevoke(player) : handleRequest(player));
    return (
       <Card>
-         <Title title="Playerlist" subTitle="Challenge a player of your choice." />
+         <Title subTitle="Challenge a player of your choice.">Playerlist</Title>
          <Flex justify="around" className="w-11/12">
             <Text>Name</Text>
             <Separator orientation="vertical" />
@@ -69,9 +69,9 @@ function PlayerlistCard() {
                   })}
             </ul>
          </div>
-         <Flex orientation="vertical" className="w-full" gap="8">
+         <Flex orientation="vertical" gap="8" align="center" className="w-full">
             <Separator orientation="horizontal" />
-            <h2 className="text-zinc-500">{list.ready.length} Players</h2>
+            <Text>{list.ready.length} Players</Text>
          </Flex>
       </Card>
    );

@@ -11,7 +11,7 @@ function FilterCard() {
 
    return (
       <Card>
-         <Title title="Filter" subTitle="Searching for a particular player?" />
+         <Title subTitle="Searching for a particular player?">Filter</Title>
          <Flex justify="between" align="center" className="w-full pb-1">
             <Text>Keywords</Text>
             <Input placeholder="your keywords" onChange={(e) => dispatch(applyFilter(e.target.value))} />
