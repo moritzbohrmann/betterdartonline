@@ -49,19 +49,19 @@ function ProfileCard() {
          <Title subTitle="Edit your profile settings.">Profile</Title>
          <Tabs.Root className="h-52 w-full">
             <Tabs.Trigger className="h-10 w-1/3" value="tab1" ref={(el) => (tabRef.current[GameType.X01] = el)}>
-               <Text>x01</Text>
+               <Text weight="sb">x01</Text>
             </Tabs.Trigger>
             <Tabs.Result className="mt-4" value="tab1">
                <X01 />
             </Tabs.Result>
             <Tabs.Trigger className="h-10 w-1/3 border-x-[1px] border-dark-900" value="tab2" ref={(el) => (tabRef.current[GameType.CRICKET] = el)}>
-               <Text>Cricket</Text>
+               <Text weight="sb">Cricket</Text>
             </Tabs.Trigger>
             <Tabs.Result className="mt-4" value="tab2">
                <Cricket />
             </Tabs.Result>
             <Tabs.Trigger className="h-10 w-1/3" value="tab3" ref={(el) => (tabRef.current[GameType.SPLIT_SCORE] = el)}>
-               <Text>Split</Text>
+               <Text weight="sb">Split</Text>
             </Tabs.Trigger>
             <Tabs.Result className="mt-4" value="tab3">
                <SplitScore />

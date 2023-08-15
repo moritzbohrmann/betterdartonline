@@ -23,11 +23,13 @@ const Root = React.forwardRef(({ children, ...props }, ref) => {
 
 const Trigger = React.forwardRef(({ className, ...props }, ref) => {
    const [theme] = useTheme();
+
    return (
       <_Tabs.Trigger
          ref={ref}
          className={cn(
-            "flex items-center justify-center outline-none data-[state=active]:bg-zinc-900",
+            "flex items-center justify-center outline-none",
+            `data-[state=active]:${theme.select}`,
             theme.borderColor.heavy,
             theme.textColor.hover,
             className

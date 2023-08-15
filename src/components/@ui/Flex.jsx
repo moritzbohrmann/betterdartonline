@@ -39,6 +39,7 @@ const flexVariants = cva("flex", {
       gap: "2",
       justify: "start",
       align: "start",
+      border: "visible",
    },
 });
 

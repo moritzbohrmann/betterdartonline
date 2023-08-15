@@ -4,6 +4,8 @@ export default {
          type: "dark",
          background: "bg-dark-background",
          backgroundColor: "bg-dark-background",
+         select: "bg-zinc-900",
+         separator: "bg-zinc-500",
          textColor: {
             default: "text-white-default",
             descent: "text-zinc-500",
@@ -21,6 +23,8 @@ export default {
          type: "light",
          background: "bg-zinc-200",
          backgroundColor: "bg-light-background",
+         select: "bg-zinc-300",
+         separator: "bg-zinc-300",
          textColor: {
             default: "text-black-default",
             descent: "text-zinc-300",
