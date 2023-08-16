@@ -1,7 +1,7 @@
 import * as Match from "../../../state/MatchReducer";
-import DartIcon from "../assets/dart.png";
+import DartIcon from "../../../assets/dart.png";
 import React from "react";
-import ScoreIcon from "../assets/score.png";
+import ScoreIcon from "../../../assets/score.png";
 import ScoreTableRow from "../../../components/ScoreTableRow";
 import { useDispatch } from "react-redux";
 import { useBeforeUnload } from "react-router-dom";
@@ -31,7 +31,7 @@ function Table() {
    });
 
    return (
-      <Flex justify="center" className="h-144 w-full overflow-auto md:h-192">
+      <Flex justify="center" className="h-192 w-full overflow-auto md:h-192">
          {showScorePopup && <ScorePopup score={lastScore} />}
          <table className="w-full overflow-scroll border-2 border-none text-center font-sans text-3xl font-bold text-white-default">
             <tr className="sticky top-0 z-10 h-20 w-full bg-gray-300 text-dark-window">

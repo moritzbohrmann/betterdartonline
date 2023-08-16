@@ -4,10 +4,10 @@ import { cn } from "../../utils/style";
 import { Flex } from "./Flex";
 
 const hoverVariants = () => {
-   return cva("transition-all w-full h-full rounded-md", {
+   return cva("transition-all ease-in-out w-full h-full rounded-md", {
       variants: {
          variant: {
-            default: "hover:bg-opacity-50",
+            default: "hover:bg-red-300",
             invert: "hover:invert",
          },
       },

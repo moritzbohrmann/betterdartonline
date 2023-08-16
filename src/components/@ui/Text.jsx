@@ -12,11 +12,7 @@ const textVariants = () => {
          variant: {
             heavy: theme.textColor.default,
             light: theme.textColor.descent,
-            button: theme.textColor.button,
-            label: "",
-            button: "",
-            title: "",
-            subTitle: "",
+            background: theme.textColor.background,
          },
          weight: {
             l: "font-light",

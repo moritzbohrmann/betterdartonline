@@ -39,7 +39,7 @@ const Title = ({ subTitle, className, ...props }) => {
          <Text size="3xl" weight="b" align="l">
             {props.children}
          </Text>
-         <Text size="lg" align="l" className="text-zinc-500">
+         <Text variant="light" size="lg" align="l">
             {subTitle}
          </Text>
       </div>

@@ -1,23 +1,21 @@
-import Foot from "../elements/game/Foot";
-import Head from "../elements/game/Head";
+import CricketUI from "../elements/game/cricket/CricketUI";
 import React from "react";
-import { Flex } from "../components/@ui/Flex";
+import SplitUI from "../elements/game/split/SplitUI";
+import X01UI from "../elements/game/x01/X01UI";
 import { useSocket } from "../context/SocketContext";
-import { useTheme } from "../context/ThemeContext";
 import { useProfile } from "../state/ProfileReducer";
 
+const Game = {
+   X01: <X01UI />,
+   Cricket: <CricketUI />,
+   Split: <SplitUI />,
+};
+
 function MatchUI() {
-   const [theme] = useTheme();
-
    initConnection();
+   const profile = useProfile();
 
-   return (
-      <Flex orientation="vertical" align="center" className={`w-full ${theme.background}`}>
-         <Head />
-         <Table />
-         <Foot />
-      </Flex>
-   );
+   return Game[profile.selected];
 }
 
 const initConnection = () => {

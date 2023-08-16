@@ -9,6 +9,7 @@ const initialState = {
 };
 
 const ActionType = {
+   CLEAR_ALL: -1,
    ADD_READY: 0,
    REMOVE_READY: 1,
    ADD_RECEIVED: 2,
@@ -22,6 +23,8 @@ const ActionType = {
 
 const playerlistReducer = (state = initialState, action) => {
    switch (action.type) {
+      case ActionType.CLEAR_ALL:
+         return { ...state, ready: [], requests: { received: [], current: null, sent: [] } };
       case ActionType.ADD_READY:
          return { ...state, ready: [...state.ready, action.payload] };
       case ActionType.REMOVE_READY:
@@ -52,6 +55,9 @@ const playerlistReducer = (state = initialState, action) => {
    }
 };
 
+export const clear = () => {
+   return { type: ActionType.CLEAR_ALL };
+};
 export const addPlayerReady = (player) => {
    return { type: ActionType.ADD_READY, payload: player };
 };

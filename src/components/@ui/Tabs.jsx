@@ -3,6 +3,7 @@ import React from "react";
 import { Children } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/style";
+import { Flex } from "./Flex";
 
 const Root = React.forwardRef(({ children, ...props }, ref) => {
    const [theme] = useTheme();
@@ -21,15 +22,15 @@ const Root = React.forwardRef(({ children, ...props }, ref) => {
    );
 });
 
-const Trigger = React.forwardRef(({ className, ...props }, ref) => {
+const Trigger = React.forwardRef(({ className, children, ...props }, ref) => {
    const [theme] = useTheme();
 
    return (
-      <_Tabs.Trigger
-         ref={ref}
-         className={cn("flex items-center justify-center outline-none", `data-[state=active]:${theme.select}`, theme.borderColor.light, className)}
-         {...props}
-      />
+      <_Tabs.Trigger ref={ref} className={cn("outline-none", theme.borderColor.light, className)} {...props}>
+         <Flex align="center" justify="center">
+            {children}
+         </Flex>
+      </_Tabs.Trigger>
    );
 });
 

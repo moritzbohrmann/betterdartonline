@@ -1,4 +1,3 @@
-import { useTheme } from "../context/ThemeContext";
 import ChallengeDialog from "../elements/ChallengeDialog";
 import FilterCard from "../elements/FilterCard";
 import MatchlistCard from "../elements/MatchlistCard";
@@ -7,6 +6,7 @@ import NewsletterCard from "../elements/NewsletterCard";
 import PlayerlistCard from "../elements/PlayerlistCard";
 import ProfileCard from "../elements/ProfileCard";
 import React from "react";
+import { useTheme } from "../context/ThemeContext";
 
 function HomeUI() {
    const [theme] = useTheme();

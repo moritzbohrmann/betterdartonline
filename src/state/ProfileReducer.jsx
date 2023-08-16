@@ -20,6 +20,7 @@ const ActionType = {
    SET_SCOREMODE: 23,
    SET_LEGAMOUNT: 24,
    SET_TD: 25,
+   SET_SELECTED: 26,
 };
 
 const ProfileReducer = (state = initialState, action) => {
@@ -34,6 +35,9 @@ const ProfileReducer = (state = initialState, action) => {
          return { ...state, legamount: action.payload };
       case ActionType.SET_TD:
          return { ...state, td: action.payload };
+      case ActionType.SET_SELECTED: {
+         return { ...state, selected: action.payload };
+      }
       default:
          return state;
    }
@@ -53,6 +57,9 @@ export const setLegamount = (value) => {
 };
 export const setTD = (value) => {
    return { type: ActionType.SET_TD, payload: value };
+};
+export const setSelected = (value) => {
+   return { type: ActionType.SET_SELECTED, payload: value };
 };
 
 export const useProfile = () => {

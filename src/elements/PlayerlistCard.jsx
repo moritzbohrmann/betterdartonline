@@ -8,11 +8,13 @@ import { Text } from "../components/@ui/Text";
 import { useSocket } from "../context/SocketContext";
 import { useTheme } from "../context/ThemeContext";
 import { addRequestSent, removeRequestSent } from "../state/PlayerlistReducer";
+import { useProfile } from "../state/ProfileReducer";
 import { isPlayer } from "../utils/match";
 
 function PlayerlistCard() {
    const list = useSelector((state) => state.list);
    const socket = useSocket();
+   const profile = useProfile();
    const dispatch = useDispatch();
    const [theme] = useTheme();
 
@@ -29,7 +31,9 @@ function PlayerlistCard() {
    const toggleRequest = (player) => (list.requests.sent.find((sent) => isPlayer(sent, player)) ? handleRevoke(player) : handleRequest(player));
    return (
       <Card>
-         <Title subTitle="Challenge a player of your choice.">Playerlist</Title>
+         <Title subTitle="Challenge a player of your choice.">
+            Playerlist <span className="text-base">({profile.selected})</span>
+         </Title>
          <Flex justify="around" className="w-11/12">
             <Text>Name</Text>
             <Separator orientation="vertical" />
@@ -48,7 +52,7 @@ function PlayerlistCard() {
                            className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-md border-[1px] ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
                            onClick={() => toggleRequest(player)}>
                            <Text weight="sb" className="w-1/3">
-                              {player.username.substring(0, 10)}
+                              {player.username?.substring(0, 10)}
                            </Text>
                            <Text className="w-1/3">
                               {player.scoremode} {player.gamemode} {player.legamount}

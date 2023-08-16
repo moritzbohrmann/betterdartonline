@@ -10,10 +10,10 @@ const buttonVariants = () => {
    return cva("rounded-md m-auto font-sans font-bold outline-none", {
       variants: {
          variant: {
-            default: cn("bg-amber-500", theme.textColor.button),
-            positive: cn("bg-green-500", theme.textColor.button),
-            negative: cn("bg-red-500", theme.textColor.button),
-            transparent: cn("bg-transparent", theme.textColor.default),
+            default: cn(theme.buttonColor.default, theme.textColor.background),
+            positive: cn(theme.buttonColor.positive, theme.textColor.background),
+            negative: cn(theme.buttonColor.negative, theme.textColor.background),
+            transparent: cn("bg-transparent", theme.textColor.background),
          },
          size: {
             default: "h-8 w-32 text-md",
@@ -41,14 +41,12 @@ const buttonVariants = () => {
    });
 };
 
-const Button = React.forwardRef(({ variant, size, className, alignX, alignY, children, ...props }, ref) => {
+const Button = React.forwardRef(({ variant, size, className, alignX, alignY, ...props }, ref) => {
    const variants = buttonVariants();
 
    return (
-      <Hover variant="default">
-         <button ref={ref} className={cn(variants({ variant, size, alignX, alignY, className }))} {...props}>
-            {children}
-         </button>
+      <Hover>
+         <button ref={ref} className={cn(variants({ variant, size, alignX, alignY, className }))} {...props} />
       </Hover>
    );
 });

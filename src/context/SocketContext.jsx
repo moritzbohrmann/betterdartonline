@@ -29,14 +29,25 @@ const initSocket = (socket) => {
    const profile = useProfile();
 
    useEffect(() => {
-      socket.on("join", (player) => {
-         player.id !== profile.id && dispatch(playerlist.addPlayerReady(player));
+      socket.on("join", (data) => {
+         console.log("JOIN");
+
+         if (!data) return;
+
+         const players = (data instanceof Array ? data : [data]).filter(({ id }) => id !== profile.id);
+
+         if (players.length > 0) for (const player of players) dispatch(playerlist.addPlayerReady(player));
       });
-      socket.on("quit", (player) => {
-         if (player.id === profile.id) return;
-         dispatch(playerlist.removePlayerReady(player));
-         dispatch(playerlist.removeRequestSent(player));
-         dispatch(playerlist.removeRequestReceived(player));
+      socket.on("quit", (data) => {
+         if (!data) return;
+
+         const players = data instanceof Array ? data : [data];
+
+         for (const player of players) {
+            dispatch(playerlist.removePlayerReady(player));
+            dispatch(playerlist.removeRequestSent(player));
+            dispatch(playerlist.removeRequestReceived(player));
+         }
       });
       socket.on("match-continue", (match) => {
          localStorage.setItem("match", JSON.stringify(match));
