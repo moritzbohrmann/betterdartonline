@@ -3,6 +3,7 @@ import React from "react";
 import Separator from "../components/@ui/Separator";
 import { Card, Title } from "../components/@ui/Card";
 import { Flex } from "../components/@ui/Flex";
+import { Text } from "../components/@ui/Text";
 import { ThemeType, themeStyle, useTheme } from "../context/ThemeContext";
 import { cn } from "../utils/style";
 
@@ -18,8 +19,9 @@ function SettingsMenu() {
    return (
       <Card className="absolute">
          <Title subTitle="Customize the app according to your preferences.">Settings</Title>
-         <Flex align="center" justify="between" className="w-full px-8 pb-4">
-            <h2>Lightmode</h2>
+         <Separator orientation="horizontal" />
+         <Flex align="center" justify="between" className="h-10 w-full px-4">
+            <Text>Lightmode</Text>
             <Switch.Root
                onCheckedChange={toggleTheme}
                checked={theme.type === ThemeType.LIGHT}
@@ -34,8 +36,8 @@ function SettingsMenu() {
             </Switch.Root>
          </Flex>
          <Separator orientation="horizontal" />
-         <Flex align="center" justify="between" className="w-full px-8 pt-4">
-            <h2>Caller</h2>
+         <Flex align="center" justify="between" className="h-10 w-full px-4">
+            <Text>Caller</Text>
             <Switch.Root
                className={`relative h-[25px] w-[42px] rounded-full border-[1px]  ${
                   theme.type === ThemeType.DARK ? "border-white bg-white" : "border-dark-background bg-dark-background"

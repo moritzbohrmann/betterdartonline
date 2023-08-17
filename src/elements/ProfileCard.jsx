@@ -65,7 +65,7 @@ function ProfileCard() {
                <SplitScore />
             </Tabs.Result>
          </Tabs.Root>
-         <Flex align="center" className="mt-8">
+         <Flex align="center" className="mt-6">
             {joined ? (
                <Button variant="negative" onClick={() => handleQuit()}>
                   Quit

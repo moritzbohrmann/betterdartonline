@@ -5,7 +5,7 @@ export default {
          background: "bg-neutral-950",
          backgroundColor: "bg-neutral-950",
          select: "bg-zinc-900",
-         separator: "bg-zinc-500",
+         separator: "bg-zinc-900",
          textColor: {
             default: "text-zinc-300",
             descent: "text-zinc-500",
