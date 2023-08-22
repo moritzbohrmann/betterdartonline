@@ -41,13 +41,13 @@ const buttonVariants = () => {
    });
 };
 
-const Button = React.forwardRef(({ variant, size, className, alignX, alignY, ...props }, ref) => {
+const Button = React.forwardRef(({ variant, size, className, alignX, alignY, children, ...props }, ref) => {
    const variants = buttonVariants();
 
    return (
-      <Hover>
-         <button ref={ref} className={cn(variants({ variant, size, alignX, alignY, className }))} {...props} />
-      </Hover>
+      <button ref={ref} className={cn(variants({ variant, size, alignX, alignY, className }))} {...props}>
+         <Hover>{children}</Hover>
+      </button>
    );
 });
 

@@ -14,12 +14,7 @@ function X01() {
       <Flex orientation="vertical" gap="2">
          <Flex justify="between" align="center" className="w-full">
             <Text>Username</Text>
-            <Input
-               defaultValue={profile.username}
-               placeholder="your username"
-               maxLength="16"
-               onChange={(e) => dispatch(setUsername(e.target.value))}
-            />
+            <Input defaultValue={profile.username} readOnly />
          </Flex>
          <Flex justify="between" align="center" className="w-full">
             <Text>Points</Text>

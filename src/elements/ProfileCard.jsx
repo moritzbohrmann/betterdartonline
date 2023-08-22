@@ -13,6 +13,7 @@ import { useSocket } from "../context/SocketContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { clear } from "../state/PlayerlistReducer";
 import { setSelected, useProfile } from "../state/ProfileReducer";
+import { useTheme } from "../context/ThemeContext";
 
 function ProfileCard() {
    const profile = useProfile();
@@ -20,6 +21,7 @@ function ProfileCard() {
    const [joined, setJoined] = React.useState(false);
    const socket = useSocket();
    const dispatch = useDispatch();
+   const [theme] = useTheme();
 
    const handleJoin = () => {
       setStorageProfile(profile);
@@ -27,7 +29,6 @@ function ProfileCard() {
       if (!socket.connected) return;
 
       socket.emit("join", profile);
-      console.log("Logged in with " + profile.selected);
       setJoined(true);
       toast.success("You joined the server!");
    };

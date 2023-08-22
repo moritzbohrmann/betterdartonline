@@ -21,6 +21,7 @@ const ActionType = {
    SET_LEGAMOUNT: 24,
    SET_TD: 25,
    SET_SELECTED: 26,
+   SET_EMAIL: 27,
 };
 
 const ProfileReducer = (state = initialState, action) => {
@@ -37,6 +38,9 @@ const ProfileReducer = (state = initialState, action) => {
          return { ...state, td: action.payload };
       case ActionType.SET_SELECTED: {
          return { ...state, selected: action.payload };
+      }
+      case ActionType.SET_EMAIL: {
+         return { ...state, email: action.payload };
       }
       default:
          return state;
@@ -60,6 +64,9 @@ export const setTD = (value) => {
 };
 export const setSelected = (value) => {
    return { type: ActionType.SET_SELECTED, payload: value };
+};
+export const setEmail = (value) => {
+   return { type: ActionType.SET_EMAIL, payload: value };
 };
 
 export const useProfile = () => {

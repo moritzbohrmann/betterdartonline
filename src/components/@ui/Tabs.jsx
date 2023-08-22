@@ -26,7 +26,7 @@ const Trigger = React.forwardRef(({ className, children, ...props }, ref) => {
    const [theme] = useTheme();
 
    return (
-      <_Tabs.Trigger ref={ref} className={cn("outline-none", theme.borderColor.light, className)} {...props}>
+      <_Tabs.Trigger ref={ref} className={cn(`outline-none data-[state=active]:${theme.select}`, theme.borderColor.light, className)} {...props}>
          <Flex align="center" justify="center">
             {children}
          </Flex>

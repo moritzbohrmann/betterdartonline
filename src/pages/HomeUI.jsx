@@ -14,7 +14,7 @@ function HomeUI() {
    return (
       <div className={`flex min-h-screen flex-col items-center pb-8 ${theme.background}`}>
          <Navigation />
-         <div className="mt-4 flex w-5/6 flex-wrap justify-center gap-4 pb-10 xl:mt-12 xl:pb-0">
+         <div className="mt-4 flex w-5/6 flex-wrap justify-center gap-4 pb-10 xl:pb-0">
             <div className="flex flex-col gap-4">
                <ProfileCard />
                <FilterCard />

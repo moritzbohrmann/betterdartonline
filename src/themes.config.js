@@ -4,8 +4,8 @@ export default {
          type: "dark",
          background: "bg-neutral-950",
          backgroundColor: "bg-neutral-950",
-         select: "bg-zinc-900",
-         separator: "bg-zinc-900",
+         select: "bg-zinc-800",
+         separator: "bg-zinc-500",
          textColor: {
             default: "text-zinc-300",
             descent: "text-zinc-500",
@@ -13,7 +13,7 @@ export default {
          },
          borderColor: {
             default: "border-zinc-500",
-            light: "border-zinc-900",
+            light: "border-zinc-800",
          },
          buttonColor: {
             default: "bg-amber-500",

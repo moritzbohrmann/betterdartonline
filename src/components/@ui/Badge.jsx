@@ -10,7 +10,7 @@ const badgeVariants = cva("ring-1 ring-inset bg-opacity-20 inline-flex items-cen
       },
       color: {
          default: "ring-zinc-500 border-zinc-500 text-zinc-500",
-         white: "ring-slate-500 border-white text-white-default",
+         white: "ring-white border-white text-white-default",
          black: "ring-zinc-500 border-black text-black",
          red: "ring-red-500 border-red-500 text-red-500",
          green: "ring-green-500 border-green-500 text-green-500",
