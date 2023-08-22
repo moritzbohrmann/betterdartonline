@@ -9,33 +9,37 @@ import { Text } from "../components/@ui/Text";
 function NewsletterCard() {
    const mailRef = React.useRef(null);
 
-   const handleSubscribtion = () => {
+   const handleSubscribtion = (e) => {
+      e.preventDefault();
       if (mailRef.current.value.length === 0) return;
 
       toast.success("Successfully subscribed to our newsletter.");
    };
 
-   const handleUnsubscribtion = () => {
+   const handleUnsubscribtion = (e) => {
+      e.preventDefault();
       if (mailRef.current.value.length === 0) return;
 
       toast.success("Successfully unsubscribed from our newsletter.");
    };
 
    return (
-      <Card size="fill">
+      <Card size="fill" className="max-h-64">
          <Title subTitle="Subscribe to our newsletter so you don't miss an update!">Newsletter</Title>
-         <Flex orientation="wrap" align="center" justify="center" gap="4" className="m-auto xl:gap-8">
-            <Text>E-Mail</Text>
-            <Input ref={mailRef} size="xl" placeholder="your e-mail address" />
-            <Flex gap="4">
-               <Button variant="positive" onClick={handleSubscribtion}>
-                  Subscribe
-               </Button>
-               <Button variant="negative" onClick={handleUnsubscribtion}>
-                  Unsubscribe
-               </Button>
+         <form>
+            <Flex orientation="wrap" align="center" justify="center" gap="4">
+               <Text>E-Mail</Text>
+               <Input type="email" ref={mailRef} size="xl" placeholder="your e-mail address" />
+               <Flex gap="4">
+                  <Button type="submit" variant="positive" onClick={(e) => handleSubscribtion(e)}>
+                     Subscribe
+                  </Button>
+                  <Button type="submit" variant="negative" onClick={(e) => handleUnsubscribtion(e)}>
+                     Unsubscribe
+                  </Button>
+               </Flex>
             </Flex>
-         </Flex>
+         </form>
       </Card>
    );
 }

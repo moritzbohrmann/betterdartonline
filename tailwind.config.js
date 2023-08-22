@@ -78,6 +78,28 @@ export default {
             208: "72rem",
             224: "80rem",
          },
+         maxWidth: {
+            112: "24rem",
+            128: "32rem",
+            144: "40rem",
+            152: "44rem",
+            160: "48rem",
+            176: "56rem",
+            192: "64rem",
+            208: "72rem",
+            224: "80rem",
+         },
+         maxHeight: {
+            112: "24rem",
+            128: "32rem",
+            144: "40rem",
+            152: "44rem",
+            160: "48rem",
+            176: "56rem",
+            192: "64rem",
+            208: "72rem",
+            224: "80rem",
+         },
          keyframes: {
             overlayShow: {
                from: { opacity: 0 },

@@ -1,17 +1,17 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import AccountCard from "./AccountCard";
+import ProfileIcon from "../assets/user.png";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
 import ToolTip from "../components/@ui/ToolTip";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { Badge } from "../components/@ui/Badge";
 import { Card } from "../components/@ui/Card";
 import { Flex } from "../components/@ui/Flex";
 import { Text } from "../components/@ui/Text";
 import { useTheme } from "../context/ThemeContext";
-import { cn } from "../utils/style";
-import AccountCard from "./AccountCard";
-import { Badge } from "../components/@ui/Badge";
 import { useProfile } from "../state/ProfileReducer";
-import ProfileIcon from "../assets/user.png";
+import { cn } from "../utils/style";
 
 function Navigation() {
    const [theme] = useTheme();
@@ -19,8 +19,7 @@ function Navigation() {
 
    return (
       <NavigationMenu.Root
-         className={cn("sticky top-0 w-full border-b-[1px] backdrop-blur-lg md:bg-opacity-80", theme.backgroundColor, theme.borderColor.light)}
-      >
+         className={cn("sticky top-0 w-full border-b-[1px] backdrop-blur-md md:bg-opacity-80", theme.backgroundColor, theme.borderColor.light)}>
          <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
             <Flex justify="between" align="center" className="w-full">
                <Flex gap="8">
@@ -61,7 +60,7 @@ function Navigation() {
                      {profile === null ? (
                         <Badge color="white">Sign in</Badge>
                      ) : (
-                        <Flex justify="around" align="center" gap="4" className="rounded-md bg-zinc-800 px-4 py-1">
+                        <Flex justify="around" align="center" gap="4" className={`rounded-md border-[1px] ${theme.borderColor.light} px-4 py-1`}>
                            <Text weight="sb">{profile.username}</Text>
                            <img src={ProfileIcon} className="h-8 w-8" />
                         </Flex>

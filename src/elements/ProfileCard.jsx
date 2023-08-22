@@ -10,10 +10,10 @@ import { Card, Title } from "../components/@ui/Card";
 import { Flex } from "../components/@ui/Flex";
 import { Text } from "../components/@ui/Text";
 import { useSocket } from "../context/SocketContext";
+import { useTheme } from "../context/ThemeContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { clear } from "../state/PlayerlistReducer";
 import { setSelected, useProfile } from "../state/ProfileReducer";
-import { useTheme } from "../context/ThemeContext";
 
 function ProfileCard() {
    const profile = useProfile();
@@ -44,29 +44,29 @@ function ProfileCard() {
    };
 
    return (
-      <Card className="m-auto">
+      <Card>
          <Title subTitle="Edit your profile settings.">Profile</Title>
          <Tabs.Root className="h-52 w-full">
             <Tabs.Trigger className="h-10 w-1/3" value="tab1" onClick={() => dispatch(setSelected("X01"))}>
                <Text weight="sb">x01</Text>
             </Tabs.Trigger>
-            <Tabs.Result className="mt-4" value="tab1">
+            <Tabs.Result className="mt-6" value="tab1">
                <X01 />
             </Tabs.Result>
             <Tabs.Trigger className="h-10 w-1/3 border-x-[1px]" value="tab2" onClick={() => dispatch(setSelected("Cricket"))}>
                <Text weight="sb">Cricket</Text>
             </Tabs.Trigger>
-            <Tabs.Result className="mt-4" value="tab2">
+            <Tabs.Result className="mt-6" value="tab2">
                <Cricket />
             </Tabs.Result>
             <Tabs.Trigger className="h-10 w-1/3" value="tab3" onClick={() => dispatch(setSelected("Split"))}>
                <Text weight="sb">Split</Text>
             </Tabs.Trigger>
-            <Tabs.Result className="mt-4" value="tab3">
+            <Tabs.Result className="mt-6" value="tab3">
                <SplitScore />
             </Tabs.Result>
          </Tabs.Root>
-         <Flex align="center" className="mt-6">
+         <Flex align="center" className="mt-8">
             {joined ? (
                <Button variant="negative" onClick={() => handleQuit()}>
                   Quit

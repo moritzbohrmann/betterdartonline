@@ -30,7 +30,7 @@ function PlayerlistCard() {
 
    const toggleRequest = (player) => (list.requests.sent.find((sent) => isPlayer(sent, player)) ? handleRevoke(player) : handleRequest(player));
    return (
-      <Card>
+      <Card className="max-h-144">
          <Title subTitle="Challenge a player of your choice.">
             Playerlist <span className="text-base">({profile.selected})</span>
          </Title>
@@ -50,8 +50,7 @@ function PlayerlistCard() {
                      return (
                         <li
                            className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-md border-[1px] ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
-                           onClick={() => toggleRequest(player)}
-                        >
+                           onClick={() => toggleRequest(player)}>
                            <Text weight="sb" className="w-1/3">
                               {player.username?.substring(0, 10)}
                            </Text>

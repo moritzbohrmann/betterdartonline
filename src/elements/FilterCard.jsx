@@ -12,7 +12,7 @@ function FilterCard() {
    return (
       <Card>
          <Title subTitle="Searching for a particular player?">Filter</Title>
-         <Flex justify="between" align="center" className="w-full pb-1">
+         <Flex justify="between" align="center" className="w-full">
             <Text>Keywords</Text>
             <Input placeholder="your keywords" onChange={(e) => dispatch(applyFilter(e.target.value))} />
          </Flex>
