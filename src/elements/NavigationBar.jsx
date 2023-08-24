@@ -76,9 +76,9 @@ function Navigation() {
             </Flex>
             <NavigationMenu.Item className="md:hidden">
                <NavigationMenu.Trigger>
-                  <HamburgerMenuIcon className="h-8 w-8" />
+                  <HamburgerMenuIcon className="h-8 w-8 text-white-default" />
                </NavigationMenu.Trigger>
-               <NavigationMenu.Content className="fixed left-0 mt-3 data-[state=open]:animate-contentShow">
+               <NavigationMenu.Content className="fixed left-0 mt-3 data-[state=open]:animate-contentFade">
                   <Card className="absolute h-56 w-screen">
                      <HamburgerItem className={cn("border-b-[1px]", theme.borderColor.light)}>
                         <Text>Start</Text>
