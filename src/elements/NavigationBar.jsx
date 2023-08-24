@@ -1,13 +1,14 @@
+import * as Collabsible from "@radix-ui/react-collapsible";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import AccountCard from "./AccountCard";
 import ProfileIcon from "../assets/user.png";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { ToolTip, Badge, Card, Flex, Text } from "../components/@ui/_collection";
+import { Button, Card, Flex, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
-import { cn } from "../utils/style";
 import { useAccount } from "../state/AccountReducer";
+import { cn } from "../utils/style";
 
 function Navigation() {
    const [theme] = useTheme();
@@ -15,9 +16,8 @@ function Navigation() {
 
    return (
       <NavigationMenu.Root
-         className={cn("sticky top-0 w-full border-b-[1px] backdrop-blur-md md:bg-opacity-80", theme.backgroundColor, theme.borderColor.light)}
-      >
-         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
+         className={cn("sticky top-0 w-full border-b-[1px] bg-opacity-50 backdrop-blur-md", theme.backgroundColor, theme.borderColor.light)}>
+         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-4 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
             <Flex justify="between" align="center" className="w-full">
                <Flex gap="8">
                   <NavigationMenu.Item>
@@ -31,7 +31,7 @@ function Navigation() {
                      <NavigationMenu.Item>
                         <ToolTip content="Coming soon...">
                            <NavigationMenu.Trigger>
-                              <Text variant="light" weight="b">
+                              <Text variant="light" weight="b" hover>
                                  Start
                               </Text>
                            </NavigationMenu.Trigger>
@@ -44,7 +44,10 @@ function Navigation() {
                            </Text>
                         </NavigationMenu.Trigger>
                         <NavigationMenu.Content className="absolute data-[state=open]:animate-contentShow">
-                           <SettingsMenu />
+                           <Card className="absolute">
+                              <Title subTitle="Customize the app according to your preferences.">Settings</Title>
+                              <SettingsMenu />
+                           </Card>
                         </NavigationMenu.Content>
                      </NavigationMenu.Item>
                      <NavigationMenu.Item>
@@ -66,7 +69,7 @@ function Navigation() {
                            <img src={ProfileIcon} className="h-8 w-8" />
                         </Flex>
                      ) : (
-                        <Badge color="white">Sign in</Badge>
+                        <Button variant="neutral">Sign up</Button>
                      )}
                   </NavigationMenu.Trigger>
                   <NavigationMenu.Content className="absolute data-[state=open]:animate-contentShow">
@@ -79,16 +82,29 @@ function Navigation() {
                   <HamburgerMenuIcon className="h-8 w-8 text-white-default" />
                </NavigationMenu.Trigger>
                <NavigationMenu.Content className="fixed left-0 mt-3 data-[state=open]:animate-contentFade">
-                  <Card className="absolute h-56 w-screen">
-                     <HamburgerItem className={cn("border-b-[1px]", theme.borderColor.light)}>
-                        <Text>Start</Text>
-                     </HamburgerItem>
-                     <HamburgerItem>
-                        <Text>Settings</Text>
-                     </HamburgerItem>
-                     <HamburgerItem className={cn("border-t-[1px]", theme.borderColor.light)}>
-                        <Text>Help</Text>
-                     </HamburgerItem>
+                  <Card className="absolute w-screen rounded-none">
+                     <Flex orientation="vertical" className="w-full">
+                        <HamburgerItem className={cn("h-16 border-b-[1px]", theme.borderColor.light)}>
+                           <Text>Start</Text>
+                        </HamburgerItem>
+                        <HamburgerItem>
+                           <Collabsible.Root className="w-full">
+                              <Flex orientation="vertical" align="center">
+                                 <Collabsible.Trigger className="flex h-16 items-center justify-center data-[state=open]:font-bold" asChild>
+                                    <Text>Settings</Text>
+                                 </Collabsible.Trigger>
+                                 <Collabsible.Content className="w-full animate-rollDown rounded-none">
+                                    <Flex orientation="vertical" align="center" className="h-32 w-full px-10">
+                                       <SettingsMenu />
+                                    </Flex>
+                                 </Collabsible.Content>
+                              </Flex>
+                           </Collabsible.Root>
+                        </HamburgerItem>
+                        <HamburgerItem className={cn("h-16 border-t-[1px]", theme.borderColor.light)}>
+                           <Text>Help</Text>
+                        </HamburgerItem>
+                     </Flex>
                   </Card>
                </NavigationMenu.Content>
             </NavigationMenu.Item>

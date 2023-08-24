@@ -17,7 +17,11 @@ export const themeStyle = (themeType) => {
 const ThemeProvider = ({ children }) => {
    const [theme, setTheme] = React.useState(themeStyle(ThemeType.DARK));
 
-   return <ThemeContext.Provider value={[theme, setTheme]} children={children} />;
+   return (
+      <ThemeContext.Provider value={[theme, setTheme]}>
+         <div className={theme.background}>{children}</div>
+      </ThemeContext.Provider>
+   );
 };
 
 export const useTheme = () => {

@@ -113,11 +113,16 @@ export default {
                from: { opacity: 0 },
                to: { opacity: 1 },
             },
+            rollDown: {
+               from: { height: 0 },
+               to: { height: 1 },
+            },
          },
          animation: {
             overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentFade: "contentFade 150ms",
+            rollDown: "contentFade 150ms cubic-bezier(.5,.5,.5,.5)",
          },
       },
    },

@@ -1,22 +1,22 @@
-import React from "react";
-import Login from "../components/account/Login";
-import { Card, Title, Tabs, Text } from "../components/@ui/_collection";
-import Register from "../components/account/Register";
 import Account from "../components/account/Account";
+import Login from "../components/account/Login";
+import React from "react";
+import Register from "../components/account/Register";
+import { Card, Separator, Tabs, Text, Title } from "../components/@ui/_collection";
 import { useAccount } from "../state/AccountReducer";
 
 function AccountCard() {
    const account = useAccount();
 
    return (
-      <div className="absolute -translate-x-40">
+      <div className="absolute">
          {account.isLoggedIn ? (
             <Account account={account} />
          ) : (
             <Card>
                <Title subTitle="Enter your credentials to enjoy betterdartonline.">Account</Title>
                <Tabs.Root className="w-full">
-                  <Tabs.Trigger value="tab1" className="h-10 w-1/2 border-r-[1px] border-zinc-800">
+                  <Tabs.Trigger value="tab1" className="h-10 w-1/2 border-r-[1px]">
                      <Text weight="b">Login</Text>
                   </Tabs.Trigger>
                   <Tabs.Trigger value="tab2" className="h-10 w-1/2">

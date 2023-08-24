@@ -13,6 +13,7 @@ const buttonVariants = () => {
             default: cn(theme.buttonColor.default, theme.textColor.background),
             positive: cn(theme.buttonColor.positive, theme.textColor.background),
             negative: cn(theme.buttonColor.negative, theme.textColor.background),
+            neutral: cn(theme.buttonColor.neutral, theme.textColor.default),
             transparent: cn("bg-transparent", theme.textColor.background),
          },
          size: {

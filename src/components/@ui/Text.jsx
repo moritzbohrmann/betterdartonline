@@ -46,7 +46,7 @@ const textVariants = () => {
    });
 };
 
-const Text = React.forwardRef(({ variant, weight, size, align, className, toolTip, ...props }, ref) => {
+const Text = React.forwardRef(({ variant, weight, size, align, hover, className, toolTip, ...props }, ref) => {
    const variants = textVariants();
 
    if (toolTip) {

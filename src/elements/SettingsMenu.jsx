@@ -1,6 +1,6 @@
 import * as Switch from "@radix-ui/react-switch";
 import React from "react";
-import { Separator, Card, Title, Flex, Text } from "../components/@ui/_collection";
+import { Card, Flex, Separator, Text, Title } from "../components/@ui/_collection";
 import { ThemeType, themeStyle, useTheme } from "../context/ThemeContext";
 
 function SettingsMenu() {
@@ -13,9 +13,7 @@ function SettingsMenu() {
    };
 
    return (
-      <Card className="absolute">
-         <Title subTitle="Customize the app according to your preferences.">Settings</Title>
-         <Separator orientation="horizontal" />
+      <>
          <Flex align="center" justify="between" className="h-10 w-full px-4">
             <Text>Lightmode</Text>
             <Switch.Root
@@ -23,8 +21,7 @@ function SettingsMenu() {
                checked={theme.type === ThemeType.LIGHT}
                className={`relative h-[25px] w-[42px] rounded-full border-[1px]  ${
                   theme.type === ThemeType.DARK ? "border-white bg-white" : "border-dark-background bg-dark-background"
-               } outline-none`}
-            >
+               } outline-none`}>
                <Switch.Thumb
                   className={`block h-[21px] w-[21px] translate-x-0.5 rounded-full ${
                      theme.type === ThemeType.DARK ? "bg-dark-background" : "bg-white"
@@ -38,8 +35,7 @@ function SettingsMenu() {
             <Switch.Root
                className={`relative h-[25px] w-[42px] rounded-full border-[1px]  ${
                   theme.type === ThemeType.DARK ? "border-white bg-white" : "border-dark-background bg-dark-background"
-               } outline-none`}
-            >
+               } outline-none`}>
                <Switch.Thumb
                   className={`block h-[21px] w-[21px] translate-x-0.5 rounded-full ${
                      theme.type === ThemeType.DARK ? "bg-dark-background" : "bg-white"
@@ -47,7 +43,7 @@ function SettingsMenu() {
                />
             </Switch.Root>
          </Flex>
-      </Card>
+      </>
    );
 }
 
