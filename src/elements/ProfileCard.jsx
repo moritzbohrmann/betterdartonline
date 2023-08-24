@@ -1,14 +1,10 @@
-import * as Tabs from "../components/@ui/Tabs";
 import Cricket from "../components/profile/Cricket";
 import React from "react";
 import SplitScore from "../components/profile/SplitScore";
 import X01 from "../components/profile/X01";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { Button } from "../components/@ui/Button";
-import { Card, Title } from "../components/@ui/Card";
-import { Flex } from "../components/@ui/Flex";
-import { Text } from "../components/@ui/Text";
+import { Button, Card, Title, Flex, Text, Tabs } from "../components/@ui/_collection";
 import { useSocket } from "../context/SocketContext";
 import { useTheme } from "../context/ThemeContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";

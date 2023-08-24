@@ -1,8 +1,5 @@
 import React from "react";
-import { Flex } from "../@ui/Flex";
-import { Text } from "../@ui/Text";
-import { Input } from "../@ui/Input";
-import { Button } from "../@ui/Button";
+import { Flex, Text, Input, Button } from "../@ui/_collection";
 import { useDispatch } from "react-redux";
 import { setEmail, setUsername, useProfile } from "../../state/ProfileReducer";
 import { useLocalStorage } from "../../hooks/useLocalStorage";

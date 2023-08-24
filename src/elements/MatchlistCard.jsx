@@ -1,8 +1,5 @@
 import React from "react";
-import Separator from "../components/@ui/Separator";
-import { Card, Title } from "../components/@ui/Card";
-import { Flex } from "../components/@ui/Flex";
-import { Text } from "../components/@ui/Text";
+import { Card, Title, Flex, Text, Separator } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
 
 function MatchlistCard() {
@@ -24,7 +21,8 @@ function MatchlistCard() {
                {list.map((tournament) => {
                   return (
                      <li
-                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}>
+                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
+                     >
                         <Flex align="center" justify="around" className="h-8 w-full">
                            <Text weight="bl" className="w-1/2">
                               {tournament.name}

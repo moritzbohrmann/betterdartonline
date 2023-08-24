@@ -1,6 +1,6 @@
 import React from "react";
 import { useSocket } from "../context/SocketContext";
-import { useMatch, useNextPlayer, useScores } from "../state/MatchReducer";
+import { useMatch, useNextPlayer } from "../state/MatchReducer";
 import { useProfile } from "../state/ProfileReducer";
 import { isPlayer } from "../utils/match";
 

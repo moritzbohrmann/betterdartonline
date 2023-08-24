@@ -1,10 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setGamemode, setLegamount, setScoremode, setUsername, useProfile } from "../../state/ProfileReducer";
-import { Flex } from "../@ui/Flex";
-import { Input } from "../@ui/Input";
-import { Select } from "../@ui/Select";
-import { Text } from "../@ui/Text";
+import { Flex, Input, Select, Text } from "../@ui/_collection";
 
 function X01() {
    const profile = useProfile();

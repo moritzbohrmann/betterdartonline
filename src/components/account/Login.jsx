@@ -1,8 +1,5 @@
 import React from "react";
-import { Flex } from "../@ui/Flex";
-import { Input } from "../@ui/Input";
-import { Text } from "../@ui/Text";
-import { Button } from "../@ui/Button";
+import { Flex, Input, Text, Button } from "../@ui/_collection";
 
 function Login() {
    return (

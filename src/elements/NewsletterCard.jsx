@@ -1,10 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { Button } from "../components/@ui/Button";
-import { Card, Title } from "../components/@ui/Card";
-import { Flex } from "../components/@ui/Flex";
-import { Input } from "../components/@ui/Input";
-import { Text } from "../components/@ui/Text";
+import { Button, Card, Title, Flex, Input, Text } from "../components/@ui/_collection";
 
 function NewsletterCard() {
    const mailRef = React.useRef(null);

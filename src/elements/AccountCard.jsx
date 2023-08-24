@@ -1,19 +1,17 @@
 import React from "react";
-import { Card, Title } from "../components/@ui/Card";
 import Login from "../components/account/Login";
-import * as Tabs from "../components/@ui/Tabs";
-import { Text } from "../components/@ui/Text";
+import { Card, Title, Tabs, Text } from "../components/@ui/_collection";
 import Register from "../components/account/Register";
 import Account from "../components/account/Account";
-import { useProfile } from "../state/ProfileReducer";
+import { useAccount } from "../state/AccountReducer";
 
 function AccountCard() {
-   const profile = useProfile();
+   const account = useAccount();
 
    return (
-      <div className="absolute">
-         {profile === null ? (
-            <Account profile={profile} />
+      <div className="absolute -translate-x-40">
+         {account.isLoggedIn ? (
+            <Account account={account} />
          ) : (
             <Card>
                <Title subTitle="Enter your credentials to enjoy betterdartonline.">Account</Title>

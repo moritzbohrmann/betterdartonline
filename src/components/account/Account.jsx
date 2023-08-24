@@ -1,12 +1,9 @@
 import React from "react";
-import { Card, Title } from "../@ui/Card";
-import { Flex } from "../@ui/Flex";
-import { Text } from "../@ui/Text";
-import { Input } from "../@ui/Input";
-import { Button } from "../@ui/Button";
-import { useProfile } from "../../state/ProfileReducer";
+import { Card, Title, Flex, Text, Input, Button } from "../@ui/_collection";
 
-function Account({ profile }) {
+function Account({ account }) {
+   const { profile } = account;
+
    return (
       <Card>
          <Title subTitle="Manage your account.">Account</Title>

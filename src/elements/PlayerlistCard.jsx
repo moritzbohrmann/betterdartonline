@@ -1,10 +1,7 @@
 import React from "react";
-import Separator from "../components/@ui/Separator";
 import { CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Title } from "../components/@ui/Card";
-import { Flex } from "../components/@ui/Flex";
-import { Text } from "../components/@ui/Text";
+import { Separator, Card, Title, Flex, Text } from "../components/@ui/_collection";
 import { useSocket } from "../context/SocketContext";
 import { useTheme } from "../context/ThemeContext";
 import { addRequestSent, removeRequestSent } from "../state/PlayerlistReducer";
@@ -50,7 +47,8 @@ function PlayerlistCard() {
                      return (
                         <li
                            className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-md border-[1px] ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
-                           onClick={() => toggleRequest(player)}>
+                           onClick={() => toggleRequest(player)}
+                        >
                            <Text weight="sb" className="w-1/3">
                               {player.username?.substring(0, 10)}
                            </Text>

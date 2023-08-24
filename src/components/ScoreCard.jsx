@@ -1,7 +1,6 @@
 import * as Match from "../state/MatchReducer";
 import React from "react";
-import { Flex } from "../components/@ui/Flex";
-import { Text } from "../components/@ui/Text";
+import { Flex, Text } from "../components/@ui/_collection";
 import { initialsOf, isPlayer } from "../utils/match";
 
 const ScoreCard = ({ player }) => {
@@ -36,7 +35,8 @@ const ScoreCard = ({ player }) => {
          onMouseLeave={(e) => handleMouse(e)}
          className={`mx-auto h-48 w-5/12 bg-dark-background ring-zinc-900 brightness-110 md:my-auto md:rounded-md 2xl:ring-1 ${
             isPlayer(player, nextPlayer) && "border-4 border-yellow-400"
-         }`}>
+         }`}
+      >
          {showStats ? (
             <Flex orientation="vertical" align="center" justify="center" className="h-full w-full sm:text-lg">
                <Text>
@@ -73,7 +73,8 @@ const ScoreCard = ({ player }) => {
                      align="center"
                      justify="center"
                      gap="2"
-                     className="text-lg font-light md:ml-2 md:flex-col md:gap-0 md:text-2xl xl:my-auto xl:text-4xl">
+                     className="text-lg font-light md:ml-2 md:flex-col md:gap-0 md:text-2xl xl:my-auto xl:text-4xl"
+                  >
                      <Text className="text-yellow-300">{legAverage}</Text>
                      <Text className="text-orange-700">{matchAverage}</Text>
                   </Flex>
