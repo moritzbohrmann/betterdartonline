@@ -1,14 +1,13 @@
 import React from "react";
-import { Flex, Text, Input, Button } from "../@ui/_collection";
 import { useDispatch } from "react-redux";
 import { setEmail, setUsername, useProfile } from "../../state/ProfileReducer";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { Button, Flex, Input, Text } from "../@ui/_collection";
 
 function Register() {
    const dispatch = useDispatch();
-   const [, setStorageProfile] = useLocalStorage("profile");
    const [_profile, _setProfile] = React.useState({});
    const profile = useProfile();
+   const [, setStorageProfile] = React.useState(profile);
 
    const handleSubmit = (e) => {
       e.preventDefault();

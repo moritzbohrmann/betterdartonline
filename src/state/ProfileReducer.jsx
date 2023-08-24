@@ -13,6 +13,7 @@ let initialState = {
 const storageProfile = localStorage.getItem("profile");
 
 if (storageProfile !== null) initialState = JSON.parse(storageProfile);
+else localStorage.setItem("profile", JSON.stringify(initialState));
 
 const ActionType = {
    SET_USERNAME: 21,
