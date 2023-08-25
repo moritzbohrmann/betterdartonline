@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setGamemode, setLegamount, setScoremode, setUsername, useProfile } from "../../state/ProfileReducer";
+import { setGamemode, setLegamount, setScoremode, useProfile } from "../../state/ProfileReducer";
 import { Flex, Input, Select, Text } from "../@ui/_collection";
 
 function X01() {

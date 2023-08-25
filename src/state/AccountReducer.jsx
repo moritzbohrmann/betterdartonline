@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 
 let initialState = {
-   id: null,
-   username: null,
+   id: crypto.randomUUID(),
+   username: "Moritz",
    email: null,
    profile: null,
    settings: null,
@@ -18,6 +18,7 @@ const ActionType = {
    SET_SELECTED: 33,
    SET_EMAIL: 34,
    SET_LOGGED_IN: 35,
+   SET_PROFILE: 36,
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -40,6 +41,9 @@ const accountReducer = (state = initialState, action) => {
       }
       case ActionType.SET_LOGGED_IN: {
          return { ...state, isLoggedIn: action.payload };
+      }
+      case ActionType.SET_PROFILE: {
+         return { ...state, profile: action.payload };
       }
       default:
          return state;
@@ -69,6 +73,9 @@ export const setEmail = (value) => {
 };
 export const setLoggedIn = (value) => {
    return { type: ActionType.SET_LOGGED_IN, payload: value };
+};
+export const setProfile = (value) => {
+   return { type: ActionType.SET_PROFILE, payload: value };
 };
 
 export const useAccount = () => {

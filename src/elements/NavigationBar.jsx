@@ -5,7 +5,8 @@ import ProfileIcon from "../assets/user.png";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Button, Card, Flex, Text, Title, ToolTip } from "../components/@ui/_collection";
+import { Navigate } from "react-router-dom";
+import { Badge, Button, Card, Flex, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
 import { useAccount } from "../state/AccountReducer";
 import { cn } from "../utils/style";
@@ -17,7 +18,7 @@ function Navigation() {
    return (
       <NavigationMenu.Root
          className={cn("sticky top-0 w-full border-b-[1px] bg-opacity-50 backdrop-blur-md", theme.backgroundColor, theme.borderColor.light)}>
-         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-4 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
+         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
             <Flex justify="between" align="center" className="w-full">
                <Flex gap="8">
                   <NavigationMenu.Item>
@@ -62,26 +63,23 @@ function Navigation() {
                   </div>
                </Flex>
                <NavigationMenu.Item className="hidden md:block">
-                  <NavigationMenu.Trigger>
+                  <NavigationMenu.Trigger onClick={() => (window.location.href = "/account")}>
                      {account.isLoggedIn ? (
                         <Flex justify="around" align="center" gap="4" className={`rounded-md border-[1px] ${theme.borderColor.light} px-4 py-1`}>
                            <Text weight="sb">{profile.username}</Text>
                            <img src={ProfileIcon} className="h-8 w-8" />
                         </Flex>
                      ) : (
-                        <Button variant="neutral">Sign up</Button>
+                        <Badge color="white">Sign up</Badge>
                      )}
                   </NavigationMenu.Trigger>
-                  <NavigationMenu.Content className="absolute data-[state=open]:animate-contentShow">
-                     <AccountCard />
-                  </NavigationMenu.Content>
                </NavigationMenu.Item>
             </Flex>
             <NavigationMenu.Item className="md:hidden">
                <NavigationMenu.Trigger>
                   <HamburgerMenuIcon className={cn("h-8 w-8", theme.textColor.default)} />
                </NavigationMenu.Trigger>
-               <NavigationMenu.Content className="fixed left-0 mt-3 data-[state=open]:animate-contentFade">
+               <NavigationMenu.Content className="fixed left-0 top-16 data-[state=open]:animate-rollDown">
                   <Card className="absolute w-screen rounded-none">
                      <Flex orientation="vertical" className="w-full">
                         <HamburgerItem className={cn("h-16 border-b-[1px]", theme.borderColor.light)}>
@@ -93,8 +91,8 @@ function Navigation() {
                                  <Collabsible.Trigger className="flex h-16 items-center justify-center data-[state=open]:font-bold" asChild>
                                     <Text>Settings</Text>
                                  </Collabsible.Trigger>
-                                 <Collabsible.Content className="w-full animate-rollDown rounded-none">
-                                    <Flex orientation="vertical" align="center" className="h-32 w-full px-10">
+                                 <Collabsible.Content className="w-full rounded-none">
+                                    <Flex orientation="vertical" className="h-32 w-full px-10">
                                        <SettingsMenu />
                                     </Flex>
                                  </Collabsible.Content>
@@ -102,7 +100,11 @@ function Navigation() {
                            </Collabsible.Root>
                         </HamburgerItem>
                         <HamburgerItem className={cn("h-16 border-t-[1px]", theme.borderColor.light)}>
-                           <Text>Help</Text>
+                           <Flex>
+                              <Badge color="white" onClick={() => (window.location.href = "/account")}>
+                                 Sign up
+                              </Badge>
+                           </Flex>
                         </HamburgerItem>
                      </Flex>
                   </Card>

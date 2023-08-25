@@ -1,13 +1,12 @@
 import ChallengeDialog from "../elements/ChallengeDialog";
 import FilterCard from "../elements/FilterCard";
-import MatchlistCard from "../elements/MatchlistCard";
 import Navigation from "../elements/NavigationBar";
 import NewsletterCard from "../elements/NewsletterCard";
 import PlayerlistCard from "../elements/PlayerlistCard";
 import ProfileCard from "../elements/ProfileCard";
 import React from "react";
+import TournamentCard from "../elements/TournamentCard";
 import { Flex } from "../components/@ui/Flex";
-import { useTheme } from "../context/ThemeContext";
 
 function HomeUI() {
    return (
@@ -19,7 +18,7 @@ function HomeUI() {
                <FilterCard />
             </div>
             <PlayerlistCard />
-            <MatchlistCard />
+            <TournamentCard />
             <div className="w-96 2xl:w-[74rem]">
                <NewsletterCard />
             </div>

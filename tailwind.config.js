@@ -25,6 +25,9 @@ export default {
             },
          },
          backgroundColor: {
+            white: {
+               default: "#d1d1d1",
+            },
             dark: {
                background: "#0a0a0a",
                window: "#0F0F0F",
@@ -35,6 +38,9 @@ export default {
             },
          },
          ringColor: {
+            white: {
+               default: "#d1d1d1",
+            },
             dark: {
                background: "#0a0a0a",
                window: "#21202a",
@@ -45,6 +51,9 @@ export default {
             },
          },
          borderColor: {
+            white: {
+               default: "#d1d1d1",
+            },
             dark: {
                background: "#0a0a0a",
                window: "#21202a",
@@ -114,15 +123,15 @@ export default {
                to: { opacity: 1 },
             },
             rollDown: {
-               from: { height: 0 },
-               to: { height: 1 },
+               from: { transform: "scaleY(1%)" },
+               to: { transform: "scaleY(100%)" },
             },
          },
          animation: {
             overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentFade: "contentFade 150ms",
-            rollDown: "contentFade 150ms cubic-bezier(.5,.5,.5,.5)",
+            rollDown: "rollDown 100ms cubic-bezier(0.16, 1, 0.3, 1)",
          },
       },
    },

@@ -9,7 +9,7 @@ function AccountCard() {
    const account = useAccount();
 
    return (
-      <div className="absolute">
+      <>
          {account.isLoggedIn ? (
             <Account account={account} />
          ) : (
@@ -31,7 +31,7 @@ function AccountCard() {
                </Tabs.Root>
             </Card>
          )}
-      </div>
+      </>
    );
 }
 

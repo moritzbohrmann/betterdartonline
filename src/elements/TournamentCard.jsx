@@ -1,28 +1,26 @@
 import React from "react";
-import { Card, Title, Flex, Text, Separator } from "../components/@ui/_collection";
+import { Card, Flex, Progress, Separator, Text, Title } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
+import { useFetch } from "../hooks/useFetch";
 
 function MatchlistCard() {
    const [theme] = useTheme();
-   const list = [
-      { name: "Summer Cup", size: 32, endOfRegistrationDate: "19.08.23", startDate: "20.08.23", endDate: "21.08.23" },
-      { name: "Summer Cup", size: 32, endOfRegistrationDate: "19.08.23", startDate: "20.08.23", endDate: "21.08.23" },
-      { name: "Summer Cup", size: 32, endOfRegistrationDate: "19.08.23", startDate: "20.08.23", endDate: "21.08.23" },
-      { name: "Summer Cup", size: 32, endOfRegistrationDate: "19.08.23", startDate: "20.08.23", endDate: "21.08.23" },
-      { name: "Summer Cup", size: 32, endOfRegistrationDate: "19.08.23", startDate: "20.08.23", endDate: "21.08.23" },
-      { name: "Summer Cup", size: 32, endOfRegistrationDate: "19.08.23", startDate: "20.08.23", endDate: "21.08.23" },
-   ];
+   const fetchedData = useFetch("http://localhost:3001/tournaments");
+
+   console.log(fetchedData);
+
+   const tournaments = fetchedData.data?.tournaments;
 
    return (
       <Card className="max-h-144">
          <Title subTitle="All tournaments currently available to register for.">Tournaments</Title>
+         {fetchedData.isPending && <Progress progress={fetchedData.isPending ? 0 : 1} />}
          <div className="h-full w-full overflow-auto pb-8">
             <ul className="flex flex-grow flex-col items-center gap-2 overflow-auto">
-               {list.map((tournament) => {
+               {tournaments?.map((tournament) => {
                   return (
                      <li
-                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
-                     >
+                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}>
                         <Flex align="center" justify="around" className="h-8 w-full">
                            <Text weight="bl" className="w-1/2">
                               {tournament.name}
@@ -59,7 +57,7 @@ function MatchlistCard() {
          </div>
          <Flex orientation="vertical" gap="8" align="center" className="w-full">
             <Separator orientation="horizontal" />
-            <Text>{list.length} Tournaments</Text>
+            <Text>{tournaments ? tournaments.length : 0} Tournaments</Text>
          </Flex>
       </Card>
    );

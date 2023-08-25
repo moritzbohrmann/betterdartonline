@@ -30,8 +30,6 @@ const initSocket = (socket) => {
 
    useEffect(() => {
       socket.on("join", (data) => {
-         console.log("JOIN");
-
          if (!data) return;
 
          const players = (data instanceof Array ? data : [data]).filter(({ id }) => id !== profile.id);

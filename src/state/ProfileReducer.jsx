@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 
 let initialState = {
-   id: crypto.randomUUID(),
-   username: "Max Mustermann",
    gamemode: "firstto",
    scoremode: "501",
    legamount: "5",
