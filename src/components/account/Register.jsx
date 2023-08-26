@@ -1,29 +1,36 @@
 import React from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
+import { usePost } from "../../hooks/useFetch";
 import { setEmail, setUsername, useAccount } from "../../state/AccountReducer";
-import { Button, Flex, Input, Select, Text } from "../@ui/_collection";
+import { Button, Flex, Input, Select, Separator, Text } from "../@ui/_collection";
 
 function Register() {
    const dispatch = useDispatch();
    const [_account, _setAccount] = React.useState({ username: "", email: "", password: "", question: { value: "", answer: "" } });
    const account = useAccount();
+   const { register } = useAuth();
 
-   const authQuestOptions = ["What's your parent's name?", "What was your first pet's name?", "What's your favourite Hobby?"];
+   const authQuestOptions = ["What is your parents name?", "What was your first pets name?", "What is your favourite Hobby?"];
 
    const handleSubmit = async (e) => {
       e.preventDefault();
 
-      const getResult = () => {
-         axios.get("http://localhost:3003/test").then((res) => {
-            console.log(res);
-         });
-      };
+      const result = await register(_account);
 
-      getResult();
+      if (result.error) {
+         toast.error("Error: " + result.error);
+         return;
+      }
 
-      //dispatch(setUsername(_account.username));
-      //dispatch(setEmail(_account.email));
+      if (!result.authenticated) {
+         toast.error("Could not create account. Try again later.");
+         return;
+      }
+
+      toast.success("Account created successfully.");
    };
 
    return (
@@ -70,9 +77,10 @@ function Register() {
                   required
                />
             </Flex>
+            <Separator className="mt-2" />
             <Flex orientation="vertical" align="center" className="w-full">
                <Text weight="sb" className="my-2">
-                  Authentication
+                  Question
                </Text>
                <Flex align="center" justify="between" className="w-full">
                   <Text>Question</Text>
@@ -86,7 +94,11 @@ function Register() {
                      }
                      required>
                      {authQuestOptions.map((question) => {
-                        return <option value={question}>{question}</option>;
+                        return (
+                           <option value={question} selected>
+                              {question}
+                           </option>
+                        );
                      })}
                   </Select>
                </Flex>

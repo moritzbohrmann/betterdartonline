@@ -1,11 +1,11 @@
 import React from "react";
 import { Card, Flex, Progress, Separator, Text, Title } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
-import { useFetch } from "../hooks/useFetch";
+import { useGet } from "../hooks/useFetch";
 
 function MatchlistCard() {
    const [theme] = useTheme();
-   const fetchedData = useFetch("http://localhost:3001/tournaments");
+   const fetchedData = useGet("http://localhost:3001/tournaments");
 
    console.log(fetchedData);
 

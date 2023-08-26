@@ -18,7 +18,7 @@ const ActionType = {
    SET_SELECTED: 33,
    SET_EMAIL: 34,
    SET_LOGGED_IN: 35,
-   SET_PROFILE: 36,
+   SET_ACCOUNT: 36,
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -33,18 +33,16 @@ const accountReducer = (state = initialState, action) => {
          return { ...state, legamount: action.payload };
       case ActionType.SET_TD:
          return { ...state, td: action.payload };
-      case ActionType.SET_SELECTED: {
+      case ActionType.SET_SELECTED:
          return { ...state, selected: action.payload };
-      }
-      case ActionType.SET_EMAIL: {
+      case ActionType.SET_EMAIL:
          return { ...state, email: action.payload };
-      }
-      case ActionType.SET_LOGGED_IN: {
+      case ActionType.SET_LOGGED_IN:
          return { ...state, isLoggedIn: action.payload };
-      }
-      case ActionType.SET_PROFILE: {
-         return { ...state, profile: action.payload };
-      }
+      case ActionType.SET_ACCOUNT:
+         localStorage.setItem("account", JSON.stringify(action.payload));
+         return { ...state, ...action.payload };
+
       default:
          return state;
    }
@@ -74,9 +72,10 @@ export const setEmail = (value) => {
 export const setLoggedIn = (value) => {
    return { type: ActionType.SET_LOGGED_IN, payload: value };
 };
-export const setProfile = (value) => {
-   return { type: ActionType.SET_PROFILE, payload: value };
+export const setAccount = (value) => {
+   return { type: ActionType.SET_ACCOUNT, payload: value };
 };
+export const setProfile = (value) => {};
 
 export const useAccount = () => {
    return useSelector((state) => state.account);

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card, Flex, Separator, Text, Title } from "../components/@ui/_collection";
 import { useSocket } from "../context/SocketContext";
 import { useTheme } from "../context/ThemeContext";
-import { useFetch } from "../hooks/useFetch";
+import { useGet } from "../hooks/useFetch";
 import { useAccount } from "../state/AccountReducer";
 import { addRequestSent, removeRequestSent } from "../state/PlayerlistReducer";
 import { useProfile } from "../state/ProfileReducer";
@@ -16,7 +16,7 @@ function PlayerlistCard() {
    const account = useAccount();
    const profile = useProfile();
    const dispatch = useDispatch();
-   const offlineList = useFetch("http://localhost:3001/players/" + profile.selected.toLowerCase());
+   const offlineList = useGet("http://localhost:3001/players/" + profile.selected.toLowerCase());
 
    const currentList = account.isLoggedIn ? ready : offlineList?.players;
 

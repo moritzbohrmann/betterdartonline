@@ -1,11 +1,10 @@
 import * as Collabsible from "@radix-ui/react-collapsible";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import AccountCard from "./AccountCard";
+import AccountCard, { RawAccountCard } from "./AccountCard";
 import ProfileIcon from "../assets/user.png";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Navigate } from "react-router-dom";
 import { Badge, Button, Card, Flex, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
 import { useAccount } from "../state/AccountReducer";
@@ -63,16 +62,30 @@ function Navigation() {
                   </div>
                </Flex>
                <NavigationMenu.Item className="hidden md:block">
-                  <NavigationMenu.Trigger onClick={() => (window.location.href = "/account")}>
-                     {account.isLoggedIn ? (
-                        <Flex justify="around" align="center" gap="4" className={`rounded-md border-[1px] ${theme.borderColor.light} px-4 py-1`}>
-                           <Text weight="sb">{profile.username}</Text>
-                           <img src={ProfileIcon} className="h-8 w-8" />
-                        </Flex>
-                     ) : (
-                        <Badge color="white">Sign up</Badge>
-                     )}
-                  </NavigationMenu.Trigger>
+                  {account === null ? (
+                     <>
+                        <NavigationMenu.Trigger>
+                           <Flex justify="around" align="center" gap="4" className={`rounded-md border-[1px] ${theme.borderColor.light} px-4 py-1`}>
+                              <Text weight="sb">{account.username}</Text>
+                              <img src={ProfileIcon} className="h-8 w-8" />
+                           </Flex>
+                        </NavigationMenu.Trigger>
+                        <NavigationMenu.Content className="absolute data-[state=open]:animate-contentShow">
+                           <Flex className={`absolute rounded-md p-4 ${theme.backgroundColor} border-[1px] ${theme.borderColor.light}`}>
+                              <Button variant="negative">Logout</Button>
+                           </Flex>
+                        </NavigationMenu.Content>
+                     </>
+                  ) : (
+                     <>
+                        <NavigationMenu.Trigger onClick={() => (window.location.href = "/account")}>
+                           <Badge color="white">Sign up</Badge>
+                        </NavigationMenu.Trigger>
+                        <NavigationMenu.Content className="absolute -translate-x-72">
+                           <AccountCard />
+                        </NavigationMenu.Content>
+                     </>
+                  )}
                </NavigationMenu.Item>
             </Flex>
             <NavigationMenu.Item className="md:hidden">
@@ -80,7 +93,7 @@ function Navigation() {
                   <HamburgerMenuIcon className={cn("h-8 w-8", theme.textColor.default)} />
                </NavigationMenu.Trigger>
                <NavigationMenu.Content className="fixed left-0 top-16 data-[state=open]:animate-rollDown">
-                  <Card className="absolute w-screen rounded-none">
+                  <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">
                      <Flex orientation="vertical" className="w-full">
                         <HamburgerItem className={cn("h-16 border-b-[1px]", theme.borderColor.light)}>
                            <Text>Start</Text>
@@ -91,7 +104,7 @@ function Navigation() {
                                  <Collabsible.Trigger className="flex h-16 items-center justify-center data-[state=open]:font-bold" asChild>
                                     <Text>Settings</Text>
                                  </Collabsible.Trigger>
-                                 <Collabsible.Content className="w-full rounded-none">
+                                 <Collabsible.Content className="w-full rounded-none data-[state=open]:animate-rollDown">
                                     <Flex orientation="vertical" className="h-32 w-full px-10">
                                        <SettingsMenu />
                                     </Flex>
@@ -99,12 +112,21 @@ function Navigation() {
                               </Flex>
                            </Collabsible.Root>
                         </HamburgerItem>
-                        <HamburgerItem className={cn("h-16 border-t-[1px]", theme.borderColor.light)}>
-                           <Flex>
-                              <Badge color="white" onClick={() => (window.location.href = "/account")}>
-                                 Sign up
-                              </Badge>
-                           </Flex>
+                        <HamburgerItem className={cn("border-t-[1px]", theme.borderColor.light)}>
+                           <Collabsible.Root className="w-full">
+                              <Flex orientation="vertical" align="center">
+                                 <Collabsible.Trigger className="flex h-16 items-center justify-center data-[state=open]:font-bold" asChild>
+                                    <Flex>
+                                       <Badge color="white">Sign up</Badge>
+                                    </Flex>
+                                 </Collabsible.Trigger>
+                                 <Collabsible.Content className="w-full rounded-none data-[state=open]:animate-rollDown">
+                                    <Flex className="w-full px-10">
+                                       <RawAccountCard />
+                                    </Flex>
+                                 </Collabsible.Content>
+                              </Flex>
+                           </Collabsible.Root>
                         </HamburgerItem>
                      </Flex>
                   </Card>

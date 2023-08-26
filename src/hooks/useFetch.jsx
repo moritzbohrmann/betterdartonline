@@ -1,21 +1,17 @@
-export const useFetch = async (url, options) => {
-   const demo = { data: null, isPending: false, error: null, progress: 0 };
+import axios from "axios";
 
-   const fetchData = async () => {
-      demo.isPending = true;
-      try {
-         const response = await fetch(url, options);
+const useGet = async (url, options = {}) => {
+   const fetch = axios.get(url, options);
+   const data = (await fetch).data;
 
-         if (!response.ok) throw new Error(response.statusText);
-         const json = await response.json();
-         demo.isPending = false;
-         demo.data = json;
-         demo.error = null;
-      } catch (error) {
-         demo.error = `${error} Could not Fetch Data `;
-         demo.isPending = false;
-      }
-   };
-   fetchData();
-   return demo;
+   return data;
 };
+
+const usePost = async (url, postObject, options = {}) => {
+   const post = axios.post(url, postObject, { ...options, method: "POST" });
+   const data = (await post).data;
+
+   return data;
+};
+
+export { useGet, usePost };

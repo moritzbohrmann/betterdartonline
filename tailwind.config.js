@@ -131,7 +131,7 @@ export default {
             overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentFade: "contentFade 150ms",
-            rollDown: "rollDown 100ms cubic-bezier(0.16, 1, 0.3, 1)",
+            rollDown: "rollDown 150ms cubic-bezier(0.16, 1, 0.3, 1)",
          },
       },
    },

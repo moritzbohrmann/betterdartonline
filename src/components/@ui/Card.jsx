@@ -8,10 +8,11 @@ import { Text } from "./Text";
 const cardVariants = () => {
    const [theme] = useTheme();
 
-   return cva("rounded-lg font-sans border-[1px]", {
+   return cva("rounded-lg font-sans border-[1px] min-w-[24rem]", {
       variants: {
          variant: {
-            default: cn("min-w-[24rem]", theme.borderColor.light, theme.textColor.default, theme.backgroundColor),
+            default: cn(theme.borderColor.light, theme.textColor.default, theme.backgroundColor),
+            transparent: cn(theme.borderColor.light, theme.textColor.default, "bg-transparent"),
          },
          size: {
             default: "w-112 py-8 px-10",
