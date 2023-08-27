@@ -17,8 +17,7 @@ function Navigation() {
    const [mobileNavClosed, setMobileNavClosed] = React.useState(true);
 
    return (
-      <NavigationMenu.Root
-         className={cn("sticky top-0 w-full border-b-[1px] bg-opacity-50 backdrop-blur-md", theme.backgroundColor, theme.borderColor.light)}>
+      <NavigationMenu.Root className={cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light)}>
          <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
             <Flex justify="between" align="center" className="h-full w-full">
                <Flex gap="8">
@@ -106,7 +105,7 @@ function Navigation() {
                      )}
                   </flex>
                </NavigationMenu.Trigger>
-               <NavigationMenu.Content className="fixed left-0 top-16 data-[state=open]:animate-rollDown">
+               <NavigationMenu.Content className="fixed left-0 top-16 max-h-96 data-[state=open]:animate-rollDown">
                   <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">
                      <Flex orientation="vertical" className="w-full">
                         <HamburgerItem className={cn("h-16 border-b-[1px]", theme.borderColor.light)}>
@@ -127,7 +126,7 @@ function Navigation() {
                            </Collabsible.Root>
                         </HamburgerItem>
                         <HamburgerItem className={cn("border-t-[1px]", theme.borderColor.light)}>
-                           <Collabsible.Root className="w-full">
+                           <Collabsible.Root>
                               <Flex orientation="vertical" align="center">
                                  <Collabsible.Trigger className="flex h-16 items-center justify-center data-[state=open]:font-bold" asChild>
                                     <Flex>
@@ -141,9 +140,7 @@ function Navigation() {
                                     </Flex>
                                  </Collabsible.Trigger>
                                  <Collabsible.Content className="w-full rounded-none data-[state=open]:animate-rollDown">
-                                    <Flex justify="center" className="w-full px-10">
-                                       {account ? <AccountContent /> : <SignupContent />}
-                                    </Flex>
+                                    <Flex justify="center">{account ? <AccountContent /> : <SignupContent />}</Flex>
                                  </Collabsible.Content>
                               </Flex>
                            </Collabsible.Root>
