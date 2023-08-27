@@ -14,19 +14,16 @@ if (storageProfile !== null) initialState = JSON.parse(storageProfile);
 else localStorage.setItem("profile", JSON.stringify(initialState));
 
 const ActionType = {
-   SET_USERNAME: 21,
-   SET_GAMEMODE: 22,
-   SET_SCOREMODE: 23,
-   SET_LEGAMOUNT: 24,
-   SET_TD: 25,
-   SET_SELECTED: 26,
-   SET_EMAIL: 27,
+   SET_GAMEMODE: 21,
+   SET_SCOREMODE: 22,
+   SET_LEGAMOUNT: 23,
+   SET_TD: 24,
+   SET_SELECTED: 25,
+   SET_EMAIL: 26,
 };
 
 const ProfileReducer = (state = initialState, action) => {
    switch (action.type) {
-      case ActionType.SET_USERNAME:
-         return { ...state, username: action.payload };
       case ActionType.SET_GAMEMODE:
          return { ...state, gamemode: action.payload };
       case ActionType.SET_SCOREMODE:
@@ -46,9 +43,6 @@ const ProfileReducer = (state = initialState, action) => {
    }
 };
 
-export const setUsername = (string) => {
-   return { type: ActionType.SET_USERNAME, payload: string };
-};
 export const setGamemode = (gamemode) => {
    return { type: ActionType.SET_GAMEMODE, payload: gamemode };
 };

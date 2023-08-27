@@ -1,8 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
-import { usePost } from "../../hooks/useFetch";
 import { useAccount } from "../../state/AccountReducer";
 import { Button, Flex, Input, Text } from "../@ui/_collection";
 
@@ -14,7 +12,9 @@ function Login() {
 
    const { signup } = useAuth();
 
-   const handleSubmit = async () => {
+   const handleSubmit = async (e) => {
+      e.preventDefault();
+
       const account = {
          username: idRef.current.value,
          email: idRef.current.value,
@@ -28,12 +28,10 @@ function Login() {
          toast.error("Error: " + result.error);
          return;
       }
-
-      toast.success("Sucessfully logged in.");
    };
 
    return (
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
          <Flex orientation="vertical" gap="2">
             <Flex justify="between" align="center" className="w-full">
                <Text>Id</Text>
@@ -47,12 +45,12 @@ function Login() {
                <Text>Answer</Text>
                <Input ref={answerRef} placeholder="your answer" maxLength="16" required />
             </Flex>
-            {account.authenticated ? (
+            {account ? (
                <Button variant="positive" className="mt-6">
                   ✔
                </Button>
             ) : (
-               <Button className="mt-6" onClick={() => handleSubmit()}>
+               <Button className="mt-6" type="submit">
                   Submit
                </Button>
             )}

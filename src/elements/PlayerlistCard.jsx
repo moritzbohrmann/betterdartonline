@@ -18,7 +18,7 @@ function PlayerlistCard() {
    const dispatch = useDispatch();
    const offlineList = useGet("http://localhost:3001/players/" + profile.selected.toLowerCase());
 
-   const currentList = account.isLoggedIn ? ready : offlineList?.players;
+   const currentList = account ? ready : offlineList?.players;
 
    const [theme] = useTheme();
 

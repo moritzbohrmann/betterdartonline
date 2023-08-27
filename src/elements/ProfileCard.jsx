@@ -67,12 +67,16 @@ function ProfileCard() {
             </Tabs.Result>
          </Tabs.Root>
          <Flex align="center" className="mt-8">
-            {joined ? (
-               <Button variant="negative" onClick={() => handleQuit()}>
-                  Quit
-               </Button>
+            {account ? (
+               joined ? (
+                  <Button variant="negative" onClick={() => handleQuit()}>
+                     Quit
+                  </Button>
+               ) : (
+                  <Button onClick={() => handleJoin()}>Join</Button>
+               )
             ) : (
-               <Button onClick={() => handleJoin()}>Join</Button>
+               <Button variant="negative">inaccessible</Button>
             )}
          </Flex>
       </Card>

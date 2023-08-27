@@ -1,13 +1,6 @@
 import { useSelector } from "react-redux";
 
-let initialState = {
-   id: crypto.randomUUID(),
-   username: "Moritz",
-   email: null,
-   profile: null,
-   settings: null,
-   isLoggedIn: false,
-};
+let initialState = null;
 
 const ActionType = {
    SET_USERNAME: 28,
@@ -40,8 +33,7 @@ const accountReducer = (state = initialState, action) => {
       case ActionType.SET_LOGGED_IN:
          return { ...state, isLoggedIn: action.payload };
       case ActionType.SET_ACCOUNT:
-         localStorage.setItem("account", JSON.stringify(action.payload));
-         return { ...state, ...action.payload };
+         return action.payload;
 
       default:
          return state;

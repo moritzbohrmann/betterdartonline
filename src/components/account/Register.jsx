@@ -1,16 +1,10 @@
 import React from "react";
-import axios from "axios";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
-import { usePost } from "../../hooks/useFetch";
-import { setEmail, setUsername, useAccount } from "../../state/AccountReducer";
 import { Button, Flex, Input, Select, Separator, Text } from "../@ui/_collection";
 
 function Register() {
-   const dispatch = useDispatch();
    const [_account, _setAccount] = React.useState({ username: "", email: "", password: "", question: { value: "", answer: "" } });
-   const account = useAccount();
    const { register } = useAuth();
 
    const authQuestOptions = ["What is your parents name?", "What was your first pets name?", "What is your favourite Hobby?"];
@@ -25,12 +19,12 @@ function Register() {
          return;
       }
 
-      if (!result.authenticated) {
+      if (!result.registered) {
          toast.error("Could not create account. Try again later.");
          return;
       }
 
-      toast.success("Account created successfully.");
+      toast.success("Account successfully created.");
    };
 
    return (
