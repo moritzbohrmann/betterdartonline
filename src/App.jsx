@@ -17,7 +17,6 @@ function App() {
                   </SocketProvider>
                }
             />
-
             <Route
                path="/match/*"
                element={

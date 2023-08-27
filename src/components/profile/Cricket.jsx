@@ -1,17 +1,21 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setGamemode, setLegamount, setUsername, useProfile } from "../../state/ProfileReducer";
+import { useTheme } from "../../context/ThemeContext";
+import { useAccount } from "../../state/AccountReducer";
+import { setGamemode, setLegamount, useProfile } from "../../state/ProfileReducer";
 import { Flex, Input, Select, Text } from "../@ui/_collection";
 
 function Cricket() {
    const profile = useProfile();
    const dispatch = useDispatch();
+   const account = useAccount();
+   const [theme] = useTheme();
 
    return (
       <Flex orientation="vertical" gap="2">
          <Flex justify="between" align="center" className="w-full">
             <Text>Username</Text>
-            <Input defaultValue={profile.username} readOnly />
+            <Input value={account ? account?.username : "x"} className={account ? theme.borderColor.positive : theme.borderColor.negative} readOnly />
          </Flex>
          <Flex justify="between" align="center" className="w-full">
             <Text>Mode</Text>

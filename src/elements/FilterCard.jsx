@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Card, Title, Flex, Input, Text } from "../components/@ui/_collection";
+import { Card, Flex, Input, Text, Title } from "../components/@ui/_collection";
 import { applyFilter } from "../state/PlayerlistReducer";
 
 function FilterCard() {

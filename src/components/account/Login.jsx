@@ -1,19 +1,61 @@
 import React from "react";
-import { Flex, Input, Text, Button } from "../@ui/_collection";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
+import { useAccount } from "../../state/AccountReducer";
+import { Button, Flex, Input, Text } from "../@ui/_collection";
 
 function Login() {
+   const idRef = React.useRef(null);
+   const passwordRef = React.useRef(null);
+   const answerRef = React.useRef(null);
+   const account = useAccount();
+
+   const { signup } = useAuth();
+
+   const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const account = {
+         username: idRef.current.value,
+         email: idRef.current.value,
+         question: { answer: answerRef.current.value },
+         password: passwordRef.current.value,
+      };
+
+      const result = await signup(account);
+
+      if (result.error) {
+         toast.error("Error: " + result.error);
+         return;
+      }
+   };
+
    return (
-      <Flex orientation="vertical" gap="2">
-         <Flex justify="between" align="center" className="w-full">
-            <Text>Id</Text>
-            <Input placeholder="e.g. testmail@gmail.com" maxLength="16" />
+      <form onSubmit={(e) => handleSubmit(e)}>
+         <Flex orientation="vertical" gap="2">
+            <Flex justify="between" align="center" className="w-full">
+               <Text>Id</Text>
+               <Input ref={idRef} placeholder="your email" maxLength="16" required />
+            </Flex>
+            <Flex justify="between" align="center" className="w-full">
+               <Text>Password</Text>
+               <Input ref={passwordRef} placeholder="your password" maxLength="16" required />
+            </Flex>
+            <Flex justify="between" align="center" className="w-full">
+               <Text>Answer</Text>
+               <Input ref={answerRef} placeholder="your answer" maxLength="16" required />
+            </Flex>
+            {account ? (
+               <Button variant="positive" className="mt-6">
+                  ✔
+               </Button>
+            ) : (
+               <Button className="mt-6" type="submit">
+                  Submit
+               </Button>
+            )}
          </Flex>
-         <Flex justify="between" align="center" className="w-full">
-            <Text>Password</Text>
-            <Input placeholder="e.g. d4#+2la09" maxLength="16" />
-         </Flex>
-         <Button className="mt-6">Submit</Button>
-      </Flex>
+      </form>
    );
 }
 

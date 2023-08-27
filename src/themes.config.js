@@ -4,7 +4,7 @@ export default {
          type: "dark",
          background: "bg-neutral-950",
          backgroundColor: "bg-neutral-950",
-         select: "bg-zinc-800",
+         select: "data-[state=active]:bg-zinc-800",
          separator: "bg-zinc-500",
          textColor: {
             default: "text-zinc-300",
@@ -14,18 +14,21 @@ export default {
          borderColor: {
             default: "border-zinc-500",
             light: "border-zinc-800",
+            positive: "border-green-500",
+            negative: "border-red-500",
          },
          buttonColor: {
             default: "bg-amber-500",
             positive: "bg-green-500",
             negative: "bg-red-500",
+            neutral: "bg-zinc-800",
          },
       },
       light: {
          type: "light",
          background: "bg-neutral-300",
          backgroundColor: "bg-neutral-200",
-         select: "bg-zinc-300",
+         select: "data-[state=active]:bg-zinc-300",
          separator: "bg-zinc-300",
          textColor: {
             default: "text-zinc-800",
@@ -40,6 +43,7 @@ export default {
             default: "bg-amber-600",
             positive: "bg-green-600",
             negative: "bg-red-600",
+            neutral: "bg-zinc-300",
          },
       },
       rainbow: {

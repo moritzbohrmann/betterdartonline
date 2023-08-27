@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { createStore } from "redux";
+import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
 const store = createStore(collectedReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
    <BrowserRouter>
       <Provider store={store}>
          <ThemeProvider>
-            <App />
+            <AuthProvider>
+               <App />
+            </AuthProvider>
          </ThemeProvider>
          <ToastContainer
             position="bottom-right"

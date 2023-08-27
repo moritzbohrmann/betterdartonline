@@ -25,6 +25,9 @@ export default {
             },
          },
          backgroundColor: {
+            white: {
+               default: "#d1d1d1",
+            },
             dark: {
                background: "#0a0a0a",
                window: "#0F0F0F",
@@ -35,6 +38,9 @@ export default {
             },
          },
          ringColor: {
+            white: {
+               default: "#d1d1d1",
+            },
             dark: {
                background: "#0a0a0a",
                window: "#21202a",
@@ -45,6 +51,9 @@ export default {
             },
          },
          borderColor: {
+            white: {
+               default: "#d1d1d1",
+            },
             dark: {
                background: "#0a0a0a",
                window: "#21202a",
@@ -113,11 +122,34 @@ export default {
                from: { opacity: 0 },
                to: { opacity: 1 },
             },
+            rollDown: {
+               from: { transform: "scaleY(1%)" },
+               to: { transform: "scaleY(100%)" },
+            },
+            wiggle: {
+               "0%": { transform: "translateX(-2px)" },
+               "2%": { transform: "translateX(2px)" },
+               "4%": { transform: "translateX(-2px)" },
+               "6%": { transform: "translateX(0)" },
+               "100": { transform: "translateX(0%)" },
+            },
+            rotateCross1: {
+               from: { transform: "translateY(2px) rotate(0deg)" },
+               to: { transform: "translateY(0) rotate(45deg)" },
+            },
+            rotateCross2: {
+               from: { transform: "translateY(-2px) rotate(0deg)" },
+               to: { transform: "translateY(0) rotate(-45deg)" },
+            },
          },
          animation: {
             overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentFade: "contentFade 150ms",
+            rollDown: "rollDown 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+            wiggle: "wiggle 3000ms infinite",
+            rotateCross1: "rotateCross1 150ms",
+            rotateCross2: "rotateCross2 150ms",
          },
       },
    },

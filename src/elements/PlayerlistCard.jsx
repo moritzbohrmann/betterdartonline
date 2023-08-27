@@ -1,18 +1,25 @@
 import React from "react";
 import { CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { Separator, Card, Title, Flex, Text } from "../components/@ui/_collection";
+import { Card, Flex, Separator, Text, Title } from "../components/@ui/_collection";
 import { useSocket } from "../context/SocketContext";
 import { useTheme } from "../context/ThemeContext";
+import { useGet } from "../hooks/useFetch";
+import { useAccount } from "../state/AccountReducer";
 import { addRequestSent, removeRequestSent } from "../state/PlayerlistReducer";
 import { useProfile } from "../state/ProfileReducer";
 import { isPlayer } from "../utils/match";
 
 function PlayerlistCard() {
-   const list = useSelector((state) => state.list);
+   const { ready } = useSelector((state) => state.list);
    const socket = useSocket();
+   const account = useAccount();
    const profile = useProfile();
    const dispatch = useDispatch();
+   const offlineList = useGet("http://localhost:3001/players/" + profile.selected.toLowerCase());
+
+   const currentList = account ? ready : offlineList?.players;
+
    const [theme] = useTheme();
 
    const handleRevoke = (player) => {
@@ -40,15 +47,14 @@ function PlayerlistCard() {
          </Flex>
          <div className="h-full w-full overflow-auto pb-8">
             <ul className="mt-8 flex flex-grow flex-col items-center gap-2 overflow-auto">
-               {list.ready
-                  .sort((player) => list.requests.sent.find((sent) => isPlayer(sent, player)))
+               {currentList
+                  ?.sort((player) => list.requests.sent.find((sent) => isPlayer(sent, player)))
                   .filter((player) => `${player.username} ${player.gamemode} ${player.scoremode} ${player.legamount}`.includes(list.filter))
                   .map((player) => {
                      return (
                         <li
                            className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-md border-[1px] ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
-                           onClick={() => toggleRequest(player)}
-                        >
+                           onClick={() => toggleRequest(player)}>
                            <Text weight="sb" className="w-1/3">
                               {player.username?.substring(0, 10)}
                            </Text>
@@ -73,7 +79,7 @@ function PlayerlistCard() {
          </div>
          <Flex orientation="vertical" gap="8" align="center" className="w-full">
             <Separator orientation="horizontal" />
-            <Text>{list.ready.length} Players</Text>
+            <Text>{currentList ? currentList.length : 0} Players</Text>
          </Flex>
       </Card>
    );

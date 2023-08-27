@@ -4,29 +4,33 @@ import SplitScore from "../components/profile/SplitScore";
 import X01 from "../components/profile/X01";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { Button, Card, Title, Flex, Text, Tabs } from "../components/@ui/_collection";
+import { Button, Card, Flex, Tabs, Text, Title } from "../components/@ui/_collection";
 import { useSocket } from "../context/SocketContext";
-import { useTheme } from "../context/ThemeContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { setProfile, useAccount } from "../state/AccountReducer";
 import { clear } from "../state/PlayerlistReducer";
 import { setSelected, useProfile } from "../state/ProfileReducer";
 
 function ProfileCard() {
+   const account = useAccount();
    const profile = useProfile();
    const [, setStorageProfile] = useLocalStorage("profile");
    const [joined, setJoined] = React.useState(false);
    const socket = useSocket();
    const dispatch = useDispatch();
-   const [theme] = useTheme();
 
    const handleJoin = () => {
       setStorageProfile(profile);
+      dispatch(setProfile(profile));
 
-      if (!socket.connected) return;
+      if (!socket.connected) {
+         toast.error("Could not connect to server.");
+         return;
+      }
 
       socket.emit("join", profile);
       setJoined(true);
-      toast.success("You joined the server!");
+      toast.success("Connected to server.");
    };
 
    const handleQuit = () => {
@@ -36,7 +40,7 @@ function ProfileCard() {
 
       setJoined(false);
 
-      toast.info("You left the server!");
+      toast.info("Disconnected from server.");
    };
 
    return (
@@ -63,12 +67,16 @@ function ProfileCard() {
             </Tabs.Result>
          </Tabs.Root>
          <Flex align="center" className="mt-8">
-            {joined ? (
-               <Button variant="negative" onClick={() => handleQuit()}>
-                  Quit
-               </Button>
+            {account ? (
+               joined ? (
+                  <Button variant="negative" onClick={() => handleQuit()}>
+                     Quit
+                  </Button>
+               ) : (
+                  <Button onClick={() => handleJoin()}>Join</Button>
+               )
             ) : (
-               <Button onClick={() => handleJoin()}>Join</Button>
+               <Button variant="negative">inaccessible</Button>
             )}
          </Flex>
       </Card>
