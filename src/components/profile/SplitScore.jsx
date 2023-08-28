@@ -15,7 +15,7 @@ function SplitScore() {
       <Flex orientation="vertical" gap="2">
          <Flex justify="between" align="center" className="w-full">
             <Text>Username</Text>
-            <Input value={account ? account?.username : "x"} className={account ? theme.borderColor.positive : theme.borderColor.negative} readOnly />
+            <Input value={account ? account.username : ""} className={account ? theme.borderColor.positive : theme.borderColor.negative} readOnly />
          </Flex>
          <Flex justify="between" align="center" className="w-full">
             <Text>Mode</Text>

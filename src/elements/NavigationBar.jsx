@@ -20,7 +20,7 @@ function Navigation() {
       <NavigationMenu.Root className={cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light)}>
          <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-2.5 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
             <Flex justify="between" align="center" className="h-full w-full">
-               <Flex gap="8">
+               <Flex gap="8" align="center" className="h-full">
                   <NavigationMenu.Item>
                      <div className="rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700 px-2">
                         <Text size="xl" weight="b" className="text-white-default">
@@ -28,18 +28,18 @@ function Navigation() {
                         </Text>
                      </div>
                   </NavigationMenu.Item>
-                  <div className="mt-1 hidden gap-4 md:visible md:flex">
+                  <div className="hidden h-full gap-4 md:visible md:flex">
                      <NavigationMenu.Item>
-                        <ToolTip content="Coming soon...">
-                           <NavigationMenu.Trigger>
+                        <NavigationMenu.Trigger className="h-full">
+                           <ToolTip content="Coming soon...">
                               <Text variant="light" weight="b" hover>
-                                 Start
+                                 Home
                               </Text>
-                           </NavigationMenu.Trigger>
-                        </ToolTip>
+                           </ToolTip>
+                        </NavigationMenu.Trigger>
                      </NavigationMenu.Item>
                      <NavigationMenu.Item>
-                        <NavigationMenu.Trigger>
+                        <NavigationMenu.Trigger className="h-full">
                            <Text variant="light" weight="b">
                               Settings
                            </Text>
@@ -52,13 +52,13 @@ function Navigation() {
                         </NavigationMenu.Content>
                      </NavigationMenu.Item>
                      <NavigationMenu.Item>
-                        <ToolTip content="Coming soon...">
-                           <NavigationMenu.Trigger>
-                              <Text variant="light" weight="b">
+                        <NavigationMenu.Trigger className="h-full">
+                           <ToolTip content="Coming soon...">
+                              <Text variant="light" weight="b" hover>
                                  Help
                               </Text>
-                           </NavigationMenu.Trigger>
-                        </ToolTip>
+                           </ToolTip>
+                        </NavigationMenu.Trigger>
                      </NavigationMenu.Item>
                   </div>
                </Flex>
@@ -96,7 +96,8 @@ function Navigation() {
                <NavigationMenu.Trigger>
                   <button
                      onClick={() => setTheme(theme.type === ThemeType.DARK ? themeStyle(ThemeType.LIGHT) : themeStyle(ThemeType.DARK))}
-                     className={cn("rounded-md border-[1px] p-1", theme.borderColor.default)}>
+                     className={cn("rounded-md border-[1px] p-1", theme.borderColor.default)}
+                  >
                      {theme.type === ThemeType.DARK ? (
                         <SunIcon className={cn("h-5 w-5", theme.textColor.default)} />
                      ) : (

@@ -26,7 +26,6 @@ function HomeUI() {
          </div>
          <ChallengeDialog />
          <CookieConsent
-            debug
             style={{
                fontFamily: "sans-serif",
                background: "rgba(52, 52, 52, 0.52)",
@@ -35,7 +34,8 @@ function HomeUI() {
                justifyContent: "center",
             }}
             contentClasses="text-center sm:text-left"
-            expires={1}>
+            expires={1}
+         >
             This site uses cookies.{" "}
             <a href="" className="underline">
                See more.

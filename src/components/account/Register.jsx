@@ -35,6 +35,7 @@ function Register() {
                <PersonIcon />
                <Input
                   placeholder="Username"
+                  value={_account.username}
                   maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
