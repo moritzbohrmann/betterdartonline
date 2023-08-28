@@ -16,7 +16,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 const store = createStore(collectedReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-   <BrowserRouter>
+   <BrowserRouter basename="betterdartonline">
       <Provider store={store}>
          <ThemeProvider>
             <AuthProvider>
