@@ -3,7 +3,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import DemoIcon from "../assets/demo_user.png";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
-import { BorderSolidIcon, HamburgerMenuIcon, MoonIcon, PersonIcon, SunIcon } from "@radix-ui/react-icons";
+import { BorderSolidIcon, GearIcon, HamburgerMenuIcon, HomeIcon, MoonIcon, PersonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Badge, Card, Flex, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { Account, AccountContent } from "../components/account/Account";
 import { ThemeType, themeStyle, useTheme } from "../context/ThemeContext";
@@ -67,7 +67,7 @@ function Navigation() {
                      <>
                         <Flex justify="center" align="center" className="h-full">
                            <NavigationMenu.Trigger>
-                              <img src={DemoIcon} className="h-8 w-8 rounded-full" />
+                              <img src={account.picture} className="h-8 w-8 rounded-full" />
                            </NavigationMenu.Trigger>
                         </Flex>
 
@@ -111,9 +111,11 @@ function Navigation() {
                      <PersonIcon className={cn("h-5 w-5", theme.textColor.default)} />
                   </button>
                </NavigationMenu.Trigger>
-               <NavigationMenu.Content className="fixed left-0 top-16 max-h-96 data-[state=open]:animate-rollDown">
+               <NavigationMenu.Content className="fixed left-0 top-16 data-[state=open]:animate-rollDown">
                   <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">
-                     <Flex justify="center">{account ? <AccountContent /> : <SignupContent />}</Flex>
+                     <Flex justify="center" className="w-full">
+                        {account ? <AccountContent /> : <SignupContent />}
+                     </Flex>
                   </Card>
                </NavigationMenu.Content>
             </NavigationMenu.Item>
@@ -134,13 +136,19 @@ function Navigation() {
                   <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">
                      <Flex orientation="vertical" className="w-full">
                         <HamburgerItem className={cn("h-16 border-b-[1px]", theme.borderColor.light)}>
-                           <Text>Start</Text>
+                           <Flex justify="between" className="w-20">
+                              <HomeIcon className="h-5 w-5" />
+                              <Text>Home</Text>
+                           </Flex>
                         </HamburgerItem>
                         <HamburgerItem>
                            <Collabsible.Root className="w-full">
                               <Flex orientation="vertical" align="center">
                                  <Collabsible.Trigger className="flex h-16 items-center justify-center data-[state=open]:font-bold" asChild>
-                                    <Text>Settings</Text>
+                                    <Flex>
+                                       <GearIcon className="h-5 w-5" />
+                                       <Text>Settings</Text>
+                                    </Flex>
                                  </Collabsible.Trigger>
                                  <Collabsible.Content className="w-full rounded-none data-[state=open]:animate-rollDown">
                                     <Flex orientation="vertical" className="h-32 w-full px-10">

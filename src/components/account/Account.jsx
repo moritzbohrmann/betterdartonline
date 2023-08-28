@@ -1,4 +1,5 @@
 import React from "react";
+import { EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { useAccount } from "../../state/AccountReducer";
@@ -41,17 +42,17 @@ const AccountContent = ({ auth }) => {
 
    return (
       <form onSubmit={(e) => handleLogout(e)} className="w-full">
-         <Flex orientation="vertical" gap="2" className="w-full">
-            <Flex justify="between" align="center" className="w-full">
-               <Text>Username</Text>
+         <Flex orientation="vertical" align="center" gap="2" className="w-full">
+            <Flex justify="center" align="center" gap="4">
+               <PersonIcon />
                <Input defaultValue={account?.username} maxLength="16" readOnly />
             </Flex>
-            <Flex justify="between" align="center" className="w-full">
-               <Text>Mail</Text>
+            <Flex justify="center" align="center" gap="4">
+               <EnvelopeClosedIcon />
                <Input type="mail" defaultValue={account?.email} maxLength="16" readOnly />
             </Flex>
-            <Flex justify="between" align="center" className="w-full">
-               <Text>Password</Text>
+            <Flex justify="center" align="center" gap="4">
+               <LockClosedIcon />
                <Input type="password" defaultValue={account?.email} maxLength="16" readOnly />
             </Flex>
             <Button type="submit" variant="negative" className="mt-6">

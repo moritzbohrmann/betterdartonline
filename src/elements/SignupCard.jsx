@@ -24,7 +24,7 @@ function SignupCard() {
 
 const SignupContent = () => {
    return (
-      <Tabs.Root className="max-h-80 w-full overflow-auto">
+      <Tabs.Root className="w-full overflow-auto">
          <Tabs.Trigger value="tab1" className="h-10 w-1/2 border-r-[1px]">
             <Text weight="b">Login</Text>
          </Tabs.Trigger>

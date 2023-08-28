@@ -1,4 +1,5 @@
 import React from "react";
+import { CameraIcon, EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { Button, Flex, Input, Select, Separator, Text } from "../@ui/_collection";
@@ -29,11 +30,11 @@ function Register() {
 
    return (
       <form onSubmit={(e) => handleSubmit(e)}>
-         <Flex orientation="vertical" gap="2">
-            <Flex justify="between" align="center" className="w-full">
-               <Text>Username</Text>
+         <Flex orientation="vertical" align="center" gap="2">
+            <Flex justify="center" align="center" gap="4">
+               <PersonIcon />
                <Input
-                  placeholder="your username"
+                  placeholder="Username"
                   maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
@@ -43,11 +44,11 @@ function Register() {
                   required
                />
             </Flex>
-            <Flex justify="between" align="center" className="w-full">
-               <Text>Email</Text>
+            <Flex justify="center" align="center" gap="4">
+               <EnvelopeClosedIcon />
                <Input
                   type="email"
-                  placeholder="your email address"
+                  placeholder="Email"
                   maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
@@ -57,11 +58,11 @@ function Register() {
                   required
                />
             </Flex>
-            <Flex justify="between" align="center" className="w-full">
-               <Text>Password</Text>
+            <Flex justify="center" align="center" gap="4">
+               <LockClosedIcon />
                <Input
                   type="password"
-                  placeholder="your password"
+                  placeholder="Password"
                   maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
@@ -71,7 +72,21 @@ function Register() {
                   required
                />
             </Flex>
-            <Button type="submit" className="mt-6">
+            <Flex justify="center" align="center" gap="4">
+               <CameraIcon />
+               <Input
+                  type="url"
+                  placeholder="Link to picture*"
+                  maxLength="16"
+                  onChange={(e) =>
+                     _setAccount((_account) => {
+                        return { ..._account, password: e.target.value };
+                     })
+                  }
+                  required
+               />
+            </Flex>
+            <Button type="submit" className="mt-4">
                Create
             </Button>
          </Flex>

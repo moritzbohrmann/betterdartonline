@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Card, Title, Flex, Text } from "../components/@ui/_collection";
+import { Button, Card, Flex, Text, Title } from "../components/@ui/_collection";
 import { useSocket } from "../context/SocketContext";
 import { removeCurrentRequest, removeRequestReceived } from "../state/PlayerlistReducer";
 
@@ -22,10 +22,6 @@ function ChallengeDialog() {
       dispatch(removeCurrentRequest());
    };
 
-   React.useEffect(() => {
-      console.log(challenger);
-   }, [challenger]);
-
    return (
       <Dialog.Root open={challenger != null}>
          <Dialog.Overlay className="fixed inset-0 z-10 backdrop-blur-xl data-[state=open]:animate-overlayShow" />
@@ -36,8 +32,7 @@ function ChallengeDialog() {
                   variant="background"
                   weight="b"
                   text="c"
-                  className="w-full rounded-md bg-amber-500 py-1"
-               >{`${challenger?.scoremode} ${challenger?.gamemode} ${challenger?.legamount}`}</Text>
+                  className="w-full rounded-md bg-amber-500 py-1">{`${challenger?.scoremode} ${challenger?.gamemode} ${challenger?.legamount}`}</Text>
                <Flex justify="around" align="center" className="mt-4 w-full">
                   <Button className="bg-green-500" onClick={() => handleAccept()}>
                      Accept
