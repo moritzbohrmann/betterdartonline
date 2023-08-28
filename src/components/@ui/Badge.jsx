@@ -3,10 +3,11 @@ import { cva } from "class-variance-authority";
 import { cn } from "../../utils/style";
 import { Text } from "./Text";
 
-const badgeVariants = cva("ring-1 ring-inset bg-opacity-20 inline-flex items-center justify-center rounded-md", {
+const badgeVariants = cva("ring-1 ring-inset bg-opacity-20 inline-flex items-center justify-center rounded-md font-sans", {
    variants: {
       size: {
          default: "px-2 py-1",
+         icon: "h-5 w-5",
       },
       color: {
          default: "ring-zinc-500 border-zinc-500 text-zinc-500",
@@ -25,8 +26,16 @@ const badgeVariants = cva("ring-1 ring-inset bg-opacity-20 inline-flex items-cen
    },
 });
 
-function Badge({ color, className, ...props }) {
-   return <Text size="md" className={cn(badgeVariants({ color, className }))} {...props} />;
+function Badge({ color, className, children, src, ...props }) {
+   return (
+      <div size="md" className={cn(badgeVariants({ color, className }))} {...props}>
+         {src ? src : <p>{children}</p>}
+      </div>
+   );
+}
+
+function BadgeIcon({ color, className, ...props }) {
+   return;
 }
 
 export { Badge, badgeVariants };

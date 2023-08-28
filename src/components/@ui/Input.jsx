@@ -6,7 +6,7 @@ import { cn } from "../../utils/style";
 const inputVariants = () => {
    const [theme] = useTheme();
 
-   return cva("rounded-md border-[1px] outline-none px-4 ", {
+   return cva("rounded-md border-[1px] outline-none px-4 font-sans", {
       variants: {
          variant: {
             default: cn(theme.borderColor.light, theme.backgroundColor, theme.textColor.default),

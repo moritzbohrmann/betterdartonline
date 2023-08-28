@@ -1,8 +1,8 @@
 import React from "react";
-import { CameraIcon, EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
+import { EnvelopeClosedIcon, ImageIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
-import { Button, Flex, Input, Select, Separator, Text } from "../@ui/_collection";
+import { Button, Flex, Input } from "../@ui/_collection";
 
 function Register() {
    const [_account, _setAccount] = React.useState({ username: "", email: "", password: "", question: { value: "", answer: "" } });
@@ -74,7 +74,7 @@ function Register() {
                />
             </Flex>
             <Flex justify="center" align="center" gap="4">
-               <CameraIcon />
+               <ImageIcon />
                <Input
                   type="url"
                   placeholder="Link to picture*"
