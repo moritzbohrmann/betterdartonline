@@ -76,7 +76,7 @@ function ProfileCard() {
                   <Button onClick={() => handleJoin()}>Join</Button>
                )
             ) : (
-               <Button variant="negative">inaccessible</Button>
+               <Button variant="negative">✖</Button>
             )}
          </Flex>
       </Card>

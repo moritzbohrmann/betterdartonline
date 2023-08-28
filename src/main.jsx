@@ -3,7 +3,9 @@ import "./index.css";
 import App from "./App.jsx";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import authConfig from "../auth.config";
 import collectedReducers from "./state/ReducerCollection";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -14,11 +16,13 @@ import { ThemeProvider } from "./context/ThemeContext";
 const store = createStore(collectedReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-   <BrowserRouter>
+   <BrowserRouter basename="betterdartonline">
       <Provider store={store}>
          <ThemeProvider>
             <AuthProvider>
-               <App />
+               <GoogleOAuthProvider clientId={authConfig.google.client_id}>
+                  <App />
+               </GoogleOAuthProvider>
             </AuthProvider>
          </ThemeProvider>
          <ToastContainer
