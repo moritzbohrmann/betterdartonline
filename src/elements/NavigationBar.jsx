@@ -3,22 +3,22 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import DemoIcon from "../assets/demo_user.png";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
-import { BorderSolidIcon, HamburgerMenuIcon, PersonIcon } from "@radix-ui/react-icons";
+import { BorderSolidIcon, HamburgerMenuIcon, MoonIcon, PersonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Badge, Card, Flex, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { Account, AccountContent } from "../components/account/Account";
-import { useTheme } from "../context/ThemeContext";
+import { ThemeType, themeStyle, useTheme } from "../context/ThemeContext";
 import { useAccount } from "../state/AccountReducer";
 import { cn } from "../utils/style";
 import { SignupCard, SignupContent } from "./SignupCard";
 
 function Navigation() {
-   const [theme] = useTheme();
+   const [theme, setTheme] = useTheme();
    const account = useAccount();
    const [mobileNavClosed, setMobileNavClosed] = React.useState(true);
 
    return (
       <NavigationMenu.Root className={cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light)}>
-         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-4 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
+         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-2.5 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
             <Flex justify="between" align="center" className="h-full w-full">
                <Flex gap="8">
                   <NavigationMenu.Item>
@@ -94,9 +94,22 @@ function Navigation() {
             </Flex>
             <NavigationMenu.Item className="flex cursor-pointer items-center md:hidden">
                <NavigationMenu.Trigger>
-                  <div className="rounded-md border-[1px] p-1">
+                  <button
+                     onClick={() => setTheme(theme.type === ThemeType.DARK ? themeStyle(ThemeType.LIGHT) : themeStyle(ThemeType.DARK))}
+                     className={cn("rounded-md border-[1px] p-1", theme.borderColor.default)}>
+                     {theme.type === ThemeType.DARK ? (
+                        <SunIcon className={cn("h-5 w-5", theme.textColor.default)} />
+                     ) : (
+                        <MoonIcon className={cn("h-5 w-5", theme.textColor.default)} />
+                     )}
+                  </button>
+               </NavigationMenu.Trigger>
+            </NavigationMenu.Item>
+            <NavigationMenu.Item className="flex cursor-pointer items-center md:hidden">
+               <NavigationMenu.Trigger>
+                  <button className={cn("rounded-md border-[1px] p-1", theme.borderColor.default)}>
                      <PersonIcon className={cn("h-5 w-5", theme.textColor.default)} />
-                  </div>
+                  </button>
                </NavigationMenu.Trigger>
                <NavigationMenu.Content className="fixed left-0 top-16 max-h-96 data-[state=open]:animate-rollDown">
                   <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">
@@ -106,7 +119,7 @@ function Navigation() {
             </NavigationMenu.Item>
             <NavigationMenu.Item onMouseLeave={() => setMobileNavClosed(true)} className="flex cursor-pointer items-center md:hidden">
                <NavigationMenu.Trigger onClick={() => setMobileNavClosed(mobileNavClosed ? false : true)}>
-                  <div className="rounded-md border-[1px] p-1">
+                  <button className={cn("rounded-md border-[1px] p-1", theme.borderColor.default)}>
                      {mobileNavClosed ? (
                         <HamburgerMenuIcon className={cn("h-5 w-5 animate-contentFade", theme.textColor.default)} />
                      ) : (
@@ -115,7 +128,7 @@ function Navigation() {
                            <BorderSolidIcon className={cn("h-5 w-5 -rotate-45 animate-rotateCross2", theme.textColor.default)} />
                         </div>
                      )}
-                  </div>
+                  </button>
                </NavigationMenu.Trigger>
                <NavigationMenu.Content className="fixed left-0 top-16 max-h-96 data-[state=open]:animate-rollDown">
                   <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">
@@ -133,26 +146,6 @@ function Navigation() {
                                     <Flex orientation="vertical" className="h-32 w-full px-10">
                                        <SettingsMenu />
                                     </Flex>
-                                 </Collabsible.Content>
-                              </Flex>
-                           </Collabsible.Root>
-                        </HamburgerItem>
-                        <HamburgerItem className={cn("border-t-[1px]", theme.borderColor.light)}>
-                           <Collabsible.Root>
-                              <Flex orientation="vertical" align="center">
-                                 <Collabsible.Trigger className="flex h-16 items-center justify-center data-[state=open]:font-bold" asChild>
-                                    <Flex>
-                                       {account ? (
-                                          <img src={DemoIcon} className="h-8 w-8 rounded-full" />
-                                       ) : (
-                                          <Badge color="white" className="animate-wiggle">
-                                             Sign in
-                                          </Badge>
-                                       )}
-                                    </Flex>
-                                 </Collabsible.Trigger>
-                                 <Collabsible.Content className="w-full rounded-none data-[state=open]:animate-rollDown">
-                                    <Flex justify="center">{account ? <AccountContent /> : <SignupContent />}</Flex>
                                  </Collabsible.Content>
                               </Flex>
                            </Collabsible.Root>
