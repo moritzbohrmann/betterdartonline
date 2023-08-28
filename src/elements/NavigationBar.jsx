@@ -3,7 +3,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import DemoIcon from "../assets/demo_user.png";
 import React from "react";
 import SettingsMenu from "./SettingsMenu";
-import { BorderSolidIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { BorderSolidIcon, HamburgerMenuIcon, PersonIcon } from "@radix-ui/react-icons";
 import { Badge, Card, Flex, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { Account, AccountContent } from "../components/account/Account";
 import { useTheme } from "../context/ThemeContext";
@@ -18,7 +18,7 @@ function Navigation() {
 
    return (
       <NavigationMenu.Root className={cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light)}>
-         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-8 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
+         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-4 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
             <Flex justify="between" align="center" className="h-full w-full">
                <Flex gap="8">
                   <NavigationMenu.Item>
@@ -92,18 +92,30 @@ function Navigation() {
                   )}
                </NavigationMenu.Item>
             </Flex>
-            <NavigationMenu.Item onMouseLeave={() => setMobileNavClosed(true)} className="cursor-pointer md:hidden">
+            <NavigationMenu.Item className="flex cursor-pointer items-center md:hidden">
+               <NavigationMenu.Trigger>
+                  <div className="rounded-md border-[1px] p-1">
+                     <PersonIcon className={cn("h-5 w-5", theme.textColor.default)} />
+                  </div>
+               </NavigationMenu.Trigger>
+               <NavigationMenu.Content className="fixed left-0 top-16 max-h-96 data-[state=open]:animate-rollDown">
+                  <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">
+                     <Flex justify="center">{account ? <AccountContent /> : <SignupContent />}</Flex>
+                  </Card>
+               </NavigationMenu.Content>
+            </NavigationMenu.Item>
+            <NavigationMenu.Item onMouseLeave={() => setMobileNavClosed(true)} className="flex cursor-pointer items-center md:hidden">
                <NavigationMenu.Trigger onClick={() => setMobileNavClosed(mobileNavClosed ? false : true)}>
-                  <flex>
+                  <div className="rounded-md border-[1px] p-1">
                      {mobileNavClosed ? (
-                        <HamburgerMenuIcon className={cn("h-8 w-8 animate-contentFade", theme.textColor.default)} />
+                        <HamburgerMenuIcon className={cn("h-5 w-5 animate-contentFade", theme.textColor.default)} />
                      ) : (
                         <div className="animate-contentFade">
-                           <BorderSolidIcon className={cn("absolute h-8 w-8 rotate-45 animate-rotateCross1", theme.textColor.default)} />
-                           <BorderSolidIcon className={cn("h-8 w-8 -rotate-45 animate-rotateCross2", theme.textColor.default)} />
+                           <BorderSolidIcon className={cn("absolute h-5 w-5 rotate-45 animate-rotateCross1", theme.textColor.default)} />
+                           <BorderSolidIcon className={cn("h-5 w-5 -rotate-45 animate-rotateCross2", theme.textColor.default)} />
                         </div>
                      )}
-                  </flex>
+                  </div>
                </NavigationMenu.Trigger>
                <NavigationMenu.Content className="fixed left-0 top-16 max-h-96 data-[state=open]:animate-rollDown">
                   <Card className="absolute w-screen rounded-none border-y-0 border-b-[1px] border-t-0">

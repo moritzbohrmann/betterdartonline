@@ -71,45 +71,6 @@ function Register() {
                   required
                />
             </Flex>
-            <Separator className="mt-2" />
-            <Flex orientation="vertical" align="center" className="w-full">
-               <Text weight="sb" className="my-2">
-                  Question
-               </Text>
-               <Flex align="center" justify="between" className="w-full">
-                  <Text>Question</Text>
-                  <Select
-                     placeholder="select question"
-                     maxLength="16"
-                     onChange={(e) =>
-                        _setAccount((_account) => {
-                           return { ..._account, question: { ..._account.question, value: e.target.value } };
-                        })
-                     }
-                     required>
-                     {authQuestOptions.map((question) => {
-                        return (
-                           <option value={question} selected>
-                              {question}
-                           </option>
-                        );
-                     })}
-                  </Select>
-               </Flex>
-               <Flex align="center" justify="between" className="w-full">
-                  <Text>Answer</Text>
-                  <Input
-                     placeholder="your answer"
-                     maxLength="16"
-                     onChange={(e) =>
-                        _setAccount((_account) => {
-                           return { ..._account, question: { ..._account.question, answer: e.target.value } };
-                        })
-                     }
-                     required
-                  />
-               </Flex>
-            </Flex>
             <Button type="submit" className="mt-6">
                Create
             </Button>

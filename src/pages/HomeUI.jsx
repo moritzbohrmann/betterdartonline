@@ -12,8 +12,8 @@ function HomeUI() {
    return (
       <Flex orientation="vertical" align="center" className="min-h-screen">
          <Navigation />
-         <div className="mt-4 flex w-5/6 flex-wrap justify-center gap-4 pb-10 xl:pb-0">
-            <div className="flex flex-col gap-4">
+         <div className="flex w-5/6 flex-wrap justify-center gap-2 pb-10 sm:mt-4 sm:gap-4 xl:pb-0">
+            <div className="flex flex-col gap-2 sm:gap-4">
                <ProfileCard />
                <FilterCard />
             </div>
