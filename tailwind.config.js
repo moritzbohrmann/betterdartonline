@@ -123,8 +123,8 @@ export default {
                to: { opacity: 1 },
             },
             rollDown: {
-               from: { transform: "scaleY(1%)" },
-               to: { transform: "scaleY(100%)" },
+               from: { transform: "translateY(-90%) scaleY(1%)" },
+               to: { transform: "translateY(0) scaleY(100%)" },
             },
             wiggle: {
                "0%": { transform: "translateX(-2px)" },

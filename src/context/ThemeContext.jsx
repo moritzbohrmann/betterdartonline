@@ -17,8 +17,15 @@ export const themeStyle = (themeType) => {
 const ThemeProvider = ({ children }) => {
    const [theme, setTheme] = React.useState(themeStyle(ThemeType.DARK));
 
+   const toggleTheme = () => {
+      if (theme.type === ThemeType.DARK) setTheme(themeStyle(ThemeType.LIGHT));
+      else setTheme(themeStyle(ThemeType.DARK));
+
+      return theme;
+   };
+
    return (
-      <ThemeContext.Provider value={[theme, setTheme]}>
+      <ThemeContext.Provider value={[theme, setTheme, toggleTheme]}>
          <div className={theme.background}>{children}</div>
       </ThemeContext.Provider>
    );

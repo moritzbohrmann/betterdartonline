@@ -4,7 +4,7 @@ import SplitScore from "../components/profile/SplitScore";
 import X01 from "../components/profile/X01";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { Button, Card, Flex, Tabs, Text, Title } from "../components/@ui/_collection";
+import { Badge, Button, Card, Flex, Tabs, Text, Title } from "../components/@ui/_collection";
 import { useSocket } from "../context/SocketContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { setProfile, useAccount } from "../state/AccountReducer";
@@ -69,14 +69,12 @@ function ProfileCard() {
          <Flex align="center" className="mt-8">
             {account ? (
                joined ? (
-                  <Button variant="negative" onClick={() => handleQuit()}>
-                     Quit
-                  </Button>
+                  <Button variant="negative" onClick={handleQuit} children="Quit" />
                ) : (
-                  <Button onClick={() => handleJoin()}>Join</Button>
+                  <Button onClick={handleJoin} children="Join" />
                )
             ) : (
-               <Button variant="negative">✖</Button>
+               <Badge color="red">unavailable</Badge>
             )}
          </Flex>
       </Card>

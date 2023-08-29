@@ -1,7 +1,6 @@
 import React from "react";
 import { cva } from "class-variance-authority";
 import { cn } from "../../utils/style";
-import { Text } from "./Text";
 
 const badgeVariants = cva("ring-1 ring-inset bg-opacity-20 inline-flex items-center justify-center rounded-md font-sans", {
    variants: {

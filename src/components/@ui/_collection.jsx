@@ -8,7 +8,8 @@ import { Flex } from "./Flex";
 import { Hover } from "./Hover";
 import { Input } from "./Input";
 import { Progress } from "./Progress";
+import { ReactiveIcon } from "./ReactiveIcon";
 import { Select } from "./Select";
 import { Text } from "./Text";
 
-export { Badge, Button, Card, Title, Flex, Hover, Input, Select, Separator, Tabs, Text, ToolTip, Progress };
+export { Badge, Button, Card, Title, Flex, Hover, Input, Select, Separator, Tabs, Text, ToolTip, Progress, ReactiveIcon };
