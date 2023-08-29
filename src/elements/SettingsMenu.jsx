@@ -1,16 +1,10 @@
 import * as Switch from "@radix-ui/react-switch";
 import React from "react";
-import { Flex, Separator, Text, Title } from "../components/@ui/_collection";
-import { ThemeType, themeStyle, useTheme } from "../context/ThemeContext";
+import { Flex, Separator, Text } from "../components/@ui/_collection";
+import { ThemeType, useTheme } from "../context/ThemeContext";
 
 function SettingsMenu() {
-   const [theme, setTheme] = useTheme();
-
-   const toggleTheme = () => {
-      const newTheme = theme.type === ThemeType.LIGHT ? themeStyle(ThemeType.DARK) : themeStyle(ThemeType.LIGHT);
-
-      setTheme(newTheme);
-   };
+   const [theme, , toggleTheme] = useTheme();
 
    return (
       <>

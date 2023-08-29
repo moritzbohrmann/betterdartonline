@@ -11,7 +11,6 @@ import { Button, Flex, Input } from "../@ui/_collection";
 function Login() {
    const idRef = React.useRef(null);
    const passwordRef = React.useRef(null);
-   const account = useAccount();
    const [theme] = useTheme();
 
    const { signup } = useAuth();
@@ -47,31 +46,29 @@ function Login() {
       <form onSubmit={(e) => e.preventDefault()}>
          <Flex orientation="vertical" align="center" gap="2">
             <Flex justify="center" align="center" gap="4">
-               <PersonIcon />
-               <Input ref={idRef} placeholder="Email or username" maxLength="16" required />
+               <PersonIcon className={theme.icon} />
+               <Input ref={idRef} placeholder="Email or username" required />
             </Flex>
             <Flex justify="center" align="center" gap="4">
-               <LockClosedIcon />
-               <Input ref={passwordRef} placeholder="Password" maxLength="16" required />
+               <LockClosedIcon className={theme.icon} />
+               <Input ref={passwordRef} placeholder="Password" required />
             </Flex>
-            {account ? (
-               <Button variant="positive" onClick={() => handleSubmit(LoginType.NATIVE)} className="mt-6">
-                  ✔
+            <Flex orientation="vertical" justify="center" align="center" className="w-full">
+               <Button type="submit" onClick={() => handleSubmit(LoginType.NATIVE)} className="mt-4 w-[220px]">
+                  Submit
                </Button>
-            ) : (
-               <Flex orientation="vertical" justify="center" align="center" className="w-full">
-                  <Button type="submit" onClick={() => handleSubmit(LoginType.NATIVE)} className="mt-4">
-                     Submit
-                  </Button>
-                  <div className="mt-2">
-                     <GoogleLogin
-                        theme={theme.type === ThemeType.DARK ? "filled_black" : "filled_blue"}
-                        onSuccess={({ credential }) => handleSubmit(LoginType.GOOGLE, jwtDecode(credential))}
-                        onError={(err) => console.log(err)}
-                     />
-                  </div>
-               </Flex>
-            )}
+               <div className="mt-2">
+                  <GoogleLogin
+                     theme={theme.type === ThemeType.DARK ? "filled_black" : "filled_blue"}
+                     onSuccess={({ credential }) => handleSubmit(LoginType.GOOGLE, jwtDecode(credential))}
+                     onError={(err) => console.log(err)}
+                     shape="square"
+                     text="continue_with"
+                     width={220}
+                     locale="EN"
+                  />
+               </div>
+            </Flex>
          </Flex>
       </form>
    );

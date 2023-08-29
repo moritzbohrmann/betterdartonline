@@ -2,13 +2,13 @@ import React from "react";
 import { EnvelopeClosedIcon, ImageIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 import { Button, Flex, Input } from "../@ui/_collection";
 
 function Register() {
    const [_account, _setAccount] = React.useState({ username: "", email: "", password: "", question: { value: "", answer: "" } });
    const { register } = useAuth();
-
-   const authQuestOptions = ["What is your parents name?", "What was your first pets name?", "What is your favourite Hobby?"];
+   const [theme] = useTheme();
 
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -32,11 +32,10 @@ function Register() {
       <form onSubmit={(e) => handleSubmit(e)}>
          <Flex orientation="vertical" align="center" gap="2">
             <Flex justify="center" align="center" gap="4">
-               <PersonIcon />
+               <PersonIcon className={theme.icon} />
                <Input
                   placeholder="Username"
                   value={_account.username}
-                  maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
                         return { ..._account, username: e.target.value };
@@ -46,11 +45,10 @@ function Register() {
                />
             </Flex>
             <Flex justify="center" align="center" gap="4">
-               <EnvelopeClosedIcon />
+               <EnvelopeClosedIcon className={theme.icon} />
                <Input
                   type="email"
                   placeholder="Email"
-                  maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
                         return { ..._account, email: e.target.value };
@@ -60,11 +58,10 @@ function Register() {
                />
             </Flex>
             <Flex justify="center" align="center" gap="4">
-               <LockClosedIcon />
+               <LockClosedIcon className={theme.icon} />
                <Input
                   type="password"
                   placeholder="Password"
-                  maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
                         return { ..._account, password: e.target.value };
@@ -74,11 +71,10 @@ function Register() {
                />
             </Flex>
             <Flex justify="center" align="center" gap="4">
-               <ImageIcon />
+               <ImageIcon className={theme.icon} />
                <Input
                   type="url"
                   placeholder="Link to picture*"
-                  maxLength="16"
                   onChange={(e) =>
                      _setAccount((_account) => {
                         return { ..._account, password: e.target.value };
@@ -87,7 +83,7 @@ function Register() {
                   required
                />
             </Flex>
-            <Button type="submit" className="mt-4">
+            <Button type="submit" className="mt-4 w-[220px]">
                Create
             </Button>
          </Flex>

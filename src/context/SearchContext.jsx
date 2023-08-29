@@ -13,7 +13,7 @@ const SearchProvider = ({ ...props }) => {
          return;
       }
 
-      const terms = searchConfig.terms.filter((term) => term.includes(search));
+      const terms = searchConfig.terms.filter((term) => term.includes(search.toLowerCase()));
       let termResults = [];
 
       terms.forEach((term) => termResults.push(searchConfig.results[term]));

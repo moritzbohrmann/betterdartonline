@@ -6,6 +6,7 @@ export default {
          backgroundColor: "bg-neutral-950",
          select: "data-[state=active]:bg-zinc-800",
          separator: "bg-zinc-500",
+         icon: "text-zinc-300",
          textColor: {
             default: "text-zinc-300",
             descent: "text-zinc-500",
@@ -30,6 +31,7 @@ export default {
          backgroundColor: "bg-neutral-200",
          select: "data-[state=active]:bg-zinc-300",
          separator: "bg-zinc-300",
+         icon: "text-zinc-800",
          textColor: {
             default: "text-zinc-800",
             descent: "text-zinc-500",

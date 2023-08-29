@@ -22,7 +22,7 @@ function Account() {
    }, []);
 
    return (
-      <Card className="absolute -translate-x-72">
+      <Card className="absolute right-0 top-0">
          <Title subTitle="Manage your account.">Account</Title>
          <AccountContent auth={auth} />
       </Card>

@@ -4,16 +4,20 @@ import { ThemeType, useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/style";
 import { Badge, Flex, Input, Separator, Text } from "../@ui/_collection";
 
-function Tablet() {
+function Tablet(props) {
    const [theme] = useTheme();
    const [, setSearch, results] = useSearch();
 
    return (
       <Flex
          orientation="vertical"
-         className={cn("absolute left-0 top-0 w-full animate-contentFade border-b-[1px] px-8 py-2 backdrop-blur-md", theme.borderColor.light)}>
+         className={cn(
+            "absolute left-0 top-0 w-full animate-contentFade border-b-[1px] px-8 py-2 backdrop-blur-md",
+            props.className,
+            theme.borderColor.light
+         )}>
          <Flex justify="around" align="center" className="w-full py-4">
-            <Input placeholder="Search terms" onChange={(e) => setSearch(e.target.value)} className="w-full" />
+            <Input placeholder="Search" onChange={(e) => setSearch(e.target.value)} className="w-full" />
          </Flex>
          <Separator />
          <Flex orientation="vertical" className="w-full py-2 transition-all">

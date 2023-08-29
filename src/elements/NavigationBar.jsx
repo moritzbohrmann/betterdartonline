@@ -11,7 +11,7 @@ function NavBar() {
 
    return (
       <NavigationMenu.Root className={cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light)}>
-         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-2.5 px-4 sm:px-8 md:justify-normal md:px-16 lg:px-36 2xl:px-64">
+         <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-2.5 px-4 sm:px-8 md:justify-normal md:px-16 2xl:px-64">
             <SearchProvider>
                <Flex justify="between" align="center" className="h-full md:w-full">
                   <Navigation.PC />

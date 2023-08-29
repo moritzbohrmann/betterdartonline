@@ -5,7 +5,7 @@ import { Card, Tabs, Text, Title } from "../components/@ui/_collection";
 import { Account } from "../components/account/Account";
 import { useAccount } from "../state/AccountReducer";
 
-function SignupCard() {
+function AccountCard() {
    const account = useAccount();
 
    return (
@@ -13,7 +13,7 @@ function SignupCard() {
          {account ? (
             <Account />
          ) : (
-            <Card>
+            <Card className="absolute right-0">
                <Title subTitle="Enter your credentials and enjoy betterdartonline.">Account</Title>
                <SignupContent />
             </Card>
@@ -24,7 +24,7 @@ function SignupCard() {
 
 const SignupContent = () => {
    return (
-      <Tabs.Root className="w-full overflow-auto">
+      <Tabs.Root className="w-full">
          <Tabs.Trigger value="tab1" className="h-10 w-1/2 border-r-[1px]">
             <Text weight="b">Login</Text>
          </Tabs.Trigger>
@@ -41,4 +41,4 @@ const SignupContent = () => {
    );
 };
 
-export { SignupCard, SignupContent };
+export { AccountCard, SignupContent };
