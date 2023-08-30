@@ -24,20 +24,7 @@ function Sidebar() {
             className="z-50 h-screen w-80 animate-extendLeft rounded-l-xl border-[1px] border-r-[0] border-dark-900 bg-dark-background p-8 shadow-lg">
             <Flex justify="between" align="center" className="w-full">
                <Flex justify="between" align="center" gap="2" className="rounded-md bg-zinc-800 px-2 py-1">
-                  {account ? (
-                     <>
-                        <Avatar />
-                        <Text size="sm" weight="b">
-                           {account?.username}
-                        </Text>
-                     </>
-                  ) : (
-                     <>
-                        <Text size="sm" weight="b">
-                           Hi, Guest!
-                        </Text>
-                     </>
-                  )}
+                  {account ? <Item icon={<Avatar />} text={account?.username} /> : <Item icon={<Avatar initials="G" />} text="Welcome, user!" />}
                </Flex>
                <Cross1Icon color="white" />
             </Flex>
