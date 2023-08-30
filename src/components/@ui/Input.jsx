@@ -10,6 +10,7 @@ const inputVariants = () => {
       variants: {
          variant: {
             default: cn(theme.borderColor.light, theme.backgroundColor, theme.textColor.default),
+            transparent: cn(theme.borderColor.light, "bg-transparent", theme.textColor.default),
          },
          size: {
             "sm": "w-40",

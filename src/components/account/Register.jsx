@@ -6,7 +6,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { Button, Flex, Input } from "../@ui/_collection";
 
 function Register() {
-   const [_account, _setAccount] = React.useState({ username: "", email: "", password: "", question: { value: "", answer: "" } });
+   const [_account, _setAccount] = React.useState({ username: "", email: "", password: "", picture: "" });
    const { register } = useAuth();
    const [theme] = useTheme();
 
@@ -77,10 +77,9 @@ function Register() {
                   placeholder="Link to picture*"
                   onChange={(e) =>
                      _setAccount((_account) => {
-                        return { ..._account, password: e.target.value };
+                        return { ..._account, picture: e.target.value };
                      })
                   }
-                  required
                />
             </Flex>
             <Button type="submit" className="mt-4 w-[220px]">

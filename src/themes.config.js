@@ -10,6 +10,7 @@ export default {
          textColor: {
             default: "text-zinc-300",
             descent: "text-zinc-500",
+            light: "text-zinc-800",
             background: "text-neutral-950",
          },
          borderColor: {
@@ -35,6 +36,7 @@ export default {
          textColor: {
             default: "text-zinc-800",
             descent: "text-zinc-500",
+            light: "text-zinc-300",
             background: "text-neutral-200",
          },
          borderColor: {

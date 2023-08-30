@@ -32,16 +32,8 @@ function Account() {
 const AccountContent = ({ auth }) => {
    const account = useAccount();
 
-   const handleLogout = async (e) => {
-      e.preventDefault();
-
-      const { error } = await auth.signout();
-
-      if (!(await error)) toast.success("Successfully signed out.");
-   };
-
    return (
-      <form onSubmit={(e) => handleLogout(e)} className="w-full">
+      <form className="w-full">
          <Flex orientation="vertical" align="center" gap="2" className="w-full">
             <Flex justify="center" align="center" gap="4">
                <PersonIcon />
@@ -55,9 +47,6 @@ const AccountContent = ({ auth }) => {
                <LockClosedIcon />
                <Input type="password" defaultValue={account?.email} maxLength="16" readOnly />
             </Flex>
-            <Button type="submit" variant="negative" className="mt-6">
-               Sign out
-            </Button>
          </Flex>
       </form>
    );

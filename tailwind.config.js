@@ -122,9 +122,21 @@ export default {
                from: { opacity: 0 },
                to: { opacity: 1 },
             },
-            rollDown: {
-               from: { transform: "translateY(-90%) scaleY(1%)" },
+            extendDown: {
+               from: { transform: "translateY(-50%) scaleY(0%)" },
                to: { transform: "translateY(0) scaleY(100%)" },
+            },
+            extendUp: {
+               from: { transform: "translateY(0) scaleY(0%)" },
+               to: { transform: "translateY(50%) scaleY(100%)" },
+            },
+            extendLeft: {
+               from: { transform: "translateX(50%) scaleX(0%)" },
+               to: { transform: "translateX(0%) scaleX(100%)" },
+            },
+            extendRight: {
+               from: { transform: "translateX(50%) scaleX(0%)" },
+               to: { transform: "translateX(100%) scaleX(100%)" },
             },
             wiggle: {
                "0%": { transform: "translateX(-2px)" },
@@ -153,6 +165,10 @@ export default {
             contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             contentFade: "contentFade 150ms",
             rollDown: "rollDown 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+            extendLeft: "extendLeft 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+            extendRight: "extendRight 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+            extendUp: "extendUp 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+            extendDown: "extendDown 150ms cubic-bezier(0.16, 1, 0.3, 1)",
             wiggle: "wiggle 3000ms infinite",
             rotateCross1: "rotateCross1 150ms",
             rotateCross2: "rotateCross2 150ms",

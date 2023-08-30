@@ -1,6 +1,7 @@
-import "./App.css";
 import HomeUI from "./pages/HomeUI";
 import MatchUI from "./pages/MatchUI";
+import React from "react";
+import Tournament from "./components/Tournament";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { SocketProvider } from "./context/SocketContext";
 
@@ -25,6 +26,7 @@ function App() {
                   </SocketProvider>
                }
             />
+            <Route path="/tournament/create" element={<Tournament />} />
          </Routes>
       </>
    );

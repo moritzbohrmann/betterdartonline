@@ -1,6 +1,6 @@
 import React from "react";
 import jwtDecode from "jwt-decode";
-import { LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
+import { EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
@@ -16,8 +16,8 @@ function Login() {
    const { signup } = useAuth();
 
    const LoginType = {
-      NATIVE: "NATIVE",
-      GOOGLE: "GOOGLE",
+      NATIVE: "Native",
+      GOOGLE: "Google",
    };
 
    const handleSubmit = async (type, credentials = {}) => {
@@ -25,7 +25,7 @@ function Login() {
 
       switch (type) {
          case LoginType.NATIVE:
-            account = { username: idRef.current.value, email: idRef.current.value, password: passwordRef.current.value };
+            account = { ...account, username: idRef.current.value, email: idRef.current.value, password: passwordRef.current.value };
             break;
          case LoginType.GOOGLE:
             account = { ...account, username: credentials.name, email: credentials.email, picture: credentials.picture };
@@ -46,7 +46,7 @@ function Login() {
       <form onSubmit={(e) => e.preventDefault()}>
          <Flex orientation="vertical" align="center" gap="2">
             <Flex justify="center" align="center" gap="4">
-               <PersonIcon className={theme.icon} />
+               <EnvelopeClosedIcon className={theme.icon} />
                <Input ref={idRef} placeholder="Email or username" required />
             </Flex>
             <Flex justify="center" align="center" gap="4">

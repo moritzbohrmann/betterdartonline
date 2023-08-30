@@ -1,9 +1,10 @@
 import * as Tabs from "./Tabs";
 import Separator from "./Separator";
+import Title from "./Title";
 import ToolTip from "./ToolTip";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
-import { Card, Title } from "./Card";
+import { Card } from "./Card";
 import { Flex } from "./Flex";
 import { Hover } from "./Hover";
 import { Input } from "./Input";
