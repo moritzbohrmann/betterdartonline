@@ -4,12 +4,14 @@ import Login from "./account/Login";
 import React from "react";
 import Register from "./account/Register";
 import Separator from "./@ui/Separator";
-import { Cross1Icon, EnterIcon, ExitIcon, PersonIcon } from "@radix-ui/react-icons";
+import Switch from "./@ui/Switch";
+import { Cross1Icon, EnterIcon, ExitIcon, GearIcon, LightningBoltIcon, PersonIcon, QuestionMarkCircledIcon, TimerIcon } from "@radix-ui/react-icons";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { useAccount } from "../state/AccountReducer";
 import { cn } from "../utils/style";
 import { Flex } from "./@ui/Flex";
+import { Select } from "./@ui/Select";
 import { Text } from "./@ui/Text";
 import { AccountContent } from "./account/Account";
 
@@ -20,15 +22,22 @@ function Sidebar() {
       <Flex justify="end" className="z-40 h-screen w-screen animate-contentFade bg-dark-background bg-opacity-40">
          <Flex
             orientation="vertical"
-            gap="8"
+            justify="between"
+            gap="4"
             className="z-50 h-screen w-80 animate-extendLeft rounded-l-xl border-[1px] border-r-[0] border-dark-900 bg-dark-background p-8 shadow-lg">
-            <Flex justify="between" align="center" className="w-full">
-               <Flex justify="between" align="center" gap="2" className="rounded-md bg-zinc-800 px-2 py-1">
-                  {account ? <Item icon={<Avatar />} text={account?.username} /> : <Item icon={<Avatar initials="G" />} text="Welcome, user!" />}
+            <Flex orientation="vertical" gap="4" className="w-full">
+               <Flex justify="between" align="center" className="w-full">
+                  <Flex justify="between" align="center" gap="2" className="rounded-md bg-zinc-800 px-2 py-1">
+                     {account ? <Item icon={<Avatar />} text={account?.username} /> : <Item icon={<Avatar initials="G" />} text="Welcome, user!" />}
+                  </Flex>
+                  <Cross1Icon color="white" />
                </Flex>
-               <Cross1Icon color="white" />
+               {account ? <Account /> : <Guest />}
             </Flex>
-            {account ? <Account /> : <Guest />}
+            <Flex orientation="vertical" gap="8" className="w-full">
+               <Separator />
+               <Item icon={<QuestionMarkCircledIcon />} text="Help" />
+            </Flex>
          </Flex>
       </Flex>
    );
@@ -38,7 +47,7 @@ const Account = () => {
    const { signout } = useAuth();
 
    return (
-      <Flex orientation="vertical" className="ml-2 w-full">
+      <Flex orientation="vertical" className="mt-4 w-full">
          <Collapsible.Root>
             <Collapsible.Trigger>
                <Item icon={<PersonIcon />} text="Your profile" />
@@ -48,6 +57,35 @@ const Account = () => {
             </Collapsible.Content>
          </Collapsible.Root>
          <Separator className="my-2" />
+         <Flex orientation="vertical">
+            <Collapsible.Root>
+               <Collapsible.Trigger>
+                  <Item icon={<GearIcon />} text="Settings" />
+               </Collapsible.Trigger>
+               <Collapsible.Content className="my-4 animate-contentFade border-l-[1px] border-dark-900 pl-4">
+                  <Flex orientation="vertical">
+                     <Flex justify="between" className="w-48">
+                        <Text>Lightmode</Text>
+                        <Switch />
+                     </Flex>
+                     <Flex justify="between" className="w-48">
+                        <Text>Caller</Text>
+                        <Switch />
+                     </Flex>
+                     <Flex justify="between" className="w-48">
+                        <Text>Language</Text>
+                        <Select className="w-20">
+                           <option>DE</option>
+                           <option>EN</option>
+                        </Select>
+                     </Flex>
+                  </Flex>
+               </Collapsible.Content>
+            </Collapsible.Root>
+            <Item icon={<TimerIcon />} text="Pending matches" />
+            <Item icon={<LightningBoltIcon />} text="Create tournament" onClick={() => navigate("/tournament/create")} />
+         </Flex>
+         <Separator className="my-2" />
          <Item icon={<ExitIcon />} text="Sign out" onClick={() => signout()} />
       </Flex>
    );
@@ -55,7 +93,7 @@ const Account = () => {
 
 const Guest = () => {
    return (
-      <Flex orientation="vertical" className="relative w-full">
+      <Flex orientation="vertical" className="relative mt-4 w-full">
          <Collapsible.Root>
             <Collapsible.Trigger>
                <Item icon={<PersonIcon />} text="Sign in" />
@@ -64,7 +102,6 @@ const Guest = () => {
                <Login />
             </Collapsible.Content>
          </Collapsible.Root>
-         <Separator className="my-2" />
          <Collapsible.Root>
             <Collapsible.Trigger>
                <Item icon={<EnterIcon />} text="Create account" />

@@ -2,22 +2,24 @@ import * as Collabsible from "@radix-ui/react-collapsible";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import * as Search from "./search/Search";
 import Avatar from "./Avatar";
+import Path from "./Path";
 import React from "react";
 import SettingsMenu from "../elements/SettingsMenu";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { ThemeType, useTheme } from "../context/ThemeContext";
-import { AccountCard, SignupContent } from "../elements/AccountCard";
+import { SignupContent } from "../elements/AccountCard";
 import { useAccount } from "../state/AccountReducer";
 import { cn } from "../utils/style";
-import { Badge, Button, Card, Flex, ReactiveIcon, Separator, Text, Title, ToolTip } from "./@ui/_collection";
+import { Badge, Flex, ReactiveIcon, Text, ToolTip } from "./@ui/_collection";
 import { AccountContent } from "./account/Account";
 
 import {
+   ArrowRightIcon,
    Cross1Icon,
    ExitIcon,
    HamburgerMenuIcon,
+   HomeIcon,
    LightningBoltIcon,
    MagnifyingGlassIcon,
    MoonIcon,
@@ -29,12 +31,11 @@ const PC = () => {
    const account = useAccount();
    const [theme] = useTheme();
    const navigate = useNavigate();
-   const { signout } = useAuth();
 
    return (
       <>
          <Flex gap="8" align="center" className="h-full">
-            <Flex>
+            <Flex align="center">
                <NavigationMenu.Item>
                   <div className="rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700 px-2">
                      <Text size="xl" weight="b" className="hidden text-white-default sm:block">
@@ -45,7 +46,7 @@ const PC = () => {
                      </Text>
                   </div>
                </NavigationMenu.Item>
-               <NavigationMenu.Item className="md:hidden">
+               <NavigationMenu.Item className="lg:hidden">
                   <NavigationMenu.Trigger>
                      <ReactiveIcon Icon={<MagnifyingGlassIcon />} />
                   </NavigationMenu.Trigger>
@@ -53,38 +54,14 @@ const PC = () => {
                      <Search.Tablet />
                   </NavigationMenu.Content>
                </NavigationMenu.Item>
+               <Path className="hidden sm:flex md:ml-2" />
             </Flex>
-            <div className="hidden h-full gap-4 md:visible md:flex">
-               <ToolTip content="Coming soon...">
-                  <Text variant="light" weight="sb" onClick={() => navigate("/home")}>
-                     Home
-                  </Text>
-               </ToolTip>
-               <NavigationMenu.Item>
-                  <NavigationMenu.Trigger className="h-full">
-                     <Text variant="light" weight="sb">
-                        Settings
-                     </Text>
-                  </NavigationMenu.Trigger>
-                  <NavigationMenu.Content className="data-[state=open]:animate-contentShow">
-                     <Card className="absolute">
-                        <Title subTitle="Customize the app according to your preferences.">Settings</Title>
-                        <SettingsMenu />
-                     </Card>
-                  </NavigationMenu.Content>
-               </NavigationMenu.Item>
-               <ToolTip content="Coming soon...">
-                  <Text variant="light" weight="sb">
-                     Help
-                  </Text>
-               </ToolTip>
-            </div>
          </Flex>
          <Flex>
             <NavigationMenu.Item className="hidden lg:block">
                <Search.Notebook />
             </NavigationMenu.Item>
-            <NavigationMenu.Item>
+            <NavigationMenu.Item className="hidden md:block">
                <NavigationMenu.Trigger>
                   <ToolTip content="Create Tournament">
                      <ReactiveIcon Icon={<LightningBoltIcon />} onClick={() => navigate("/tournament/create")} />

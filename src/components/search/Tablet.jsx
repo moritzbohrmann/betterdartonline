@@ -12,7 +12,7 @@ function Tablet(props) {
       <Flex
          orientation="vertical"
          className={cn(
-            "absolute left-0 top-0 w-full animate-contentFade border-b-[1px] px-8 py-2 backdrop-blur-md",
+            "absolute left-0 top-0 z-10 w-full animate-contentFade border-b-[1px] px-8 py-2 backdrop-blur-md",
             props.className,
             theme.borderColor.light
          )}>
