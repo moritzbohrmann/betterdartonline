@@ -7,9 +7,8 @@ import { useTheme } from "../../context/ThemeContext";
 import { useAccount } from "../../state/AccountReducer";
 import { cn } from "../../utils/style";
 import { Avatar, Flex, Separator, Text } from "../@ui/_collection";
-import { AccountContent } from "../account/Account";
 import { Content, ContentItem, Item, Trigger } from "./components/_collection";
-import { Pending, Settings, Tournaments } from "./elements/_collection";
+import { Account, Pending, Settings, Tournaments } from "./elements/_collection";
 
 function Sidebar({ onClose }) {
    const account = useAccount();
@@ -28,7 +27,7 @@ function Sidebar({ onClose }) {
             )}>
             <Flex orientation="vertical" gap="4" className="w-full">
                <Header onClose={onClose} />
-               {account ? <Account account={account} /> : <Guest />}
+               {account ? <User account={account} /> : <Guest />}
             </Flex>
             <Flex orientation="vertical" gap="4" className="w-full">
                <Separator />
@@ -41,20 +40,14 @@ function Sidebar({ onClose }) {
    );
 }
 
-const Account = () => {
+const User = () => {
    const { signout } = useAuth();
 
    return (
       <Flex orientation="vertical" className="mt-4 w-full">
          <Item>
             <Trigger icon={<PersonIcon />} text="Your profile" />
-            <Content
-               element={
-                  <ContentItem>
-                     <AccountContent />
-                  </ContentItem>
-               }
-            />
+            <Content element={<Account />} />
          </Item>
          <Separator className="my-2" />
          <Flex orientation="vertical">

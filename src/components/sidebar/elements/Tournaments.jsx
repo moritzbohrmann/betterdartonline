@@ -45,11 +45,6 @@ function Tournaments() {
                <ToolTip content="New tournament">+</ToolTip>
             </Button>
          </ContentItem>
-         {tournaments.length === 0 && (
-            <ContentItem>
-               <Text size="sm">No tournaments</Text>
-            </ContentItem>
-         )}
       </>
    );
 }

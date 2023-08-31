@@ -2,7 +2,7 @@ import NavBar from "../elements/NavigationBar";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button, Flex, Input, Select, Text, Title } from "../components/@ui/_collection";
+import { Badge, Button, Flex, Input, Select, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
 import { usePost } from "../hooks/useFetch";
 import { useAccount } from "../state/AccountReducer";
@@ -51,7 +51,7 @@ function CreateTournament() {
          return;
       }
 
-      toast.success("Tournament created successfully.");
+      toast.success("Tournament successfully created.");
       navigate("/tournament/info/" + tournament.id);
    };
 
