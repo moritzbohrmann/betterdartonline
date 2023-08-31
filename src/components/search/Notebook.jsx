@@ -26,21 +26,29 @@ function Notebook() {
             <Text size="sm" weight="b">
                Results
             </Text>
-            {results.map((result) => {
-               return (
-                  <Flex justify="between" className="w-full px-2">
-                     <Badge color={theme.type === ThemeType.DARK ? "white" : "black"} size="sm" className="px-1.5 py-0.5 text-sm">
-                        {result.label}
-                     </Badge>
-                     <Text size="sm">{result.type === "LINK" ? <a href={result.link}>{result.link}</a> : result.text}</Text>
+            <Flex orientation="vertical" className={cn("w-full border-l-[1px]", theme.borderColor.light)}>
+               {results.map((result) => {
+                  return (
+                     <Flex justify="between" align="center" className="w-full">
+                        <Flex align="center">
+                           <div className={cn("w-2 border-b-[1px]", theme.borderColor.light)} />
+                           <Badge color={theme.type === ThemeType.DARK ? "white" : "black"} size="sm" className="px-1.5 py-0.5 text-sm">
+                              {result.label}
+                           </Badge>
+                        </Flex>
+                        <Text size="sm">{result.type === "LINK" ? <a href={result.link}>{result.link}</a> : result.text}</Text>
+                     </Flex>
+                  );
+               })}
+               {results.length === 0 && (
+                  <Flex justify="between" align="center" className="w-full">
+                     <Flex align="center">
+                        <div className={cn("w-2 border-b-[1px]", theme.borderColor.light)} />
+                        <Text size="sm">No results</Text>
+                     </Flex>
                   </Flex>
-               );
-            })}
-            {results.length === 0 && (
-               <Text size="sm" className="ml-2">
-                  No Results
-               </Text>
-            )}
+               )}
+            </Flex>
          </Flex>
       </Flex>
    );

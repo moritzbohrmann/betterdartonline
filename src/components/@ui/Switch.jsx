@@ -7,14 +7,14 @@ function Switch({ ...props }) {
 
    return (
       <_Switch.Root
-         className={`relative h-[25px] w-[42px] rounded-full border-[1px]  ${
+         className={`relative h-[20px] w-[36px] rounded-full border-[1px]  ${
             theme.type === ThemeType.DARK ? "border-white-default bg-white-default" : "border-dark-background bg-dark-background"
          } outline-none`}
          {...props}>
          <_Switch.Thumb
-            className={`block h-[21px] w-[21px] translate-x-0.5 rounded-full ${
+            className={`block h-[16px] w-[16px] translate-x-0.5 rounded-full ${
                theme.type === ThemeType.DARK ? "bg-dark-background" : "bg-white-default"
-            } transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[18px]`}
+            } transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[16px]`}
          />
       </_Switch.Root>
    );

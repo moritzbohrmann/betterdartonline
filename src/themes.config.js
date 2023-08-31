@@ -42,6 +42,8 @@ export default {
          borderColor: {
             default: "border-zinc-700",
             light: "border-zinc-300",
+            positive: "border-green-500",
+            negative: "border-red-500",
          },
          buttonColor: {
             default: "bg-amber-600",

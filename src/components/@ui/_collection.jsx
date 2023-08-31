@@ -1,4 +1,5 @@
 import * as Tabs from "./Tabs";
+import Avatar from "./Avatar";
 import Separator from "./Separator";
 import Title from "./Title";
 import ToolTip from "./ToolTip";
@@ -13,4 +14,4 @@ import { ReactiveIcon } from "./ReactiveIcon";
 import { Select } from "./Select";
 import { Text } from "./Text";
 
-export { Badge, Button, Card, Title, Flex, Hover, Input, Select, Separator, Tabs, Text, ToolTip, Progress, ReactiveIcon };
+export { Badge, Button, Card, Title, Flex, Hover, Input, Select, Separator, Tabs, Text, ToolTip, Progress, ReactiveIcon, Avatar };
