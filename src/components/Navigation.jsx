@@ -3,47 +3,51 @@ import * as Search from "./search/Search";
 import Path from "./Path";
 import React from "react";
 import Sidebar from "./sidebar/Sidebar";
-import { MagnifyingGlassIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { HomeIcon, MagnifyingGlassIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { useNavigate } from "react-router-dom";
 import { ThemeType, useTheme } from "../context/ThemeContext";
 import { useAccount } from "../state/AccountReducer";
 import { Avatar, Badge, Flex, ReactiveIcon, Separator, Text } from "./@ui/_collection";
 
-const PC = () => {
+const Left = () => {
+   const navigate = useNavigate();
+
+   const Logo = () => {
+      return (
+         <Flex align="center" className="h-8 rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700">
+            <Text size="xl" weight="b" className="hidden px-2 text-white-default sm:block">
+               Betterdartonline
+            </Text>
+            <Text size="xl" weight="b" className="w-8 text-white-default sm:hidden">
+               B
+            </Text>
+         </Flex>
+      );
+   };
+
    return (
       <>
-         <Flex gap="8" align="center" className="h-full">
-            <Flex align="center" className="h-4">
-               <NavigationMenu.Item>
-                  <Flex align="center" className="h-8 rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700">
-                     <Text size="xl" weight="b" className="hidden px-2 text-white-default sm:block">
-                        Betterdartonline
-                     </Text>
-                     <Text size="xl" weight="b" className="w-8 text-white-default sm:hidden">
-                        B
-                     </Text>
-                  </Flex>
-               </NavigationMenu.Item>
-               <Separator orientation="vertical" className="mx-0.5 md:mx-2" />
-               <Path />
+         <Flex align="center" gap="2" className="h-4">
+            <Logo />
+            <Separator orientation="vertical" className="mx-0.5 md:mx-2" />
+            <Flex align="center">
+               <ReactiveIcon Icon={<HomeIcon />} onClick={() => navigate("/home")} />
+               <Path className="hidden sm:flex" />
             </Flex>
-         </Flex>
-         <Flex>
-            <NavigationMenu.Item className="hidden lg:block">
-               <Search.Notebook />
-            </NavigationMenu.Item>
          </Flex>
       </>
    );
 };
 
-const Mobile = () => {
+const Right = () => {
    const [theme, , toggleTheme] = useTheme();
    const account = useAccount();
    const [isSidebarOpen, setSidebarOpen] = React.useState(false);
 
-   return (
-      <>
-         <Flex className="min-w-[7rem]">
+   const _Search = () => {
+      return (
+         <>
+            <Search.Notebook className="hidden lg:block" />
             <NavigationMenu.Item className="lg:hidden">
                <NavigationMenu.Trigger>
                   <ReactiveIcon Icon={<MagnifyingGlassIcon />} />
@@ -52,27 +56,47 @@ const Mobile = () => {
                   <Search.Tablet />
                </NavigationMenu.Content>
             </NavigationMenu.Item>
-            <NavigationMenu.Item className="flex cursor-pointer items-center">
-               <NavigationMenu.Trigger>
-                  <ReactiveIcon Icon={theme.type === ThemeType.DARK ? <SunIcon /> : <MoonIcon />} onClick={toggleTheme} />
-               </NavigationMenu.Trigger>
-            </NavigationMenu.Item>
-            <Flex>
-               {account ? (
-                  <Avatar onClick={() => setSidebarOpen(true)} />
-               ) : (
-                  <Badge
-                     color={theme.type === ThemeType.DARK ? "white" : "black"}
-                     onClick={() => setSidebarOpen(true)}
-                     className="animate-wiggle cursor-pointer">
-                     Sign in
-                  </Badge>
-               )}
-               <div className="absolute right-0 top-0">{isSidebarOpen && <Sidebar onClose={() => setSidebarOpen(false)} />}</div>
-            </Flex>
+         </>
+      );
+   };
+
+   const Theme = () => {
+      return (
+         <NavigationMenu.Item className="flex cursor-pointer items-center">
+            <NavigationMenu.Trigger>
+               <ReactiveIcon Icon={theme.type === ThemeType.DARK ? <SunIcon /> : <MoonIcon />} onClick={toggleTheme} />
+            </NavigationMenu.Trigger>
+         </NavigationMenu.Item>
+      );
+   };
+
+   const Account = () => {
+      return (
+         <Flex>
+            {account ? (
+               <Avatar onClick={() => setSidebarOpen(true)} />
+            ) : (
+               <Badge
+                  color={theme.type === ThemeType.DARK ? "white" : "black"}
+                  onClick={() => setSidebarOpen(true)}
+                  className="animate-wiggle cursor-pointer">
+                  Sign in
+               </Badge>
+            )}
+            <div className="absolute right-0 top-0">{isSidebarOpen && <Sidebar onClose={() => setSidebarOpen(false)} />}</div>
+         </Flex>
+      );
+   };
+
+   return (
+      <>
+         <Flex className="min-w-[7rem]">
+            <_Search />
+            <Theme />
+            <Account />
          </Flex>
       </>
    );
 };
 
-export { PC, Mobile };
+export { Left, Right };

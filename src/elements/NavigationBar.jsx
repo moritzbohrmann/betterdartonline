@@ -9,14 +9,20 @@ import { cn } from "../utils/style";
 function NavBar() {
    const [theme] = useTheme();
 
+   const className = cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light);
+
+   React.useEffect(() => {
+      console.log("as");
+   }, []);
+
    return (
-      <NavigationMenu.Root className={cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light)}>
+      <NavigationMenu.Root className={className}>
          <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-2.5 px-4 sm:px-8 md:justify-normal md:px-16 2xl:px-64">
             <SearchProvider>
-               <Flex justify="between" align="center" className="h-full md:w-full">
-                  <Navigation.PC />
+               <Flex justify="between" align="center" className="h-full w-full">
+                  <Navigation.Left />
+                  <Navigation.Right />
                </Flex>
-               <Navigation.Mobile />
             </SearchProvider>
          </NavigationMenu.List>
       </NavigationMenu.Root>

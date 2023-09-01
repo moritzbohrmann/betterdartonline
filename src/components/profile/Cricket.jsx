@@ -11,12 +11,17 @@ function Cricket() {
    const account = useAccount();
    const [theme] = useTheme();
 
-   return (
-      <Flex orientation="vertical" gap="2">
+   const Username = () => {
+      return (
          <Flex justify="between" align="center" className="w-full">
             <Text>Username</Text>
             <Input value={account ? account.username : ""} className={account ? theme.borderColor.positive : theme.borderColor.negative} readOnly />
          </Flex>
+      );
+   };
+
+   const Gamemode = () => {
+      return (
          <Flex justify="between" align="center" className="w-full">
             <Text>Mode</Text>
             <Select onChange={(e) => dispatch(setGamemode(e.target.value))} value={profile.gamemode}>
@@ -25,10 +30,23 @@ function Cricket() {
                })}
             </Select>
          </Flex>
+      );
+   };
+
+   const Legs = () => {
+      return (
          <Flex justify="between" align="center" className="w-full">
             <Text>Legs</Text>
             <Input defaultValue={profile.legamount} type={"number"} min={1} max={50} onChange={(e) => dispatch(setLegamount(e.target.value))} />
          </Flex>
+      );
+   };
+
+   return (
+      <Flex orientation="vertical" gap="2">
+         <Username />
+         <Gamemode />
+         <Legs />
       </Flex>
    );
 }

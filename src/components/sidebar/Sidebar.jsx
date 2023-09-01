@@ -1,6 +1,7 @@
 import Login from "../account/Login";
 import React from "react";
 import Register from "../account/Register";
+import Unit from "./components/Unit";
 import { Cross1Icon, EnterIcon, ExitIcon, GearIcon, LightningBoltIcon, PersonIcon, QuestionMarkCircledIcon, TimerIcon } from "@radix-ui/react-icons";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
@@ -27,20 +28,19 @@ function Sidebar({ onClose }) {
             )}>
             <Flex orientation="vertical" gap="4" className="w-full">
                <Header onClose={onClose} />
-               {account ? <User account={account} /> : <Guest />}
+               {account ? <UserOptions account={account} /> : <GuestOptions />}
             </Flex>
-            <Flex orientation="vertical" gap="4" className="w-full">
-               <Separator />
+            <Unit>
                <Item>
                   <Trigger icon={<QuestionMarkCircledIcon />} text="Help" />
                </Item>
-            </Flex>
+            </Unit>
          </Flex>
       </Flex>
    );
 }
 
-const User = () => {
+const UserOptions = () => {
    const { signout } = useAuth();
 
    return (
@@ -49,8 +49,7 @@ const User = () => {
             <Trigger icon={<PersonIcon />} text="Your profile" />
             <Content element={<Account />} />
          </Item>
-         <Separator className="my-2" />
-         <Flex orientation="vertical">
+         <Unit>
             <Item>
                <Trigger icon={<GearIcon />} text="Settings" />
                <Content element={<Settings />} />
@@ -63,16 +62,17 @@ const User = () => {
                <Trigger icon={<LightningBoltIcon />} text="Your tournaments" />
                <Content element={<Tournaments />} />
             </Item>
-         </Flex>
-         <Separator className="my-2" />
-         <Item>
-            <Trigger icon={<ExitIcon />} text="Sign out" onClick={signout} />
-         </Item>
+         </Unit>
+         <Unit>
+            <Item>
+               <Trigger icon={<ExitIcon />} text="Sign out" onClick={signout} />
+            </Item>
+         </Unit>
       </Flex>
    );
 };
 
-const Guest = () => {
+const GuestOptions = () => {
    return (
       <Flex orientation="vertical" className="relative mt-4 w-full">
          <Item>
@@ -101,28 +101,51 @@ const Guest = () => {
 
 const Header = ({ onClose }) => {
    const account = useAccount();
+
+   const User = () => {
+      return (
+         <>
+            <Avatar />
+            <Text size="sm" weight="b">
+               {account?.username}
+            </Text>
+         </>
+      );
+   };
+
+   const Guest = () => {
+      return (
+         <>
+            <Avatar initials="G" />
+            <Text size="sm" weight="b">
+               Welcome, guest!
+            </Text>
+         </>
+      );
+   };
+
+   const Welcoming = () => {
+      const className = "rounded-md bg-zinc-400 bg-opacity-20 px-2 py-1";
+
+      return (
+         <Flex justify="center" align="center" className={className}>
+            {account ? <User /> : <Guest />}
+         </Flex>
+      );
+   };
+
+   const CloseSidebar = () => {
+      return (
+         <Item>
+            <Trigger icon={<Cross1Icon />} onClick={onClose}></Trigger>
+         </Item>
+      );
+   };
+
    return (
       <Flex justify="between" align="center" className="w-full">
-         <Flex justify="center" align="center" className="rounded-md bg-zinc-400 bg-opacity-20 px-2 py-1">
-            {account ? (
-               <>
-                  <Avatar />
-                  <Text size="sm" weight="b">
-                     {account?.username}
-                  </Text>
-               </>
-            ) : (
-               <>
-                  <Avatar initials="G" />
-                  <Text size="sm" weight="b">
-                     Welcome, guest!
-                  </Text>
-               </>
-            )}
-         </Flex>
-         <Item>
-            <Trigger icon={<Cross1Icon />} onClick={() => onClose()}></Trigger>
-         </Item>
+         <Welcoming />
+         <CloseSidebar />
       </Flex>
    );
 };

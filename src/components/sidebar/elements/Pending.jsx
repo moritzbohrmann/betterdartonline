@@ -7,27 +7,34 @@ function Pending() {
    const account = useAccount();
    const [matches, setMatches] = React.useState([]);
 
-   return (
-      <>
-         {matches.map((match) => {
-            return (
-               <ContentItem>
-                  <Text size="sm" weight="b">
-                     {match.players.guest.username}
-                  </Text>
-                  <Text size="sm">
-                     {match.state.host}:{match.state.guest}
-                  </Text>
-               </ContentItem>
-            );
-         })}
-         {matches.length === 0 && (
-            <ContentItem>
-               <Text size="sm">No matches</Text>
-            </ContentItem>
-         )}
-      </>
-   );
+   const Matches = () => {
+      return (
+         <>
+            {matches.map((match) => {
+               return (
+                  <ContentItem stretch>
+                     <Text size="sm" weight="b">
+                        {match.players.guest.username}
+                     </Text>
+                     <Text size="sm">
+                        {match.state.host}:{match.state.guest}
+                     </Text>
+                  </ContentItem>
+               );
+            })}
+         </>
+      );
+   };
+
+   const NoMatch = () => {
+      return (
+         <ContentItem>
+            <Text size="sm">No matches</Text>
+         </ContentItem>
+      );
+   };
+
+   return <>{matches.length > 0 ? <Matches /> : <NoMatch />}</>;
 }
 
 export default Pending;

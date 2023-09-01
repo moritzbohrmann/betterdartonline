@@ -1,10 +1,8 @@
 import React from "react";
-import { ArrowRightIcon, HomeIcon } from "@radix-ui/react-icons";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { cn } from "../utils/style";
 import { Flex } from "./@ui/Flex";
-import { ReactiveIcon } from "./@ui/ReactiveIcon";
 import { Text } from "./@ui/Text";
 
 function Path({ ...props }) {
@@ -18,7 +16,7 @@ function Path({ ...props }) {
             .replace("/home", "")
             .split("/")
             .map((path) => {
-               if (path === "") return <ReactiveIcon Icon={<HomeIcon />} onClick={() => navigate("/home")} />;
+               if (path === "") return;
                else
                   return (
                      <>

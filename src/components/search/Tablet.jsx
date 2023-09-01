@@ -8,22 +8,17 @@ function Tablet(props) {
    const [theme] = useTheme();
    const [, setSearch, results] = useSearch();
 
-   return (
-      <Flex
-         orientation="vertical"
-         className={cn(
-            "absolute left-0 top-0 z-10 w-full animate-contentFade border-b-[1px] px-8 py-2 backdrop-blur-md",
-            props.className,
-            theme.borderColor.light
-         )}>
+   const SearchInput = () => {
+      return (
          <Flex justify="around" align="center" className="w-full py-4">
             <Input placeholder="Search" onChange={(e) => setSearch(e.target.value)} className="w-full" />
          </Flex>
-         <Separator />
-         <Flex orientation="vertical" className="w-full py-2 transition-all">
-            <Text size="sm" weight="b">
-               Results
-            </Text>
+      );
+   };
+
+   const SearchResults = () => {
+      return (
+         <>
             {results.map((result) => {
                return (
                   <Flex justify="between" className="w-full px-2">
@@ -34,12 +29,42 @@ function Tablet(props) {
                   </Flex>
                );
             })}
-            {results.length === 0 && (
-               <Text size="sm" className="ml-2">
-                  No Results
-               </Text>
-            )}
+         </>
+      );
+   };
+
+   const NoResult = () => {
+      return (
+         <Text size="sm" className="ml-2">
+            No Results
+         </Text>
+      );
+   };
+
+   const ResultContent = () => {
+      const className = "w-full py-2 transition-all";
+
+      return (
+         <Flex orientation="vertical" className={className}>
+            <Text size="sm" weight="b">
+               Results
+            </Text>
+            {results.length > 0 ? <SearchResults /> : <NoResult />}
          </Flex>
+      );
+   };
+
+   const className = cn(
+      "absolute left-0 top-0 z-10 w-full animate-contentFade border-b-[1px] px-8 py-2 backdrop-blur-md",
+      props.className,
+      theme.borderColor.light
+   );
+
+   return (
+      <Flex orientation="vertical" className={className}>
+         <SearchInput />
+         <Separator />
+         <ResultContent />
       </Flex>
    );
 }

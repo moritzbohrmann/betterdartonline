@@ -29,7 +29,7 @@ function Account() {
    );
 }
 
-const AccountContent = ({ auth }) => {
+const AccountContent = () => {
    const account = useAccount();
 
    return (

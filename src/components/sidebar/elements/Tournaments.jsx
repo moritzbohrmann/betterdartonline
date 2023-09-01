@@ -14,37 +14,45 @@ function Tournaments() {
 
    React.useEffect(() => {
       const applyTournaments = async () => {
-         const get = async () => {
-            const { tournaments } = await useGet("http://localhost:3001/tournaments");
-
-            return await tournaments.filter((t) => t.admin === account.uuid);
-         };
-
-         const list = await get();
-
-         setTournaments(list);
+         await useGet("http://localhost:3001/tournaments")
+            .then(({ tournaments }) => tournaments.filter((t) => t.admin === account.uuid))
+            .then((result) => setTournaments(result));
       };
 
       applyTournaments();
    }, []);
 
-   return (
-      <>
-         {tournaments.map((tournament) => {
-            return (
-               <ContentItem onClick={() => navigate("/tournament/info/" + tournament.id)}>
-                  <Text size="sm">{tournament.name}</Text>
-                  <Text size="sm">
-                     {tournament.players.length}/{tournament.size}
-                  </Text>
-               </ContentItem>
-            );
-         })}
+   const TournamentItems = () => {
+      return (
+         <>
+            {tournaments.map((tournament) => {
+               return (
+                  <ContentItem stretch onClick={() => navigate("/tournament/info/" + tournament.id)}>
+                     <Text size="sm">{tournament.name}</Text>
+                     <Text size="sm">
+                        {tournament.players.length}/{tournament.size}
+                     </Text>
+                  </ContentItem>
+               );
+            })}
+         </>
+      );
+   };
+
+   const AddTournament = () => {
+      return (
          <ContentItem>
             <Button alignX="l" className="h-4 w-4 rounded-sm" onClick={() => navigate("/tournament/create")}>
                <ToolTip content="New tournament">+</ToolTip>
             </Button>
          </ContentItem>
+      );
+   };
+
+   return (
+      <>
+         <TournamentItems />
+         <AddTournament />
       </>
    );
 }
