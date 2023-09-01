@@ -11,25 +11,16 @@ function ViewTournament() {
    const [tournament, setTournament] = React.useState();
 
    React.useEffect(() => {
-      const fetchTournament = async () => {
-         const get = async () => {
-            return await useGet("http://localhost:3001/tournament/info/" + id);
-         };
-
-         const { tournament } = await get();
-
-         setTournament(await tournament);
-      };
+      const fetchTournament = async () => useGet("http://localhost:3001/tournament/info/" + id).then(({ tournament }) => setTournament(tournament));
 
       fetchTournament();
    }, []);
 
    return (
-      <Flex orientation="vertical" align="center" className="min-h-screen">
-         <NavBar />
+      <>
          <Flex orientation="vertical">
             <Card className="md:mt-4">
-               <Title subTitle="View all information regarding to the selected tournament.">Tournament Viewer</Title>
+               <Title subTitle={tournament?.description}>{tournament?.name}</Title>
                {tournament &&
                   Object.keys(tournament).map((key) => {
                      return <Text>{`${key}: ${tournament[key]}`}</Text>;
@@ -46,7 +37,7 @@ function ViewTournament() {
                </Flex>
             </Card>
          </Flex>
-      </Flex>
+      </>
    );
 }
 

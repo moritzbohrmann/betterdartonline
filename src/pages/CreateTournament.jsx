@@ -1,9 +1,9 @@
 import NavBar from "../elements/NavigationBar";
 import React from "react";
+import Switch from "../components/@ui/Switch";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Badge, Button, Flex, Input, Select, Text, Title, ToolTip } from "../components/@ui/_collection";
-import { useTheme } from "../context/ThemeContext";
+import { Badge, Button, Card, Flex, Input, Select, Text, Title, ToolTip } from "../components/@ui/_collection";
 import { usePost } from "../hooks/useFetch";
 import { useAccount } from "../state/AccountReducer";
 import { cn } from "../utils/style";
@@ -11,11 +11,10 @@ import { cn } from "../utils/style";
 function CreateTournament() {
    const account = useAccount();
    const navigate = useNavigate();
-   const [theme] = useTheme();
-
    const initialState = {
       admin: account?.uuid,
       name: "",
+      description: "Just another tournament!",
       size: 8,
       minimum: 4,
       groupStage: true,
@@ -23,152 +22,155 @@ function CreateTournament() {
       gamemode: "firstto",
       points: 501,
       legamount: 5,
+      checkout: "double",
       invitations: [],
    };
-   const [template, setTemplate] = React.useState(initialState);
+   const [preview, setPreview] = React.useState(initialState);
 
-   const applySetting = (e, object) => {
-      setTemplate((template) => ({ ...template, [e.target.setting]: object ? object : e.target.value }));
-   };
-
-   const handleSubmit = async (e) => {
-      e.preventDefault();
-
+   const handleChange = (e, object) => setPreview((prev) => ({ ...prev, [e.target.name]: object ? object : e.target.value }));
+   const handleSubmit = () => {
       const postTournament = async () => {
-         return await usePost("http://localhost:3001/tournament/create", {
-            ...template,
-            registrationDate: `${template.registrationDate}/${template.registrationTime}`,
-            startDate: `${template.startDate}/${template.startTime}`,
-         });
+         usePost("http://localhost:3001/tournament/create", preview)
+            .then(({ error, tournament }) => {
+               if (error) throw error;
+
+               toast.success("Tournament created successfully.");
+               navigate("/tournament/info/" + tournament.id);
+            })
+            .catch((error) => toast.error("Error: " + error));
       };
 
-      const { error, tournament } = await postTournament();
-
-      if (error) {
-         toast.error("Error: " + error);
-         return;
-      }
-
-      toast.success("Tournament successfully created.");
-      navigate("/tournament/info/" + tournament.id);
+      postTournament();
    };
 
-   React.useEffect(() => {
-      !account && navigate("/home");
-   }, []);
-
-   const Tournament = () => {
-      return (
-         <Flex orientation="vertical">
-            <Text size="xl" weight="b">
-               Tournament
-            </Text>
-            <Flex orientation="vertical" className="ml-4 mt-2">
-               <Setting name="Name">
-                  <Input placeholder="e.g. Dartscup" setting="name" onChange={applySetting} required />
-               </Setting>
-               <Setting name="Size">
-                  <Select setting="size" onChange={applySetting} required>
-                     {[8, 12, 16, 24, 32].map((size) => {
-                        return <option value={size}>{size}</option>;
-                     })}
-                  </Select>
-               </Setting>
-               <Setting name="Minimum">
-                  <Input type="number" setting="minimum" defaultValue={4} onChange={applySetting} required />
-               </Setting>
-               <Setting name="Groupstage">
-                  <Select setting="groupStage" onChange={applySetting} required>
-                     <option value="true">True</option>
-                     <option value="false">False</option>
-                  </Select>
-               </Setting>
-               <Setting name="Elimination">
-                  <Select setting="elimination" onChange={applySetting} required>
-                     <option value="singleko">Single K.O.</option>
-                     <option value="doubleko">Double K.O.</option>
-                  </Select>
-               </Setting>
+   return (
+      <>
+         <Flex orientation="wrap" justify="center" align="center" gap="4" className="mx-2 md:mt-4">
+            <Flex orientation="vertical" gap="4" className="h-full max-w-[48rem]">
+               <TournamentCard handleChange={handleChange} />
+               <DateTimeCard handleChange={handleChange} />
+            </Flex>
+            <Flex orientation="vertical" gap="4" className="w-full max-w-[48rem] xl:w-fit">
+               <InvitationCard
+                  invitations={preview.invitations}
+                  onAddInvitation={(val) => setPreview((prev) => ({ ...prev, invitations: [...prev.invitations, val] }))}
+               />
+               <ButtonCard handleSubmit={handleSubmit} handleReset={() => setPreview(initialState)} />
             </Flex>
          </Flex>
-      );
-   };
-
-   const Match = () => {
-      return (
-         <Flex orientation="vertical">
-            <Text size="xl" weight="b">
-               Match
-            </Text>
-            <Flex orientation="vertical" className="ml-4 mt-2">
-               <Setting name="Mode">
-                  <Select setting="gamemode" onChange={applySetting} required>
-                     <option value="firstto">First to</option>
-                     <option value="bestof">Best of</option>
-                  </Select>
-               </Setting>
-               <Setting name="Points">
-                  <Select setting="points" defaultValue={501} onChange={applySetting} required>
-                     {[301, 501, 701].map((points) => {
-                        return <option value={points}>{points}</option>;
-                     })}
-                  </Select>
-               </Setting>
-               <Setting name="Legs">
-                  <Input type="number" defaultValue={5} setting="legamount" onChange={applySetting} required />
-               </Setting>
-            </Flex>
-         </Flex>
-      );
-   };
-
-   const Date = () => {
-      return (
-         <Flex orientation="wrap" className="w-full">
-            <Text size="xl" weight="b">
-               Time
-            </Text>
-            {["Registration", "Start"].map((type) => {
-               return (
-                  <Setting name={type} className="w-full flex-wrap">
-                     <Flex align="center">
-                        <Text>Date</Text>
-                        <Input type="date" setting={type.toLowerCase() + "Date"} onChange={applySetting} required />
-                     </Flex>
-                     <Flex align="center">
-                        <Text>Time</Text>
-                        <Input type="time" setting={type.toLowerCase() + "Time"} onChange={applySetting} required />
+      </>
+   );
+}
+const TournamentCard = ({ handleChange }) => {
+   return (
+      <Card className="w-full">
+         <Title subTitle="Create your own tournament with your rules.">Tournament Creator</Title>
+         <Flex orientation="wrap" justify="between" gap="8" className="w-full">
+            <Flex orientation="vertical" gap="4">
+               <Text size="xl" weight="b">
+                  Tournament
+               </Text>
+               <Flex orientation="vertical" className="ml-2">
+                  <Setting label="Name">
+                     <Input name="name" placeholder="e.g. Dartscup" onChange={handleChange} />
+                  </Setting>
+                  <Setting label="Size">
+                     <Select name="size" onChange={handleChange} required>
+                        {[8, 12, 16, 24, 32].map((size) => {
+                           return <option value={size}>{size}</option>;
+                        })}{" "}
+                     </Select>
+                  </Setting>
+                  <Setting label="Description">
+                     <Input name="description" onChange={handleChange} placeholder="Just another tournament!" />
+                  </Setting>
+                  <Setting label="Elimination">
+                     <Select name="elimination" onChange={handleChange}>
+                        <option>Singe K.O.</option>
+                        <option>Double K.O.</option>
+                     </Select>
+                  </Setting>
+                  <Setting label="Groupstage">
+                     <Flex justify="center" className="w-full">
+                        <Switch name="groupstage" onChange={handleChange} />
                      </Flex>
                   </Setting>
+               </Flex>
+            </Flex>
+
+            {/**---------------------------------------------------------**/}
+
+            <Flex orientation="vertical" gap="4">
+               <Text size="xl" weight="b">
+                  Match
+               </Text>
+               <Flex orientation="vertical" className="ml-2">
+                  <Setting label="Gamemode">
+                     <Select name="gamemode" onChange={handleChange} required>
+                        <option value="firstto">First to</option>
+                        <option value="bestof">Best of</option>
+                     </Select>
+                  </Setting>
+                  <Setting label="Points">
+                     <Select name="points" defaultValue={501} onChange={handleChange} required>
+                        {[301, 501, 701].map((points) => {
+                           return <option value={points}>{points}</option>;
+                        })}
+                     </Select>
+                  </Setting>
+                  <Setting label="Legs">
+                     <Input type="number" defaultValue={5} name="legamount" onChange={handleChange} required />
+                  </Setting>
+                  <Setting label="Checkout">
+                     <Select name="checkout" onChange={handleChange} required>
+                        <option>Single</option>
+                        <option>Master</option>
+                        <option>Double</option>
+                     </Select>
+                  </Setting>
+               </Flex>
+            </Flex>
+         </Flex>
+      </Card>
+   );
+};
+
+const DateTimeCard = ({ handleChange }) => {
+   return (
+      <Card className="w-full">
+         <Title>Date & Time</Title>
+         <Flex orientation="wrap" justify="between" gap="8" className="w-full">
+            {["Registration", "Start"].map((val) => {
+               return (
+                  <Flex>
+                     <Text>Registration</Text>
+                     <Flex orientation="wrap" justify="between">
+                        <Input type="date" name={`${val.toLowerCase()}Date`} onChange={handleChange} />
+                        <Input type="time" name={`${val.toLowerCase()}Time`} onChange={handleChange} />
+                     </Flex>
+                  </Flex>
                );
             })}
          </Flex>
-      );
+      </Card>
+   );
+};
+
+const InvitationCard = ({ invitations, onAddInvitation }) => {
+   const handleAdd = (e) => {
+      if (e.key === "Enter") {
+         onAddInvitation(e.target.value);
+         e.target.value = "";
+      }
    };
 
-   const Invitations = () => {
-      const className = cn("my-2 w-full rounded-md border-[1px] p-8", theme.backgroundColor, theme.borderColor.light);
-
-      return (
-         <Flex justify="between" className={className}>
-            <Flex orientation="vertical">
-               <Title subTitle="Add players you would like to participate.">Invitations</Title>
-               <Flex gap="8" align="top">
-                  <Input
-                     placeholder="Playername"
-                     setting="invitations"
-                     onKeyUp={(e) => {
-                        if (e.key !== "Enter" || e.target.value === "") return;
-
-                        applySetting(e, [...template.invitations, e.target.value]);
-                        e.target.value = "";
-                     }}
-                  />
-               </Flex>
-            </Flex>
-            <div className="max-h-[7.5rem] overflow-auto">
-               <Flex orientation="wrap" className="max-w-[20rem]">
-                  {template.invitations.map((invitation) => {
+   return (
+      <Card className="w-full max-w-[48rem] xl:w-fit">
+         <Title subTitle="Invite your friends to the tournament!">Invitations</Title>
+         <Flex orientation="vertical" className="w-full py-3">
+            <div className="w-full overflow-auto">
+               <Flex gap="2" className="h-72 w-full">
+                  {invitations.map((invitation) => {
                      return (
                         <Badge color="yellow" className="cursor-pointer">
                            <ToolTip content="Click to delete">{invitation}</ToolTip>
@@ -178,56 +180,30 @@ function CreateTournament() {
                </Flex>
             </div>
          </Flex>
-      );
-   };
-
-   const ButtonOptions = () => {
-      return (
-         <Flex justify="center" gap="4" className={cn("mb-2 w-full rounded-md border-[1px] p-4", theme.backgroundColor, theme.borderColor.light)}>
-            <Flex gap="4">
-               <Button type="submit">Submit</Button>
-               <Button
-                  type="button"
-                  variant="negative"
-                  onClick={() => {
-                     setTemplate(initialState);
-                  }}>
-                  Reset
-               </Button>
-            </Flex>
-         </Flex>
-      );
-   };
-
-   return (
-      <Flex orientation="vertical" align="center" className="min-h-screen">
-         <NavBar />
-         <form
-            onSubmit={(e) => handleSubmit(e)}
-            onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
-            className="mx-2 flex max-w-[48rem] flex-col">
-            <Flex orientation="vertical" className={cn("rounded-md border-[1px] p-8 md:mt-4", theme.backgroundColor, theme.borderColor.light)}>
-               <Title subTitle="Create your own tournaments including your rules.">Tournament Creator</Title>
-               <Flex orientation="wrap" justify="between" gap="8" className="w-full">
-                  <Tournament />
-                  <Match />
-                  <Date />
-               </Flex>
-            </Flex>
-            <Invitations />
-            <ButtonOptions />
-         </form>
-      </Flex>
+         <Input placeholder="Playername" onKeyDown={handleAdd} className="w-full" />
+      </Card>
    );
-}
+};
 
-const Setting = ({ name, className, children, ...props }) => {
+const ButtonCard = ({ handleSubmit, handleReset }) => {
+   return (
+      <Card className="w-full max-w-[48rem] xl:w-fit">
+         <Flex orientation="wrap" className="w-full">
+            <Button onClick={handleSubmit}>Create</Button>
+            <Button onClick={handleReset} variant="negative">
+               Reset
+            </Button>
+         </Flex>
+      </Card>
+   );
+};
+
+const Setting = ({ label, className, children, ...props }) => {
    return (
       <Flex align="center" justify="between" className={cn("w-72", className)} {...props}>
-         <Text align="l">{name}</Text>
+         <Text align="l">{label}</Text>
          {children}
       </Flex>
    );
 };
-
 export default CreateTournament;

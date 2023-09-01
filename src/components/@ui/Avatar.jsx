@@ -25,7 +25,7 @@ function Avatar({ initials, ...props }) {
 
    return (
       <_Avatar.Root className="cursor-pointer" {...props}>
-         <AvatarImage src={account?.picture} />
+         <AvatarImage />
          <AvatarFallback />
       </_Avatar.Root>
    );

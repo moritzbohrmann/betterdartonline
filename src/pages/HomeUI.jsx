@@ -11,8 +11,7 @@ import { Flex } from "../components/@ui/Flex";
 
 function HomeUI() {
    return (
-      <Flex orientation="vertical" align="center" className="min-h-screen">
-         <NavBar />
+      <>
          <div className="flex w-5/6 flex-wrap justify-center gap-2 pb-2 sm:mt-4 sm:gap-4 xl:pb-0">
             <div className="flex flex-col gap-2 sm:gap-4">
                <ProfileCard />
@@ -40,7 +39,7 @@ function HomeUI() {
                See more.
             </a>
          </CookieConsent>
-      </Flex>
+      </>
    );
 }
 

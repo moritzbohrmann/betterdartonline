@@ -57,7 +57,7 @@ const AuthProvider = ({ ...props }) => {
          const { error, account } = await useAccount();
 
          if (error) {
-            toast.error(get.error);
+            toast.error("Error: " + error);
             signout();
             return;
          }
