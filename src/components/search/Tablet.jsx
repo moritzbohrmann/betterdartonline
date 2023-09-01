@@ -11,7 +11,7 @@ function Tablet(props) {
    const SearchInput = () => {
       return (
          <Flex justify="around" align="center" className="w-full py-4">
-            <Input placeholder="Search" onChange={(e) => setSearch(e.target.value)} className="w-full" />
+            <Input autoFocus placeholder="Search" onChange={(e) => setSearch(e.target.value)} className="w-full" />
          </Flex>
       );
    };

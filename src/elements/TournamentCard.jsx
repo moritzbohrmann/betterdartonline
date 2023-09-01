@@ -9,18 +9,10 @@ function MatchlistCard() {
 
    React.useEffect(() => {
       const applyTournaments = async () => {
-         const get = async () => {
-            const { tournaments } = await useGet("http://localhost:3001/tournaments");
-
-            return await tournaments;
-         };
-
-         const list = await get();
-
-         setTournaments(list);
+         await useGet("http://localhost:3001/tournaments").then(({ tournaments }) => setTournaments(tournaments));
       };
 
-      setInterval(applyTournaments, 10000);
+      setInterval(applyTournaments, 10 * 1000);
    }, []);
 
    return (
@@ -31,7 +23,8 @@ function MatchlistCard() {
                {tournaments.map((tournament) => {
                   return (
                      <li
-                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}>
+                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
+                     >
                         <Flex align="center" justify="around" className="h-8 w-full">
                            <Text weight="bl" className="w-1/2">
                               {tournament.name}
