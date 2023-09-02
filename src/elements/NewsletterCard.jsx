@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { Button, Card, Flex, Input, Separator, Text, Title } from "../components/@ui/_collection";
+import { Button, Card, Flex, Input, Title } from "../components/@ui/_collection";
 
 function NewsletterCard() {
    const mailRef = React.useRef(null);
@@ -20,16 +20,16 @@ function NewsletterCard() {
    };
 
    return (
-      <Card size="fill" className="max-h-64">
+      <Card size="fill" className="max-h-[18rem]">
          <Title subTitle="Subscribe to our newsletter so you don't miss an update!">Newsletter</Title>
          <form>
             <Flex orientation="wrap" align="center" justify="center" gap="4">
                <Input type="email" ref={mailRef} placeholder="E-Mail" className="w-[19rem]" />
                <Flex justify="between" className="w-[19rem] 2xl:w-[17rem]">
-                  <Button type="submit" variant="positive" alignX="none" onClick={(e) => handleSubscribtion(e)}>
+                  <Button type="submit" variant="positive" alignX="none" onClick={handleSubscribtion}>
                      Subscribe
                   </Button>
-                  <Button type="submit" variant="negative" alignX="none" onClick={(e) => handleUnsubscribtion(e)}>
+                  <Button type="submit" variant="negative" alignX="none" onClick={handleUnsubscribtion}>
                      Unsubscribe
                   </Button>
                </Flex>

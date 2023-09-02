@@ -11,9 +11,13 @@ function ViewTournament() {
    const [tournament, setTournament] = React.useState();
 
    React.useEffect(() => {
-      const fetchTournament = async () => useGet("http://localhost:3001/tournament/info/" + id).then(({ tournament }) => setTournament(tournament));
+      const controller = new AbortController();
+      const fetchTournament = async () =>
+         useGet("http://localhost:3001/tournament/info/" + id, { signal: controller.signal }).then(({ tournament }) => setTournament(tournament));
 
       fetchTournament();
+
+      return () => controller.abort();
    }, []);
 
    return (

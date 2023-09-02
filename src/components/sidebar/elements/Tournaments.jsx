@@ -7,51 +7,55 @@ import { useAccount } from "../../../state/AccountReducer";
 import { Button } from "../../@ui/Button";
 import { Text } from "../../@ui/Text";
 
+const TournamentItems = ({ tournaments }) => {
+   const navigate = useNavigate();
+   return (
+      <>
+         {tournaments.map((tournament) => {
+            return (
+               <ContentItem stretch onClick={() => navigate("/tournament/info/" + tournament.id)}>
+                  <Text size="sm">{tournament.name}</Text>
+                  <Text size="sm">
+                     {tournament.players.length}/{tournament.size}
+                  </Text>
+               </ContentItem>
+            );
+         })}
+      </>
+   );
+};
+
+const AddTournament = () => {
+   const navigate = useNavigate();
+   return (
+      <ContentItem>
+         <Button alignX="l" className="h-4 w-4 rounded-sm" onClick={() => navigate("/tournament/create")}>
+            <ToolTip content="New tournament">+</ToolTip>
+         </Button>
+      </ContentItem>
+   );
+};
+
 function Tournaments() {
    const account = useAccount();
    const [tournaments, setTournaments] = React.useState([]);
-   const navigate = useNavigate();
 
    React.useEffect(() => {
+      const controller = new AbortController();
       const applyTournaments = async () => {
-         await useGet("http://localhost:3001/tournaments")
+         await useGet("http://localhost:3001/tournaments", { signal: controller.signal })
             .then(({ tournaments }) => tournaments.filter((t) => t.admin === account.uuid))
             .then((result) => setTournaments(result));
       };
 
       applyTournaments();
+
+      return () => controller.abort();
    }, []);
-
-   const TournamentItems = () => {
-      return (
-         <>
-            {tournaments.map((tournament) => {
-               return (
-                  <ContentItem stretch onClick={() => navigate("/tournament/info/" + tournament.id)}>
-                     <Text size="sm">{tournament.name}</Text>
-                     <Text size="sm">
-                        {tournament.players.length}/{tournament.size}
-                     </Text>
-                  </ContentItem>
-               );
-            })}
-         </>
-      );
-   };
-
-   const AddTournament = () => {
-      return (
-         <ContentItem>
-            <Button alignX="l" className="h-4 w-4 rounded-sm" onClick={() => navigate("/tournament/create")}>
-               <ToolTip content="New tournament">+</ToolTip>
-            </Button>
-         </ContentItem>
-      );
-   };
 
    return (
       <>
-         <TournamentItems />
+         <TournamentItems tournaments={tournaments} />
          <AddTournament />
       </>
    );

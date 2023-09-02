@@ -46,7 +46,7 @@ const UserOptions = () => {
    return (
       <Flex orientation="vertical" className="mt-4 w-full">
          <Item>
-            <Trigger icon={<PersonIcon />} text="Your profile" />
+            <Trigger icon={<PersonIcon />} text="Your account" />
             <Content element={<Account />} />
          </Item>
          <Unit>
@@ -102,50 +102,17 @@ const GuestOptions = () => {
 const Header = ({ onClose }) => {
    const account = useAccount();
 
-   const User = () => {
-      return (
-         <>
-            <Avatar />
-            <Text size="sm" weight="b">
-               {account?.username}
-            </Text>
-         </>
-      );
-   };
-
-   const Guest = () => {
-      return (
-         <>
+   return (
+      <Flex justify="between" align="center" className="w-full">
+         <Flex justify="center" align="center" className="rounded-md bg-zinc-400 bg-opacity-20 px-2 py-1">
             <Avatar initials="G" />
             <Text size="sm" weight="b">
-               Welcome, guest!
+               {account ? account.username : "Welcome, Guest!"}
             </Text>
-         </>
-      );
-   };
-
-   const Welcoming = () => {
-      const className = "rounded-md bg-zinc-400 bg-opacity-20 px-2 py-1";
-
-      return (
-         <Flex justify="center" align="center" className={className}>
-            {account ? <User /> : <Guest />}
          </Flex>
-      );
-   };
-
-   const CloseSidebar = () => {
-      return (
          <Item>
             <Trigger icon={<Cross1Icon />} onClick={onClose}></Trigger>
          </Item>
-      );
-   };
-
-   return (
-      <Flex justify="between" align="center" className="w-full">
-         <Welcoming />
-         <CloseSidebar />
       </Flex>
    );
 };

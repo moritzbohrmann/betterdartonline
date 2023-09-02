@@ -1,27 +1,25 @@
 import React from "react";
 import { ChatBubbleIcon, EyeOpenIcon, TrashIcon } from "@radix-ui/react-icons";
-import { useAccount } from "../../../state/AccountReducer";
+import { ThemeType, useTheme } from "../../../context/ThemeContext";
 import { Text } from "../../@ui/_collection";
-import { AccountContent } from "../../account/Account";
-import { Content, ContentItem, Item, Trigger } from "../components/_collection";
+import { ContentItem } from "../components/_collection";
 
 function Account() {
-   const account = useAccount();
+   const [theme] = useTheme();
+   const color = theme.type === ThemeType.DARK ? "text-white-default" : "text-black-default";
 
    return (
       <>
          <ContentItem>
-            <Item>
-               <Trigger icon={<EyeOpenIcon />} text="View" />
-               <Content element={<AccountContent />} />
-            </Item>
+            <EyeOpenIcon className={color} />
+            <Text size="sm">account data</Text>
          </ContentItem>
          <ContentItem>
-            <ChatBubbleIcon color="white" />
+            <ChatBubbleIcon className={color} />
             <Text size="sm">Messages</Text>
          </ContentItem>
          <ContentItem>
-            <TrashIcon color="white" />
+            <TrashIcon className={color} />
             <Text size="sm">Delete account</Text>
          </ContentItem>
       </>

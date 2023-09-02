@@ -1,13 +1,11 @@
 import ChallengeDialog from "../elements/ChallengeDialog";
 import CookieConsent from "react-cookie-consent";
 import FilterCard from "../elements/FilterCard";
-import NavBar from "../elements/NavigationBar";
 import NewsletterCard from "../elements/NewsletterCard";
 import PlayerlistCard from "../elements/PlayerlistCard";
 import ProfileCard from "../elements/ProfileCard";
 import React from "react";
 import TournamentCard from "../elements/TournamentCard";
-import { Flex } from "../components/@ui/Flex";
 
 function HomeUI() {
    return (

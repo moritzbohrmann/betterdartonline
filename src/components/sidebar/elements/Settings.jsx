@@ -7,38 +7,20 @@ import { Text } from "../../@ui/Text";
 function Settings() {
    const [, , toggleTheme] = useTheme();
 
-   const Lightmode = () => {
-      return (
-         <ContentItem>
+   return (
+      <>
+         <ContentItem stretch>
             <Text size="sm">Lightmode</Text>
             <Switch onCheckedChange={toggleTheme} />
          </ContentItem>
-      );
-   };
-
-   const Caller = () => {
-      return (
-         <ContentItem>
+         <ContentItem stretch>
             <Text size="sm">Caller</Text>
             <Switch />
          </ContentItem>
-      );
-   };
-
-   const Language = () => {
-      return (
-         <ContentItem>
+         <ContentItem stretch>
             <Text size="sm">Language</Text>
             <img src="https://flagsapi.com/GB/flat/32.png" />
          </ContentItem>
-      );
-   };
-
-   return (
-      <>
-         <Lightmode />
-         <Caller />
-         <Language />
       </>
    );
 }

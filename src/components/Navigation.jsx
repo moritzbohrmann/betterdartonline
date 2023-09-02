@@ -9,21 +9,21 @@ import { ThemeType, useTheme } from "../context/ThemeContext";
 import { useAccount } from "../state/AccountReducer";
 import { Avatar, Badge, Flex, ReactiveIcon, Separator, Text } from "./@ui/_collection";
 
+const Logo = () => {
+   return (
+      <Flex align="center" className="h-8 rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700">
+         <Text size="xl" weight="b" className="hidden px-2 text-white-default sm:block">
+            Betterdartonline
+         </Text>
+         <Text size="xl" weight="b" className="w-8 text-white-default sm:hidden">
+            B
+         </Text>
+      </Flex>
+   );
+};
+
 const Left = () => {
    const navigate = useNavigate();
-
-   const Logo = () => {
-      return (
-         <Flex align="center" className="h-8 rounded-md bg-red-100 bg-gradient-to-tr from-indigo-600 via-purple-800 to-pink-700">
-            <Text size="xl" weight="b" className="hidden px-2 text-white-default sm:block">
-               Betterdartonline
-            </Text>
-            <Text size="xl" weight="b" className="w-8 text-white-default sm:hidden">
-               B
-            </Text>
-         </Flex>
-      );
-   };
 
    return (
       <>
@@ -39,55 +39,57 @@ const Left = () => {
    );
 };
 
-const Right = () => {
+const _Search = () => {
+   return (
+      <>
+         <Search.Notebook className="hidden lg:block" />
+         <NavigationMenu.Item className="lg:hidden">
+            <NavigationMenu.Trigger>
+               <ReactiveIcon Icon={<MagnifyingGlassIcon />} />
+            </NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+               <Search.Tablet />
+            </NavigationMenu.Content>
+         </NavigationMenu.Item>
+      </>
+   );
+};
+
+const Theme = () => {
    const [theme, , toggleTheme] = useTheme();
+
+   return (
+      <NavigationMenu.Item className="flex cursor-pointer items-center">
+         <NavigationMenu.Trigger>
+            <ReactiveIcon Icon={theme.type === ThemeType.DARK ? <SunIcon /> : <MoonIcon />} onClick={toggleTheme} />
+         </NavigationMenu.Trigger>
+      </NavigationMenu.Item>
+   );
+};
+
+const Account = () => {
    const account = useAccount();
+   const [theme] = useTheme();
    const [isSidebarOpen, setSidebarOpen] = React.useState(false);
 
-   const _Search = () => {
-      return (
-         <>
-            <Search.Notebook className="hidden lg:block" />
-            <NavigationMenu.Item className="lg:hidden">
-               <NavigationMenu.Trigger>
-                  <ReactiveIcon Icon={<MagnifyingGlassIcon />} />
-               </NavigationMenu.Trigger>
-               <NavigationMenu.Content>
-                  <Search.Tablet />
-               </NavigationMenu.Content>
-            </NavigationMenu.Item>
-         </>
-      );
-   };
+   return (
+      <Flex>
+         {account ? (
+            <Avatar onClick={() => setSidebarOpen(true)} />
+         ) : (
+            <Badge
+               color={theme.type === ThemeType.DARK ? "white" : "black"}
+               onClick={() => setSidebarOpen(true)}
+               className="animate-wiggle cursor-pointer">
+               Sign in
+            </Badge>
+         )}
+         <div className="absolute right-0 top-0">{isSidebarOpen && <Sidebar onClose={() => setSidebarOpen(false)} />}</div>
+      </Flex>
+   );
+};
 
-   const Theme = () => {
-      return (
-         <NavigationMenu.Item className="flex cursor-pointer items-center">
-            <NavigationMenu.Trigger>
-               <ReactiveIcon Icon={theme.type === ThemeType.DARK ? <SunIcon /> : <MoonIcon />} onClick={toggleTheme} />
-            </NavigationMenu.Trigger>
-         </NavigationMenu.Item>
-      );
-   };
-
-   const Account = () => {
-      return (
-         <Flex>
-            {account ? (
-               <Avatar onClick={() => setSidebarOpen(true)} />
-            ) : (
-               <Badge
-                  color={theme.type === ThemeType.DARK ? "white" : "black"}
-                  onClick={() => setSidebarOpen(true)}
-                  className="animate-wiggle cursor-pointer">
-                  Sign in
-               </Badge>
-            )}
-            <div className="absolute right-0 top-0">{isSidebarOpen && <Sidebar onClose={() => setSidebarOpen(false)} />}</div>
-         </Flex>
-      );
-   };
-
+const Right = () => {
    return (
       <>
          <Flex className="min-w-[7rem]">

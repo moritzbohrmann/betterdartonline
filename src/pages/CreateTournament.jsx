@@ -1,4 +1,3 @@
-import NavBar from "../elements/NavigationBar";
 import React from "react";
 import Switch from "../components/@ui/Switch";
 import { useNavigate } from "react-router-dom";
@@ -28,9 +27,11 @@ function CreateTournament() {
    const [preview, setPreview] = React.useState(initialState);
 
    const handleChange = (e, object) => setPreview((prev) => ({ ...prev, [e.target.name]: object ? object : e.target.value }));
+
    const handleSubmit = () => {
+      const controller = new AbortController();
       const postTournament = async () => {
-         usePost("http://localhost:3001/tournament/create", preview)
+         usePost("http://localhost:3001/tournament/create", { ...preview, minimum: preview.size / 2 }, { signal: controller.signal })
             .then(({ error, tournament }) => {
                if (error) throw error;
 
@@ -41,6 +42,8 @@ function CreateTournament() {
       };
 
       postTournament();
+
+      return () => controller.abort();
    };
 
    return (
@@ -53,6 +56,7 @@ function CreateTournament() {
             <Flex orientation="vertical" gap="4" className="w-full max-w-[48rem] xl:w-fit">
                <InvitationCard
                   invitations={preview.invitations}
+                  size={preview.size}
                   onAddInvitation={(val) => setPreview((prev) => ({ ...prev, invitations: [...prev.invitations, val] }))}
                />
                <ButtonCard handleSubmit={handleSubmit} handleReset={() => setPreview(initialState)} />
@@ -72,7 +76,7 @@ const TournamentCard = ({ handleChange }) => {
                </Text>
                <Flex orientation="vertical" className="ml-2">
                   <Setting label="Name">
-                     <Input name="name" placeholder="e.g. Dartscup" onChange={handleChange} />
+                     <Input name="name" placeholder="e.g. Dartscup" onChange={handleChange} required />
                   </Setting>
                   <Setting label="Size">
                      <Select name="size" onChange={handleChange} required>
@@ -85,14 +89,14 @@ const TournamentCard = ({ handleChange }) => {
                      <Input name="description" onChange={handleChange} placeholder="Just another tournament!" />
                   </Setting>
                   <Setting label="Elimination">
-                     <Select name="elimination" onChange={handleChange}>
+                     <Select name="elimination" onChange={handleChange} required>
                         <option>Singe K.O.</option>
                         <option>Double K.O.</option>
                      </Select>
                   </Setting>
                   <Setting label="Groupstage">
                      <Flex justify="center" className="w-full">
-                        <Switch name="groupstage" onChange={handleChange} />
+                        <Switch name="groupstage" onChange={handleChange} required />
                      </Flex>
                   </Setting>
                </Flex>
@@ -145,8 +149,8 @@ const DateTimeCard = ({ handleChange }) => {
                   <Flex>
                      <Text>Registration</Text>
                      <Flex orientation="wrap" justify="between">
-                        <Input type="date" name={`${val.toLowerCase()}Date`} onChange={handleChange} />
-                        <Input type="time" name={`${val.toLowerCase()}Time`} onChange={handleChange} />
+                        <Input type="date" name={`${val.toLowerCase()}Date`} onChange={handleChange} required />
+                        <Input type="time" name={`${val.toLowerCase()}Time`} onChange={handleChange} required />
                      </Flex>
                   </Flex>
                );
@@ -156,20 +160,24 @@ const DateTimeCard = ({ handleChange }) => {
    );
 };
 
-const InvitationCard = ({ invitations, onAddInvitation }) => {
+const InvitationCard = ({ invitations, size, onAddInvitation }) => {
    const handleAdd = (e) => {
       if (e.key === "Enter") {
+         if (invitations.length >= size / 2) {
+            toast.error("Error: You must only invite an amount of players half of the tournament's size.");
+            return;
+         }
          onAddInvitation(e.target.value);
          e.target.value = "";
       }
    };
 
    return (
-      <Card className="w-full max-w-[48rem] xl:w-fit">
+      <Card className="w-full max-w-[48rem]">
          <Title subTitle="Invite your friends to the tournament!">Invitations</Title>
          <Flex orientation="vertical" className="w-full py-3">
-            <div className="w-full overflow-auto">
-               <Flex gap="2" className="h-72 w-full">
+            <div className="h-72 w-full overflow-auto">
+               <Flex orientation="wrap" gap="2" className="w-full">
                   {invitations.map((invitation) => {
                      return (
                         <Badge color="yellow" className="cursor-pointer">
@@ -187,7 +195,7 @@ const InvitationCard = ({ invitations, onAddInvitation }) => {
 
 const ButtonCard = ({ handleSubmit, handleReset }) => {
    return (
-      <Card className="w-full max-w-[48rem] xl:w-fit">
+      <Card className="w-full max-w-[48rem]">
          <Flex orientation="wrap" className="w-full">
             <Button onClick={handleSubmit}>Create</Button>
             <Button onClick={handleReset} variant="negative">
