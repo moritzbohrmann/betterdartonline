@@ -13,7 +13,7 @@ const TournamentItems = ({ tournaments }) => {
       <>
          {tournaments.map((tournament) => {
             return (
-               <ContentItem stretch onClick={() => navigate("/tournament/info/" + tournament.id)}>
+               <ContentItem stretch onClick={() => navigate("/tournament/" + tournament.id)}>
                   <Text size="sm">{tournament.name}</Text>
                   <Text size="sm">
                      {tournament.players.length}/{tournament.size}

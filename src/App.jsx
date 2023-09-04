@@ -1,9 +1,8 @@
-import CreateTournament from "./pages/CreateTournament";
 import HomeUI from "./pages/HomeUI";
 import MatchUI from "./pages/MatchUI";
 import NavBar from "./elements/NavigationBar";
 import React from "react";
-import ViewTournament from "./pages/ViewTournament";
+import Tournament from "./pages/Tournament";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Flex } from "./components/@ui/Flex";
 import { SocketProvider } from "./context/SocketContext";
@@ -14,7 +13,6 @@ function App() {
          <NavBar />
          <Routes>
             <Route path="*" element={<Navigate to={"/home"} />} />
-
             <Route
                path="/match/*"
                element={
@@ -31,8 +29,7 @@ function App() {
                   </SocketProvider>
                }
             />
-            <Route path="/tournament/create" element={<CreateTournament />} />
-            <Route path="/tournament/info/:id" element={<ViewTournament />} />
+            <Route path="/tournament/*" element={<Tournament />} />
          </Routes>
       </Flex>
    );

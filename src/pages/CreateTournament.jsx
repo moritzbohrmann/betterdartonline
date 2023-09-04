@@ -1,5 +1,4 @@
 import React from "react";
-import Switch from "../components/@ui/Switch";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Badge, Button, Card, Flex, Input, Select, Text, Title, ToolTip } from "../components/@ui/_collection";
@@ -36,7 +35,7 @@ function CreateTournament() {
                if (error) throw error;
 
                toast.success("Tournament created successfully.");
-               navigate("/tournament/info/" + tournament.id);
+               navigate("/tournament/" + tournament.id);
             })
             .catch((error) => toast.error("Error: " + error));
       };
@@ -46,26 +45,30 @@ function CreateTournament() {
       return () => controller.abort();
    };
 
+   const handleReset = () => {
+      setPreview((preview) => initialState);
+   };
+
    return (
       <>
-         <Flex orientation="wrap" justify="center" align="center" gap="4" className="mx-2 md:mt-4">
-            <Flex orientation="vertical" gap="4" className="h-full max-w-[48rem]">
-               <TournamentCard handleChange={handleChange} />
+         <Flex orientation="wrap" justify="center" align="center" className="mx-2 mb-2 md:mt-2 md:gap-4">
+            <Flex orientation="vertical" className="h-full max-w-[48rem] md:gap-4">
+               <TournamentCard preview={preview} handleChange={handleChange} />
                <DateTimeCard handleChange={handleChange} />
             </Flex>
-            <Flex orientation="vertical" gap="4" className="w-full max-w-[48rem] xl:w-fit">
+            <Flex orientation="vertical" className="w-full max-w-[48rem] md:gap-4 xl:w-fit">
                <InvitationCard
                   invitations={preview.invitations}
                   size={preview.size}
                   onAddInvitation={(val) => setPreview((prev) => ({ ...prev, invitations: [...prev.invitations, val] }))}
                />
-               <ButtonCard handleSubmit={handleSubmit} handleReset={() => setPreview(initialState)} />
+               <ButtonCard handleSubmit={handleSubmit} handleReset={handleReset} />
             </Flex>
          </Flex>
       </>
    );
 }
-const TournamentCard = ({ handleChange }) => {
+const TournamentCard = ({ preview, handleChange }) => {
    return (
       <Card className="w-full">
          <Title subTitle="Create your own tournament with your rules.">Tournament Creator</Title>
@@ -95,9 +98,11 @@ const TournamentCard = ({ handleChange }) => {
                      </Select>
                   </Setting>
                   <Setting label="Groupstage">
-                     <Flex justify="center" className="w-full">
-                        <Switch name="groupstage" onChange={handleChange} required />
-                     </Flex>
+                     <Select>
+                        {Array.from({ length: preview.size / 4 }, (v, i) => i + 1).map((val) => (
+                           <option>{val}</option>
+                        ))}
+                     </Select>
                   </Setting>
                </Flex>
             </Flex>
@@ -146,12 +151,16 @@ const DateTimeCard = ({ handleChange }) => {
          <Flex orientation="wrap" justify="between" gap="8" className="w-full">
             {["Registration", "Start"].map((val) => {
                return (
-                  <Flex>
-                     <Text>Registration</Text>
-                     <Flex orientation="wrap" justify="between">
-                        <Input type="date" name={`${val.toLowerCase()}Date`} onChange={handleChange} required />
-                        <Input type="time" name={`${val.toLowerCase()}Time`} onChange={handleChange} required />
-                     </Flex>
+                  <Flex align="center">
+                     <Text align="l" className="w-24">
+                        {val}
+                     </Text>
+                     <Input
+                        type="datetime-local"
+                        name={`${val.toLowerCase()}Date`}
+                        onChange={(e) => handleChange(e, Date.parse(e.target.value))}
+                        required
+                     />
                   </Flex>
                );
             })}
@@ -175,9 +184,9 @@ const InvitationCard = ({ invitations, size, onAddInvitation }) => {
    return (
       <Card className="w-full max-w-[48rem]">
          <Title subTitle="Invite your friends to the tournament!">Invitations</Title>
-         <Flex orientation="vertical" className="w-full py-3">
-            <div className="h-72 w-full overflow-auto">
-               <Flex orientation="wrap" gap="2" className="w-full">
+         <Flex orientation="vertical" className="w-full">
+            <div className="h-64 max-w-[20rem] overflow-auto">
+               <Flex orientation="wrap" className="w-full">
                   {invitations.map((invitation) => {
                      return (
                         <Badge color="yellow" className="cursor-pointer">

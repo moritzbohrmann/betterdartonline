@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useGet, usePost } from "../hooks/useFetch";

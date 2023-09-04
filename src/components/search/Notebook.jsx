@@ -19,7 +19,9 @@ function Notebook({ className, ...props }) {
          onPointerOut={() => setResultsVisible(false)}
          className={cn("relative", className)}>
          <Input size="3xl" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
-         <SearchContent className={cn("absolute mt-2 border-[1px]", !resultsVisible && "hidden", theme.borderColor.light)} />
+         <SearchContent
+            className={cn("absolute mt-2 border-[1px] px-4 py-2 backdrop-blur-md", !resultsVisible && "hidden", theme.borderColor.light)}
+         />
       </Flex>
    );
 }

@@ -36,7 +36,7 @@ const Results = () => {
 };
 
 function SearchContent({ className, ...props }) {
-   const boxStyle = cn("w-80 rounded-md p-4 backdrop-blur-md", className);
+   const boxStyle = cn("w-80 rounded-md pb-2", className);
 
    return (
       <Flex orientation="vertical" className={boxStyle} {...props}>

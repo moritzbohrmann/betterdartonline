@@ -11,10 +11,6 @@ function NavBar() {
 
    const className = cn("sticky top-0 w-full border-b-[1px]", theme.backgroundColor, theme.borderColor.light);
 
-   React.useEffect(() => {
-      console.log("as");
-   }, []);
-
    return (
       <NavigationMenu.Root className={className}>
          <NavigationMenu.List className="flex h-16 w-screen items-center justify-between gap-2.5 px-4 sm:px-8 md:justify-normal md:px-16 2xl:px-64">

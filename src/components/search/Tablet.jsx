@@ -17,7 +17,7 @@ function Tablet(props) {
 
    return (
       <Flex orientation="vertical" className={boxStyle}>
-         <Flex justify="around" align="center" className="w-full py-4">
+         <Flex justify="around" align="center" className="w-full py-2">
             <Input placeholder="Search" onChange={(e) => setSearch(e.target.value)} className="w-full" />
          </Flex>
          <Separator />
