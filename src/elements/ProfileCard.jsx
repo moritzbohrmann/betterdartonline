@@ -43,28 +43,30 @@ function ProfileCard() {
       toast.info("Disconnected from server.");
    };
 
+   const tabList = [
+      { value: "tab1", selection: "X01", element: <X01 /> },
+      { value: "tab2", selection: "Cricket", element: <Cricket /> },
+      { value: "tab3", selection: "Split", element: <SplitScore /> },
+   ];
+
    return (
       <Card>
          <Title subTitle="Edit your profile settings.">Profile</Title>
          <Tabs.Root className="h-52 w-full">
-            <Tabs.Trigger className="h-10 w-1/3" value="tab1" onClick={() => dispatch(setSelected("X01"))}>
-               <Text weight="sb">x01</Text>
-            </Tabs.Trigger>
-            <Tabs.Result className="mt-6" value="tab1">
-               <X01 />
-            </Tabs.Result>
-            <Tabs.Trigger className="h-10 w-1/3 border-x-[1px]" value="tab2" onClick={() => dispatch(setSelected("Cricket"))}>
-               <Text weight="sb">Cricket</Text>
-            </Tabs.Trigger>
-            <Tabs.Result className="mt-6" value="tab2">
-               <Cricket />
-            </Tabs.Result>
-            <Tabs.Trigger className="h-10 w-1/3" value="tab3" onClick={() => dispatch(setSelected("Split"))}>
-               <Text weight="sb">Split</Text>
-            </Tabs.Trigger>
-            <Tabs.Result className="mt-6" value="tab3">
-               <SplitScore />
-            </Tabs.Result>
+            {tabList.map((tab) => {
+               return (
+                  <Tabs.Trigger className="h-10 w-1/3" value={tab.value} onClick={() => dispatch(setSelected(tab.selection))}>
+                     <Text weight="sb">{tab.selection}</Text>
+                  </Tabs.Trigger>
+               );
+            })}
+            {tabList.map((tab) => {
+               return (
+                  <Tabs.Result className="mt-6" value={tab.value}>
+                     {tab.element}
+                  </Tabs.Result>
+               );
+            })}
          </Tabs.Root>
          <Flex align="center" className="mt-8">
             {account ? (

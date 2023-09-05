@@ -8,6 +8,7 @@ import { useTournaments } from "../hooks/tournament";
 const TournamentOptions = () => {
    const navigate = useNavigate();
    const tournaments = useTournaments();
+
    return (
       <Flex orientation="vertical" justify="center">
          <Card>

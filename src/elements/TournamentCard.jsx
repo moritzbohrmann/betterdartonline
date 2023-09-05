@@ -24,7 +24,7 @@ function MatchlistCard() {
                            <Text className="w-1/2">
                               <span className="font-semibold">Players</span>
                               <br />
-                              {tournament.players.length}/{tournament.size}
+                              {tournament.entries.length}/{tournament.size}
                            </Text>
                         </Flex>
                         <Flex align="center" justify="around" className="h-8 w-full">

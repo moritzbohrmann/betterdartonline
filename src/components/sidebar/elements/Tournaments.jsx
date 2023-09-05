@@ -16,7 +16,7 @@ const TournamentItems = ({ tournaments }) => {
                <ContentItem stretch onClick={() => navigate("/tournament/" + tournament.id)}>
                   <Text size="sm">{tournament.name}</Text>
                   <Text size="sm">
-                     {tournament.players.length}/{tournament.size}
+                     {tournament.entries.length}/{tournament.size}
                   </Text>
                </ContentItem>
             );

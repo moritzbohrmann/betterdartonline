@@ -16,9 +16,6 @@ function PlayerlistCard() {
    const account = useAccount();
    const profile = useProfile();
    const dispatch = useDispatch();
-   const offlineList = useGet("http://localhost:3001/players/" + profile.selected.toLowerCase());
-
-   const currentList = account ? ready : offlineList?.players;
 
    const [theme] = useTheme();
 
@@ -47,8 +44,8 @@ function PlayerlistCard() {
          </Flex>
          <div className="h-full w-full overflow-auto pb-8">
             <ul className="mt-8 flex flex-grow flex-col items-center gap-2 overflow-auto">
-               {currentList
-                  ?.sort((player) => list.requests.sent.find((sent) => isPlayer(sent, player)))
+               {ready
+                  .sort((player) => list.requests.sent.find((sent) => isPlayer(sent, player)))
                   .filter((player) => `${player.username} ${player.gamemode} ${player.scoremode} ${player.legamount}`.includes(list.filter))
                   .map((player) => {
                      return (
@@ -79,7 +76,7 @@ function PlayerlistCard() {
          </div>
          <Flex orientation="vertical" gap="8" align="center" className="w-full">
             <Separator orientation="horizontal" />
-            <Text>{currentList ? currentList.length : 0} Players</Text>
+            <Text>{ready.length} Players</Text>
          </Flex>
       </Card>
    );

@@ -30,21 +30,7 @@ const Information = ({ title, name, children, ...props }) => {
 function ViewTournament() {
    const { id } = useParams();
    const tournament = useTournament(id);
-   const [timeRemaining, setTimeRemaining] = React.useState("");
-   const navigate = useNavigate();
    const admin = usePlayer(tournament?.admin);
-
-   React.useEffect(() => {
-      const updateStateInterval = setInterval(() => {
-         setTimeRemaining(calcTimeUntilNow(tournament?.startDate).toString());
-      }, 2 * 1000);
-
-      console.log(admin);
-
-      return () => {
-         clearInterval(updateStateInterval);
-      };
-   }, [tournament]);
 
    return (
       <Flex orientation="vertical" className="mx-2 min-w-[24rem] md:mt-2">
@@ -62,7 +48,7 @@ function ViewTournament() {
                   <Information title="Entries">
                      <div className="mt-2 h-48 w-56 rounded-md bg-zinc-700 bg-opacity-10">
                         <Flex orientation="wrap" className="p-2">
-                           {tournament?.players.map((playername) => (
+                           {tournament?.entries.map((playername) => (
                               <Badge>{playername}</Badge>
                            ))}
                         </Flex>

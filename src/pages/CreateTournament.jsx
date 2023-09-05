@@ -28,9 +28,11 @@ function CreateTournament() {
    const handleChange = (e, object) => setPreview((prev) => ({ ...prev, [e.target.name]: object ? object : e.target.value }));
 
    const handleSubmit = () => {
-      const controller = new AbortController();
-      const postTournament = async () => {
-         usePost("http://localhost:3001/tournament/create", { ...preview, minimum: preview.size / 2 }, { signal: controller.signal })
+      const postTournament = () => {
+         usePost("http://localhost:3001/tournament/create", {
+            ...preview,
+            minimum: preview.size / 2,
+         })
             .then(({ error, tournament }) => {
                if (error) throw error;
 
@@ -41,31 +43,25 @@ function CreateTournament() {
       };
 
       postTournament();
-
-      return () => controller.abort();
    };
 
-   const handleReset = () => {
-      setPreview((preview) => initialState);
-   };
+   const handleReset = () => setPreview(initialState);
 
    return (
-      <>
-         <Flex orientation="wrap" justify="center" align="center" className="mx-2 mb-2 md:mt-2 md:gap-4">
-            <Flex orientation="vertical" className="h-full max-w-[48rem] md:gap-4">
-               <TournamentCard preview={preview} handleChange={handleChange} />
-               <DateTimeCard handleChange={handleChange} />
-            </Flex>
-            <Flex orientation="vertical" className="w-full max-w-[48rem] md:gap-4 xl:w-fit">
-               <InvitationCard
-                  invitations={preview.invitations}
-                  size={preview.size}
-                  onAddInvitation={(val) => setPreview((prev) => ({ ...prev, invitations: [...prev.invitations, val] }))}
-               />
-               <ButtonCard handleSubmit={handleSubmit} handleReset={handleReset} />
-            </Flex>
+      <Flex orientation="wrap" justify="center" align="center" className="mx-2 mb-2 md:mt-2 md:gap-4">
+         <Flex orientation="vertical" className="h-full max-w-[48rem] md:gap-4">
+            <TournamentCard preview={preview} handleChange={handleChange} />
+            <DateTimeCard handleChange={handleChange} />
          </Flex>
-      </>
+         <Flex orientation="vertical" className="w-full max-w-[48rem] md:gap-4 xl:w-fit">
+            <InvitationCard
+               invitations={preview.invitations}
+               size={preview.size}
+               onAddInvitation={(val) => setPreview((prev) => ({ ...prev, invitations: [...prev.invitations, val] }))}
+            />
+            <ButtonCard handleSubmit={handleSubmit} handleReset={handleReset} />
+         </Flex>
+      </Flex>
    );
 }
 const TournamentCard = ({ preview, handleChange }) => {
@@ -85,7 +81,7 @@ const TournamentCard = ({ preview, handleChange }) => {
                      <Select name="size" onChange={handleChange} required>
                         {[8, 12, 16, 24, 32].map((size) => {
                            return <option value={size}>{size}</option>;
-                        })}{" "}
+                        })}
                      </Select>
                   </Setting>
                   <Setting label="Description">
