@@ -8,20 +8,22 @@ function Account() {
    const [theme] = useTheme();
    const color = theme.type === ThemeType.DARK ? "text-white-default" : "text-black-default";
 
+   const accountOperationList = [
+      { icon: <EyeOpenIcon />, text: "Account data" },
+      { icon: <ChatBubbleIcon />, text: "Messages" },
+      { icon: <TrashIcon />, text: "Delete account" },
+   ];
+
    return (
       <>
-         <ContentItem>
-            <EyeOpenIcon className={color} />
-            <Text size="sm">account data</Text>
-         </ContentItem>
-         <ContentItem>
-            <ChatBubbleIcon className={color} />
-            <Text size="sm">Messages</Text>
-         </ContentItem>
-         <ContentItem>
-            <TrashIcon className={color} />
-            <Text size="sm">Delete account</Text>
-         </ContentItem>
+         {accountOperationList.map((operation) => {
+            return (
+               <ContentItem>
+                  {React.cloneElement(operation.icon, { className: color })}
+                  <Text size="sm">{operation.text}</Text>
+               </ContentItem>
+            );
+         })}
       </>
    );
 }

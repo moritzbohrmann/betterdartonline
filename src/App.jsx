@@ -1,7 +1,9 @@
+import Authenticate from "./elements/Authenticate";
 import HomeUI from "./pages/HomeUI";
 import MatchUI from "./pages/MatchUI";
 import NavBar from "./elements/NavigationBar";
 import React from "react";
+import SignOut from "./elements/SignOut";
 import Tournament from "./pages/Tournament";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Flex } from "./components/@ui/Flex";
@@ -30,6 +32,8 @@ function App() {
                }
             />
             <Route path="/tournament/*" element={<Tournament />} />
+            <Route path="/signup/*" element={<Authenticate />} />
+            <Route path="/signout" element={<SignOut />} />
          </Routes>
       </Flex>
    );

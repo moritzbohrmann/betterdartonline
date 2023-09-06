@@ -2,16 +2,25 @@ import ContentItem from "../components/ContentItem";
 import React from "react";
 import ToolTip from "../../@ui/ToolTip";
 import { useNavigate } from "react-router-dom";
-import { useGet } from "../../../hooks/useFetch";
-import { useAccount } from "../../../state/AccountReducer";
+import { _useGet } from "../../../hooks/useFetch";
 import { Button } from "../../@ui/Button";
 import { Text } from "../../@ui/Text";
 
-const TournamentItems = ({ tournaments }) => {
+const TournamentItems = () => {
    const navigate = useNavigate();
+   const { data, loading, error } = _useGet("http://localhost:3001/tournaments");
+
+   if (loading || error) {
+      return (
+         <ContentItem>
+            <Text size="sm">{loading ? "Loading..." : "Could not load"}</Text>
+         </ContentItem>
+      );
+   }
+
    return (
       <>
-         {tournaments.map((tournament) => {
+         {data?.tournaments.map((tournament) => {
             return (
                <ContentItem stretch onClick={() => navigate("/tournament/" + tournament.id)}>
                   <Text size="sm">{tournament.name}</Text>
@@ -37,25 +46,9 @@ const AddTournament = () => {
 };
 
 function Tournaments() {
-   const account = useAccount();
-   const [tournaments, setTournaments] = React.useState([]);
-
-   React.useEffect(() => {
-      const controller = new AbortController();
-      const applyTournaments = async () => {
-         await useGet("http://localhost:3001/tournaments", { signal: controller.signal })
-            .then(({ tournaments }) => tournaments.filter((t) => t.admin === account.uuid))
-            .then((result) => setTournaments(result));
-      };
-
-      applyTournaments();
-
-      return () => controller.abort();
-   }, []);
-
    return (
       <>
-         <TournamentItems tournaments={tournaments} />
+         <TournamentItems />
          <AddTournament />
       </>
    );

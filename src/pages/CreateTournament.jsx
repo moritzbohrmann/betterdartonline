@@ -64,7 +64,47 @@ function CreateTournament() {
       </Flex>
    );
 }
+
 const TournamentCard = ({ preview, handleChange }) => {
+   const settingList = [
+      { label: "Name", placeholder: "e.g. DartsCup", parent: <Input />, children: null },
+      {
+         label: "Size",
+         parent: <Select />,
+         options: [8, 12, 16, 24, 32],
+         children: (
+            <>
+               {[8, 12, 16, 24, 32].map((size) => {
+                  return <option value={size}>{size}</option>;
+               })}
+            </>
+         ),
+      },
+      { label: "Description", placeholder: "Just another tournament!", parent: <Input />, children: null },
+      {
+         label: "Elimination",
+         parent: <Select />,
+         options: ["Single K.O.", "Double K.O."],
+         children: (
+            <>
+               <option>Singe K.O.</option>
+               <option>Double K.O.</option>
+            </>
+         ),
+      },
+      {
+         label: "Groupstage",
+         parent: <Select />,
+         children: (
+            <>
+               {Array.from({ length: preview.size / 4 }, (v, i) => i + 1).map((val) => (
+                  <option>{val}</option>
+               ))}
+            </>
+         ),
+      },
+   ];
+
    return (
       <Card className="w-full">
          <Title subTitle="Create your own tournament with your rules.">Tournament Creator</Title>
@@ -74,32 +114,27 @@ const TournamentCard = ({ preview, handleChange }) => {
                   Tournament
                </Text>
                <Flex orientation="vertical" className="ml-2">
-                  <Setting label="Name">
-                     <Input name="name" placeholder="e.g. Dartscup" onChange={handleChange} required />
-                  </Setting>
-                  <Setting label="Size">
-                     <Select name="size" onChange={handleChange} required>
-                        {[8, 12, 16, 24, 32].map((size) => {
-                           return <option value={size}>{size}</option>;
-                        })}
-                     </Select>
-                  </Setting>
-                  <Setting label="Description">
-                     <Input name="description" onChange={handleChange} placeholder="Just another tournament!" />
-                  </Setting>
-                  <Setting label="Elimination">
-                     <Select name="elimination" onChange={handleChange} required>
-                        <option>Singe K.O.</option>
-                        <option>Double K.O.</option>
-                     </Select>
-                  </Setting>
-                  <Setting label="Groupstage">
-                     <Select>
-                        {Array.from({ length: preview.size / 4 }, (v, i) => i + 1).map((val) => (
-                           <option>{val}</option>
-                        ))}
-                     </Select>
-                  </Setting>
+                  {settingList.map((setting) => {
+                     return (
+                        <Setting label={setting.label}>
+                           {React.cloneElement(setting.parent, {
+                              name: setting.label.toLowerCase(),
+                              placeholder: setting.placeholder,
+                              children:
+                                 setting.parent === Select ? (
+                                    <>
+                                       {setting.options.map((option) => {
+                                          return <option value={option}>{option}</option>;
+                                       })}
+                                    </>
+                                 ) : (
+                                    setting.children
+                                 ),
+                              onChange: handleChange,
+                           })}
+                        </Setting>
+                     );
+                  })}
                </Flex>
             </Flex>
 

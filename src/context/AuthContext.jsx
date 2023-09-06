@@ -35,14 +35,15 @@ const AuthProvider = ({ ...props }) => {
    };
 
    const signout = async () => {
-      const post = await useGet("http://localhost:3003/account/logout/" + token);
+      const { data, loading, error } = await useGet("http://localhost:3003/account/logout/" + token);
 
-      if (!(await post).error) {
+      if (!error) {
          Cookies.remove("auth");
          setToken(null);
          dispatch(setAccount(null));
       }
-      return post;
+
+      return data;
    };
 
    const isExpired = async () => {

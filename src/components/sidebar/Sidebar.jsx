@@ -1,102 +1,83 @@
 import Login from "../account/Login";
 import React from "react";
 import Register from "../account/Register";
-import Unit from "./components/Unit";
 import { Cross1Icon, EnterIcon, ExitIcon, GearIcon, LightningBoltIcon, PersonIcon, QuestionMarkCircledIcon, TimerIcon } from "@radix-ui/react-icons";
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
 import { useAccount } from "../../state/AccountReducer";
 import { cn } from "../../utils/style";
-import { Avatar, Flex, Separator, Text } from "../@ui/_collection";
-import { Content, ContentItem, Item, Trigger } from "./components/_collection";
+import { Avatar, Card, Flex, Text } from "../@ui/_collection";
+import { ContentItem, Item, Trigger, Unit, UserOptions } from "./components/_collection";
 import { Account, Pending, Settings, Tournaments } from "./elements/_collection";
 
 function Sidebar({ onClose }) {
    const account = useAccount();
-   const [theme] = useTheme();
 
    return (
-      <Flex justify="end" className={cn("z-40 h-screen w-screen animate-contentFade bg-opacity-40", theme.backgroundColor)}>
-         <Flex
-            orientation="vertical"
-            justify="between"
-            gap="4"
-            className={cn(
-               "z-50 h-screen w-80 animate-extendLeft rounded-l-xl border-[1px] border-r-[0] p-8",
-               theme.backgroundColor,
-               theme.borderColor.light
-            )}>
+      <Flex justify="end" className={cn("z-40 h-screen w-screen animate-contentFade bg-black bg-opacity-20")}>
+         <Card className="h-screen animate-extendLeft justify-between border-r-0">
             <Flex orientation="vertical" gap="4" className="w-full">
                <Header onClose={onClose} />
-               {account ? <UserOptions account={account} /> : <GuestOptions />}
+               {account ? <AccountOptions /> : <GuestOptions />}
             </Flex>
             <Unit>
                <Item>
                   <Trigger icon={<QuestionMarkCircledIcon />} text="Help" />
                </Item>
             </Unit>
-         </Flex>
+         </Card>
       </Flex>
    );
 }
 
-const UserOptions = () => {
+const AccountOptions = () => {
    const { signout } = useAuth();
 
-   return (
-      <Flex orientation="vertical" className="mt-4 w-full">
-         <Item>
-            <Trigger icon={<PersonIcon />} text="Your account" />
-            <Content element={<Account />} />
-         </Item>
-         <Unit>
-            <Item>
-               <Trigger icon={<GearIcon />} text="Settings" />
-               <Content element={<Settings />} />
-            </Item>
-            <Item>
-               <Trigger icon={<TimerIcon />} text="Pending matches" />
-               <Content element={<Pending />} />
-            </Item>
-            <Item>
-               <Trigger icon={<LightningBoltIcon />} text="Your tournaments" />
-               <Content element={<Tournaments />} />
-            </Item>
-         </Unit>
-         <Unit>
-            <Item>
-               <Trigger icon={<ExitIcon />} text="Sign out" onClick={signout} />
-            </Item>
-         </Unit>
-      </Flex>
-   );
+   const options = [
+      {
+         options: [{ icon: <PersonIcon />, text: "Your account", element: <Account /> }],
+      },
+      {
+         unit: true,
+         options: [
+            { icon: <GearIcon />, text: "Settings", element: <Settings /> },
+            { icon: <TimerIcon />, text: "Pending matches", element: <Pending /> },
+            { icon: <LightningBoltIcon />, text: "Your tournaments", element: <Tournaments /> },
+         ],
+      },
+      { unit: true, options: [{ icon: <ExitIcon />, text: "Sign out", element: null, operation: signout }] },
+   ];
+
+   return <UserOptions options={options} />;
 };
 
 const GuestOptions = () => {
-   return (
-      <Flex orientation="vertical" className="relative mt-4 w-full">
-         <Item>
-            <Trigger icon={<PersonIcon />} text="Sign in" />
-            <Content
-               element={
+   const options = [
+      {
+         unit: false,
+         options: [
+            {
+               icon: <PersonIcon />,
+               text: "Sign in",
+               element: (
                   <ContentItem>
                      <Login />
                   </ContentItem>
-               }
-            />
-         </Item>
-         <Item>
-            <Trigger icon={<EnterIcon />} text="Create account" />
-            <Content
-               element={
+               ),
+            },
+            {
+               icon: <EnterIcon />,
+               text: "Create account",
+               element: (
                   <ContentItem>
                      <Register />
                   </ContentItem>
-               }
-            />
-         </Item>
-      </Flex>
-   );
+               ),
+            },
+         ],
+      },
+   ];
+
+   return <UserOptions options={options} />;
 };
 
 const Header = ({ onClose }) => {
@@ -104,7 +85,7 @@ const Header = ({ onClose }) => {
 
    return (
       <Flex justify="between" align="center" className="w-full">
-         <Flex justify="center" align="center" className="rounded-md bg-zinc-400 bg-opacity-20 px-2 py-1">
+         <Flex align="center" className="rounded-md bg-zinc-400 bg-opacity-20 px-2 py-1">
             <Avatar initials="G" />
             <Text size="sm" weight="b">
                {account ? account.username : "Welcome, Guest!"}

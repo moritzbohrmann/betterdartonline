@@ -2,19 +2,9 @@ import React from "react";
 import { useGet } from "./useFetch";
 
 const useTournaments = () => {
-   const [tournaments, setTournaments] = React.useState();
+   const { data, loading, error } = useGet("http://localhost:3001/tournaments");
 
-   React.useEffect(() => {
-      const controller = new AbortController();
-      const fetchTournaments = async () =>
-         useGet("http://localhost:3001/tournaments", { signal: controller.signal }).then((res) => setTournaments(res.tournaments));
-
-      fetchTournaments();
-
-      return () => controller.abort();
-   }, []);
-
-   return tournaments;
+   return data?.tournaments;
 };
 
 const useTournament = (id) => {

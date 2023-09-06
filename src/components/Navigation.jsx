@@ -73,7 +73,7 @@ const Account = () => {
    const [isSidebarOpen, setSidebarOpen] = React.useState(false);
 
    return (
-      <Flex>
+      <>
          {account ? (
             <Avatar onClick={() => setSidebarOpen(true)} />
          ) : (
@@ -85,7 +85,7 @@ const Account = () => {
             </Badge>
          )}
          <div className="absolute right-0 top-0">{isSidebarOpen && <Sidebar onClose={() => setSidebarOpen(false)} />}</div>
-      </Flex>
+      </>
    );
 };
 
