@@ -1,14 +1,12 @@
 import ContentItem from "../components/ContentItem";
 import React from "react";
-import ToolTip from "../../@ui/ToolTip";
 import { useNavigate } from "react-router-dom";
-import { _useGet } from "../../../hooks/useFetch";
-import { Button } from "../../@ui/Button";
-import { Text } from "../../@ui/Text";
+import { useGet } from "../../../hooks/useFetch";
+import { Text, Button, ToolTip } from "../../@ui/_collection";
 
 const TournamentItems = () => {
    const navigate = useNavigate();
-   const { data, loading, error } = _useGet("http://localhost:3001/tournaments");
+   const { data, loading, error } = useGet("http://localhost:3001/tournaments");
 
    if (loading || error) {
       return (

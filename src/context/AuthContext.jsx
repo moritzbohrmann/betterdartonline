@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useGet, usePost } from "../hooks/useFetch";
 import { setAccount } from "../state/AccountReducer";
+import jwtDecode from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -15,6 +16,19 @@ const AuthProvider = ({ ...props }) => {
       return await useGet("http://localhost:3003/account/info/" + token);
    };
 
+   const doLogin = async (account) => {
+      const fetchToken = usePost("http://localhost:3003/account/", account);
+      const { error, token } = await fetchToken;
+
+      if (!error) {
+         Cookies.set("auth", token);
+         setToken(token);
+         dispatch(setAccount(token));
+      }
+
+      return { error, token };
+   };
+
    const signup = async (accountData) => {
       const post = await usePost("http://localhost:3003/account/login", accountData);
 
@@ -22,7 +36,7 @@ const AuthProvider = ({ ...props }) => {
          Cookies.set("auth", post.token);
          setToken(post.token);
 
-         window.location.reload();
+         dispatch(setAccount(jwtDecode(post.token)));
       }
       return await post;
    };
@@ -69,7 +83,7 @@ const AuthProvider = ({ ...props }) => {
       unsubscribe();
    }, []);
 
-   return <AuthContext.Provider value={{ token, isExpired, useAccount, signup, register, signout }} {...props} />;
+   return <AuthContext.Provider value={{ token, isExpired, useAccount, doLogin, signup, register, signout }} {...props} />;
 };
 
 export const useAuth = () => {

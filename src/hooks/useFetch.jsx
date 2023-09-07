@@ -1,34 +1,37 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const _useGet = (url, options = {}) => {
+const useGet = (url, options = {}, executeOnMount = true) => {
    const [data, setData] = useState();
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState();
 
    const FETCH_URL = url;
 
-   useEffect(() => {
+   executeOnMount &&
+      useEffect(() => {
+         setLoading(true);
+
+         const controller = new AbortController();
+
+         axios
+            .get(FETCH_URL, { ...options, method: "GET", signal: controller.signal })
+            .then(({ data }) => {
+               setData(data);
+            })
+            .catch((error) => {
+               setError(error);
+            })
+            .finally(() => {
+               setLoading(false);
+            });
+
+         return () => controller.abort();
+      }, []);
+
+   const redo = () => {
       setLoading(true);
 
-      const controller = new AbortController();
-
-      axios
-         .get(FETCH_URL, { ...options, method: "GET", signal: controller.signal })
-         .then(({ data }) => {
-            setData(data);
-         })
-         .catch((error) => {
-            setError(error);
-         })
-         .finally(() => {
-            setLoading(false);
-         });
-
-      return () => controller.abort();
-   }, []);
-
-   const refetch = () => {
       axios
          .get(FETCH_URL, { ...options, method: "GET" })
          .then(({ data }) => {
@@ -42,21 +45,52 @@ const _useGet = (url, options = {}) => {
          });
    };
 
-   return { data, loading, error, refetch };
+   return { data, loading, error, redo };
 };
 
-const useGet = async (url, options = {}) => {
-   const fetch = axios.get(url, options);
-   const data = (await fetch).data;
+const usePost = (url, object, options = {}, executeOnMount) => {
+   const [data, setData] = useState();
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState();
 
-   return data;
+   const FETCH_URL = url;
+
+   executeOnMount &&
+      useEffect(() => {
+         setLoading(true);
+
+         const controller = new AbortController();
+
+         axios
+            .get(FETCH_URL, object, { ...options, method: "POST", signal: controller.signal })
+            .then(({ data }) => {
+               setData(data);
+            })
+            .catch((error) => {
+               setError(error);
+            })
+            .finally(() => {
+               setLoading(false);
+            });
+
+         return () => controller.abort();
+      }, []);
+
+   const redo = () => {
+      axios
+         .get(FETCH_URL, object, { ...options, method: "GET" })
+         .then(({ data }) => {
+            setData(data);
+         })
+         .catch((error) => {
+            setError(error);
+         })
+         .finally(() => {
+            setLoading(false);
+         });
+   };
+
+   return { data, loading, error, redo };
 };
 
-const usePost = async (url, postObject, options = {}) => {
-   const post = axios.post(url, postObject, { ...options, method: "POST" });
-   const data = (await post).data;
-
-   return data;
-};
-
-export { _useGet, useGet, usePost };
+export { useGet, usePost };

@@ -1,12 +1,6 @@
 import React from "react";
 import { useGet } from "./useFetch";
 
-const useTournaments = () => {
-   const { data, loading, error } = useGet("http://localhost:3001/tournaments");
-
-   return data?.tournaments;
-};
-
 const useTournament = (id) => {
    const [tournament, setTournament] = React.useState();
 
@@ -23,4 +17,4 @@ const useTournament = (id) => {
    return tournament;
 };
 
-export { useTournament, useTournaments };
+export { useTournament };

@@ -3,11 +3,13 @@ import React from "react";
 import ViewTournament from "./ViewTournament";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Button, Card, Flex, Text } from "../components/@ui/_collection";
-import { useTournaments } from "../hooks/tournament";
+import { useGet } from "../hooks/useFetch";
 
 const TournamentOptions = () => {
    const navigate = useNavigate();
-   const tournaments = useTournaments();
+   const { data, loading, error } = useGet("http://localhost:3001/tournaments");
+
+   if (loading) return <Text>Loading...</Text>;
 
    return (
       <Flex orientation="vertical" justify="center">
@@ -15,7 +17,7 @@ const TournamentOptions = () => {
             <Text size="3xl" weight="b">
                View
             </Text>
-            {tournaments?.map((t) => {
+            {data?.tournaments.map((t) => {
                return (
                   <Button onClick={() => navigate("./" + t.id)} className="w-fit px-4">
                      {t.name}

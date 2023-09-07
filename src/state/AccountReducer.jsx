@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
 
 let initialState = null;
@@ -33,7 +34,7 @@ const accountReducer = (state = initialState, action) => {
       case ActionType.SET_LOGGED_IN:
          return { ...state, isLoggedIn: action.payload };
       case ActionType.SET_ACCOUNT:
-         return action.payload;
+         return jwtDecode(action.payload);
 
       default:
          return state;

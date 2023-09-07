@@ -13,7 +13,7 @@ function Login() {
    const passwordRef = React.useRef(null);
    const [theme] = useTheme();
 
-   const { signup } = useAuth();
+   const { doLogin } = useAuth();
 
    const LoginType = {
       NATIVE: "Native",
@@ -34,10 +34,11 @@ function Login() {
             break;
       }
 
-      const result = await signup(account);
+      const login = doLogin(account);
+      const { error } = await login;
 
-      if (result.error) {
-         toast.error("Error: " + result.error);
+      if (error) {
+         toast.error("Error: " + error);
          return;
       }
    };

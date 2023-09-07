@@ -1,21 +1,37 @@
 import React from "react";
-import { Card, Flex, Separator, Text, Title } from "../components/@ui/_collection";
+import { Card, Flex, Progress, Separator, Text, Title } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
-import { useTournaments } from "../hooks/tournament";
+import { useGet } from "../hooks/useFetch";
+
+const Skeleton = ({ children, ...props }) => {
+   return (
+      <Card className="max-h-144" {...props}>
+         <Title subTitle="All tournaments currently available to register for.">Tournaments</Title>
+         {children}
+      </Card>
+   );
+};
 
 function MatchlistCard() {
    const [theme] = useTheme();
-   const tournaments = useTournaments();
+   const { data, loading, error } = useGet("http://localhost:3001/tournaments");
+
+   if (loading)
+      return (
+         <Skeleton>
+            <Progress />
+         </Skeleton>
+      );
 
    return (
-      <Card className="max-h-144">
-         <Title subTitle="All tournaments currently available to register for.">Tournaments</Title>
+      <Skeleton>
          <div className="h-full w-full overflow-auto pb-8">
             <ul className="flex flex-grow flex-col items-center gap-2 overflow-auto">
-               {tournaments?.map((tournament) => {
+               {data?.tournaments.map((tournament) => {
                   return (
                      <li
-                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}>
+                        className={`flex w-full cursor-pointer flex-col items-center justify-between gap-4 rounded-md border-[1px] px-2 py-4 ${theme.borderColor.light} text-center text-sm transition-all hover:${theme.borderColor.heavy}`}
+                     >
                         <Flex align="center" justify="around" className="h-8 w-full">
                            <Text weight="bl" className="w-1/2">
                               {tournament.name}
@@ -47,9 +63,9 @@ function MatchlistCard() {
          </div>
          <Flex orientation="vertical" gap="8" align="center" className="w-full">
             <Separator orientation="horizontal" />
-            <Text>{tournaments ? tournaments.length : 0} Tournaments</Text>
+            <Text>{data ? data?.tournaments.length : 0} Tournaments</Text>
          </Flex>
-      </Card>
+      </Skeleton>
    );
 }
 
