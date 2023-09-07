@@ -1,55 +1,57 @@
 import Cookies from "js-cookie";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { useGet, usePost } from "../hooks/useFetch";
 import { setAccount } from "../state/AccountReducer";
-import jwtDecode from "jwt-decode";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ ...props }) => {
-   const [token, setToken] = useState(Cookies.get("auth"));
+   const [token, setToken] = useState(() => Cookies.get("auth"));
    const dispatch = useDispatch();
 
-   const useAccount = async () => {
-      return await useGet("http://localhost:3003/account/info/" + token);
-   };
-
    const doLogin = async (account) => {
-      const fetchToken = usePost("http://localhost:3003/account/", account);
-      const { error, token } = await fetchToken;
+      const URL = "http://localhost:3003/account/login";
+
+      const loginResponse = await axios.post(URL, account);
+      const { error, token } = await loginResponse.data;
+
+      if (loginResponse.status === 401) {
+         return { error: loginResponse.statusText };
+      }
 
       if (!error) {
+         const { account, error: tokenDataError } = await fetchTokenData();
+
+         if (error) {
+            toast.error("Error: " + tokenDataError);
+            return;
+         }
+
          Cookies.set("auth", token);
          setToken(token);
-         dispatch(setAccount(token));
+         dispatch(setAccount(account));
       }
 
-      return { error, token };
+      return { error, token, account };
    };
 
-   const signup = async (accountData) => {
-      const post = await usePost("http://localhost:3003/account/login", accountData);
+   const doRegistration = async (accountData) => {
+      const registrationResponse = await axios.post("http://localhost:3003/account/register", accountData);
+      const { error } = await registrationResponse.data;
 
-      if (!(await post).error) {
-         Cookies.set("auth", post.token);
-         setToken(post.token);
-
-         dispatch(setAccount(jwtDecode(post.token)));
+      if (error) {
+         return toast.error("Error: " + error);
       }
-      return await post;
-   };
 
-   const register = async (accountData) => {
-      const post = await usePost("http://localhost:3003/account/register", accountData);
+      signup(accountData);
 
-      if (!(await post).error) signup(accountData);
       return post;
    };
 
-   const signout = async () => {
-      const { data, loading, error } = await useGet("http://localhost:3003/account/logout/" + token);
+   const doLogout = async () => {
+      const { data, loading, error } = await axios.get("http://localhost:3003/account/logout/" + token);
 
       if (!error) {
          Cookies.remove("auth");
@@ -57,22 +59,32 @@ const AuthProvider = ({ ...props }) => {
          dispatch(setAccount(null));
       }
 
-      return data;
+      return { data, error };
    };
 
-   const isExpired = async () => {
-      const post = await useGet("http://localhost:3003/account/expire/" + token);
+   const fetchTokenData = async () => {
+      const tokenDataResponse = await axios.get("http://localhost:3003/account/info/" + token);
+      const tokenData = await tokenDataResponse.data;
 
-      return await post.isExpired;
+      return tokenData;
+   };
+
+   const fetchTokenExpiration = async () => {
+      const expirationRequestResponse = await axios.get("http://localhost:3003/account/expire/" + token);
+      const { isExpired } = await expirationRequestResponse.data;
+
+      return isExpired;
    };
 
    useEffect(() => {
-      const unsubscribe = async () => {
-         const { error, account } = await useAccount();
+      if (!token) return;
+
+      const doAutoLogin = async () => {
+         const { account, error } = await fetchTokenData();
 
          if (error) {
             toast.error("Error: " + error);
-            signout();
+            doLogout();
             return;
          }
 
@@ -80,10 +92,10 @@ const AuthProvider = ({ ...props }) => {
          toast.success("Successfully signed in as " + account.username);
       };
 
-      unsubscribe();
+      doAutoLogin();
    }, []);
 
-   return <AuthContext.Provider value={{ token, isExpired, useAccount, doLogin, signup, register, signout }} {...props} />;
+   return <AuthContext.Provider value={{ token, doLogin, doRegistration, doLogout }} {...props} />;
 };
 
 export const useAuth = () => {

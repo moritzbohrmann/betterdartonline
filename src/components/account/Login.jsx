@@ -34,7 +34,7 @@ function Login() {
             break;
       }
 
-      const login = doLogin(account);
+      const login = await doLogin(account);
       const { error } = await login;
 
       if (error) {

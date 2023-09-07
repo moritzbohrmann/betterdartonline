@@ -7,13 +7,13 @@ import { Button, Flex, Input } from "../@ui/_collection";
 
 function Register() {
    const [_account, _setAccount] = React.useState({ username: "", email: "", password: "", picture: "" });
-   const { register } = useAuth();
+   const { doRegistration } = useAuth();
    const [theme] = useTheme();
 
    const handleSubmit = async (e) => {
       e.preventDefault();
 
-      const result = await register(_account);
+      const result = await doRegistration(_account);
 
       if (result.error) {
          toast.error("Error: " + result.error);

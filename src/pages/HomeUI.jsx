@@ -6,27 +6,8 @@ import PlayerlistCard from "../elements/PlayerlistCard";
 import ProfileCard from "../elements/ProfileCard";
 import React from "react";
 import TournamentCard from "../elements/TournamentCard";
-import axios from "axios";
-
-const doLogin = async (loginData) => {
-   const URL = "http://localhost:3003/account/login";
-   const { data } = await axios.post(URL, loginData);
-
-   console.log(data);
-};
 
 function HomeUI() {
-   React.useEffect(() => {
-      const doLogin = async (loginData) => {
-         const URL = "http://localhost:3003/account/login";
-         const { data } = await axios.post(URL, loginData);
-
-         console.log(data);
-      };
-
-      doLogin({ email: "bettenbelag@gmail.com" });
-   }, []);
-
    return (
       <>
          <div className="flex w-5/6 flex-wrap justify-center gap-2 pb-2 sm:mt-4 sm:gap-4 xl:pb-0">
@@ -50,8 +31,7 @@ function HomeUI() {
                justifyContent: "center",
             }}
             contentClasses="text-center sm:text-left"
-            expires={1}
-         >
+            expires={1}>
             This site uses cookies.{" "}
             <a href="" className="underline">
                See more.

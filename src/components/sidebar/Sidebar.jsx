@@ -30,7 +30,7 @@ function Sidebar({ onClose }) {
 }
 
 const AccountOptions = () => {
-   const { signout } = useAuth();
+   const { doLogout } = useAuth();
 
    const options = [
       {
@@ -44,7 +44,7 @@ const AccountOptions = () => {
             { icon: <LightningBoltIcon />, text: "Your tournaments", element: <Tournaments /> },
          ],
       },
-      { unit: true, options: [{ icon: <ExitIcon />, text: "Sign out", element: null, operation: signout }] },
+      { unit: true, options: [{ icon: <ExitIcon />, text: "Sign out", element: null, operation: doLogout }] },
    ];
 
    return <UserOptions options={options} />;

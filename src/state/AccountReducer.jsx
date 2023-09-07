@@ -34,7 +34,7 @@ const accountReducer = (state = initialState, action) => {
       case ActionType.SET_LOGGED_IN:
          return { ...state, isLoggedIn: action.payload };
       case ActionType.SET_ACCOUNT:
-         return jwtDecode(action.payload);
+         return action.payload;
 
       default:
          return state;
