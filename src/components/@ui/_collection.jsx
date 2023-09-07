@@ -13,5 +13,6 @@ import { Progress } from "./Progress";
 import { ReactiveIcon } from "./ReactiveIcon";
 import { Select } from "./Select";
 import { Text } from "./Text";
+import Loading from "./Loading";
 
-export { Badge, Button, Card, Title, Flex, Hover, Input, Select, Separator, Tabs, Text, ToolTip, Progress, ReactiveIcon, Avatar };
+export { Badge, Button, Card, Title, Loading, Flex, Hover, Input, Select, Separator, Tabs, Text, ToolTip, Progress, ReactiveIcon, Avatar };

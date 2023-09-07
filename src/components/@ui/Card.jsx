@@ -8,7 +8,7 @@ import { Text } from "./Text";
 const cardVariants = () => {
    const [theme] = useTheme();
 
-   return cva("rounded-lg font-sans border-[1px] min-w-[24rem]", {
+   return cva("rounded-lg font-sans border-[1px] min-w-[20rem]", {
       variants: {
          variant: {
             default: cn(theme.borderColor.light, theme.textColor.default, theme.backgroundColor),

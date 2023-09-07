@@ -37,15 +37,15 @@ const AuthProvider = ({ ...props }) => {
       return { error, token, account };
    };
 
-   const doRegistration = async (accountData) => {
-      const registrationResponse = await axios.post("http://localhost:3003/account/register", accountData);
+   const doRegistration = async (account) => {
+      const registrationResponse = await axios.post("http://localhost:3003/account/register", account);
       const { error } = await registrationResponse.data;
 
       if (error) {
          return toast.error("Error: " + error);
       }
 
-      signup(accountData);
+      doLogin(account);
 
       return post;
    };
@@ -70,8 +70,8 @@ const AuthProvider = ({ ...props }) => {
    };
 
    const fetchTokenExpiration = async () => {
-      const expirationRequestResponse = await axios.get("http://localhost:3003/account/expire/" + token);
-      const { isExpired } = await expirationRequestResponse.data;
+      const expirationResponse = await axios.get("http://localhost:3003/account/expire/" + token);
+      const { isExpired } = await expirationResponse.data;
 
       return isExpired;
    };

@@ -5,8 +5,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { ThemeType, useTheme } from "../../context/ThemeContext";
-import { useAccount } from "../../state/AccountReducer";
-import { Button, Flex, Input } from "../@ui/_collection";
+import { Button, Flex, Input, Separator } from "../@ui/_collection";
 
 function Login() {
    const idRef = React.useRef(null);
@@ -56,19 +55,18 @@ function Login() {
             </Flex>
             <Flex orientation="vertical" justify="center" align="center" className="w-full">
                <Button type="submit" onClick={() => handleSubmit(LoginType.NATIVE)} className="mt-4 w-[220px]">
-                  Submit
+                  Login
                </Button>
-               <div className="mt-2">
-                  <GoogleLogin
-                     theme={theme.type === ThemeType.DARK ? "filled_black" : "filled_blue"}
-                     onSuccess={({ credential }) => handleSubmit(LoginType.GOOGLE, jwtDecode(credential))}
-                     onError={(err) => console.log(err)}
-                     shape="square"
-                     text="continue_with"
-                     width={220}
-                     locale="EN"
-                  />
-               </div>
+               <Separator>or</Separator>
+               <GoogleLogin
+                  theme={theme.type === ThemeType.DARK ? "filled_black" : "filled_blue"}
+                  onSuccess={({ credential }) => handleSubmit(LoginType.GOOGLE, jwtDecode(credential))}
+                  onError={(err) => toast.error("Error: " + err)}
+                  shape="square"
+                  text="continue_with"
+                  width={220}
+                  locale="EN"
+               />
             </Flex>
          </Flex>
       </form>

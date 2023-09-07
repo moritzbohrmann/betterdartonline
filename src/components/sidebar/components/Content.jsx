@@ -8,7 +8,7 @@ function Content({ className, element, ...props }) {
    const [theme] = useTheme();
 
    return (
-      <_C className={cn("my-2 ml-2 animate-contentFade border-l-[1px]", theme.borderColor.light, className)} {...props}>
+      <_C className={cn("my-4 ml-2 animate-contentFade border-l-[1px]", theme.borderColor.light, className)} {...props}>
          <Flex orientation="vertical">{element}</Flex>
       </_C>
    );

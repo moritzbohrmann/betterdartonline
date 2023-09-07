@@ -1,32 +1,17 @@
 import React from "react";
-import { Card, Flex, Progress, Separator, Text, Title } from "../components/@ui/_collection";
+import { Card, Flex, Loading, Separator, Text, Title } from "../components/@ui/_collection";
 import { useTheme } from "../context/ThemeContext";
 import { useGet } from "../hooks/useFetch";
-
-const Skeleton = ({ children, ...props }) => {
-   return (
-      <Card className="max-h-144" {...props}>
-         <Title subTitle="All tournaments currently available to register for.">Tournaments</Title>
-         {children}
-      </Card>
-   );
-};
 
 function MatchlistCard() {
    const [theme] = useTheme();
    const { data, loading, error } = useGet("http://localhost:3001/tournaments");
 
-   if (loading)
-      return (
-         <Skeleton>
-            <Progress />
-         </Skeleton>
-      );
-
    return (
-      <Skeleton>
-         <div className="h-full w-full overflow-auto pb-8">
-            <ul className="flex flex-grow flex-col items-center gap-2 overflow-auto">
+      <Card className="max-h-144">
+         <Title subTitle="All tournaments currently available to register for.">Tournaments</Title>
+         <div className="align-center flex h-full w-full flex-col justify-center overflow-auto pb-8">
+            <ul className="flex flex-col items-center gap-2 overflow-auto">
                {data?.tournaments.map((tournament) => {
                   return (
                      <li
@@ -63,9 +48,9 @@ function MatchlistCard() {
          </div>
          <Flex orientation="vertical" gap="8" align="center" className="w-full">
             <Separator orientation="horizontal" />
-            <Text>{data ? data?.tournaments.length : 0} Tournaments</Text>
+            {data ? <Text>{data.tournaments.length} tournaments</Text> : <Loading />}
          </Flex>
-      </Skeleton>
+      </Card>
    );
 }
 

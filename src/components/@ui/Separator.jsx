@@ -1,19 +1,34 @@
-import { Root } from "@radix-ui/react-separator";
 import { cn } from "../../utils/style";
 import { useTheme } from "../../context/ThemeContext";
+import { Flex, Text } from "./_collection";
 
-const Separator = ({ className, ...props }) => {
+const SeparationBorder = ({ orientation }) => {
    const [theme] = useTheme();
 
+   return <div className={cn(orientation === "vertical" ? "h-full border-l-[1px]" : "w-full border-t-[1px]", theme.borderColor.light)} />;
+};
+
+const Separator = ({ orientation = "horizontal", children, className, ...props }) => {
    return (
-      <Root
-         className={cn(
-            "m-0 p-0 data-[orientation=horizontal]:h-[1px] data-[orientation=vertical]:h-full data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-[1px]",
-            theme.separator,
-            className
-         )}
+      <Flex
+         orientation={orientation}
+         justify="center"
+         align="center"
+         className={cn(orientation === "vertical" ? "h-full" : "w-full", className)}
          {...props}
-      />
+      >
+         {children ? (
+            <>
+               <SeparationBorder orientation={orientation} />
+               <Text size="sm" className="px-1">
+                  {children}
+               </Text>
+               <SeparationBorder orientation={orientation} />
+            </>
+         ) : (
+            <SeparationBorder orientation={orientation} />
+         )}
+      </Flex>
    );
 };
 

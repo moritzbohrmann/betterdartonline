@@ -15,7 +15,7 @@ export default {
          },
          borderColor: {
             default: "border-zinc-500",
-            light: "border-zinc-800",
+            light: "border-zinc-700",
             positive: "border-green-500",
             negative: "border-red-500",
          },

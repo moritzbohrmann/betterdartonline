@@ -14,7 +14,7 @@ function Sidebar({ onClose }) {
 
    return (
       <Flex justify="end" className={cn("z-40 h-screen w-screen animate-contentFade bg-black bg-opacity-20")}>
-         <Card className="h-screen animate-extendLeft justify-between border-r-0">
+         <Card className="h-screen w-[22rem] animate-extendLeft justify-between border-r-0">
             <Flex orientation="vertical" gap="4" className="w-full">
                <Header onClose={onClose} />
                {account ? <AccountOptions /> : <GuestOptions />}
